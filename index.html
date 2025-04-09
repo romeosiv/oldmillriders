@@ -83,6 +83,7 @@
       flex-direction: column;
       gap: 1rem;
       margin-top: 1rem;
+      text-align: center;
     }
 
     .hero {
@@ -115,7 +116,7 @@
 
     .products-grid {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       flex-wrap: wrap;
       max-width: 1024px;
       margin: 0 auto;
@@ -221,30 +222,27 @@
       .mobile-nav {
         display: flex;
       }
-      header, .hero, .about-block, .footer {
+      header, .hero, .about-block, .footer, .products-grid {
         width: 100%;
         margin: 20px auto;
         border-radius: 0;
         flex-direction: column;
         align-items: center;
+        text-align: center;
       }
       .center-title {
         position: static;
         transform: none;
-        font-size: 1.4rem;
+        font-size: 1.6rem;
         text-align: center;
         margin-top: 1rem;
+        width: 100%;
       }
       .left-nav, .right-nav {
-        flex-direction: column;
-        gap: 0.5rem;
+        flex-direction: row;
+        justify-content: space-between;
         width: 100%;
-        align-items: center;
-      }
-      .products-grid {
-        flex-direction: column;
-        gap: 2rem;
-        align-items: center;
+        padding: 0 1rem;
       }
       .product-card {
         width: 100%;
@@ -257,18 +255,16 @@
   </style>
 </head>
 <body>
-
   <div class="container">
-
     <!-- Header -->
     <header>
       <div class="left-nav">
-        <a href="index.html"><img src="./moulin-coeur-blanc.png" class="icon" alt="Logo"></a>
         <div class="burger" onclick="toggleMenu()">
           <div></div>
           <div></div>
           <div></div>
         </div>
+        <a href="index.html"><img src="./moulin-coeur-blanc.png" class="icon" alt="Logo"></a>
         <nav>
           <a href="tshirt.html">Produits</a><span style="margin: 0 0.5rem;"></span><a href="#">About</a>
         </nav>
@@ -289,7 +285,6 @@
     <div class="hero">
       <div class="hero-text">Des routes et<br>des potes</div>
     </div>
-
   </div>
 
   <!-- Produits -->
