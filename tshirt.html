@@ -260,77 +260,11 @@
         </div>
           <button class="preorder-button" onclick="scrollToForm()">Pré-commander</button>
       </div>
-    </div>
-<div id="preorder-form" class="container" style="display:none; margin-top:3rem;">
-  <h2 style="text-align:center;">Formulaire de précommande</h2>
-  <form style="background:white; padding:2rem; border-radius:20px; display:flex; flex-direction:column; gap:1rem;">
-    
-    <label>Prénom :
-      <input type="text" name="prenom" required />
-    </label>
-
-    <label>Nom :
-      <input type="text" name="nom" required />
-    </label>
-
-    <label>Taille :
-      <select name="taille" required>
-        <option value="">--Choisir--</option>
-        <option value="XS">XS</option>
-        <option value="S">S</option>
-        <option value="M">M</option>
-        <option value="L">L</option>
-        <option value="XL">XL</option>
-      </select>
-    </label>
-
-    <label>Couleur :
-      <select name="couleur" required>
-        <option value="">--Choisir--</option>
-        <option value="Noir">Noir</option>
-        <option value="Sapin">Sapin</option>
-        <option value="Bordeaux">Bordeaux</option>
-      </select>
-    </label>
-
-    <label>Livraison :
-      <select name="livraison" id="livraison" onchange="toggleAdresse()" required>
-        <option value="">--Choisir--</option>
-        <option value="France">France (par la poste)</option>
-        <option value="Main propre">Main propre (Lyon)</option>
-      </select>
-    </label>
-
-    <div id="adresse-block" style="display:none;">
-      <label>Adresse postale :
-        <textarea name="adresse" rows="3"></textarea>
-      </label>
-    </div>
-
-    <label>Comment nous as-tu connu ?
-      <input type="text" name="origine" />
-    </label>
-
-    <label>Adresse mail :
-      <input type="email" name="email" required />
-    </label>
-
-    <label>Moyen de paiement :
-      <select name="paiement" required>
-        <option value="">--Choisir--</option>
-        <option value="PayPal">PayPal</option>
-        <option value="Lydia">Lydia</option>
-      </select>
-    </label>
-
-    <button type="submit" class="preorder-button">Envoyer</button>
-  </form>
-</div>
-    <div style="background: white; padding: 3rem 1rem; margin-top: 3rem;">
-  <div class="container">
-    <h2 style="text-align:center;">Formulaire de précommande</h2>
+    <!-- Bloc plein écran -->
+<div id="preorder-form" style="display: none; width: 100vw; background: white; margin-top: 3rem; padding: 3rem 1rem;">
+  <div style="max-width: 1024px; margin: auto;">
+    <h2 style="text-align: center;">Formulaire de précommande</h2>
     <form style="padding: 2rem 1rem; border-radius: 20px; display: flex; flex-direction: column; gap: 1rem;">
-
       <label>Prénom :
         <input type="text" name="prenom" required />
       </label>
@@ -367,7 +301,7 @@
         </select>
       </label>
 
-      <div id="adresse-block" style="display:none;">
+      <div id="adresse-block" style="display: none;">
         <label>Adresse postale :
           <textarea name="adresse" rows="3"></textarea>
         </label>
@@ -393,7 +327,6 @@
     </form>
   </div>
 </div>
-
     <div class="footer">
       <div class="left-footer">
         <img src="./moulin-coeur-blanc.png" alt="Logo">
