@@ -41,12 +41,10 @@
     }
 
     .center-title {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
       font-size: 1.8rem;
       font-weight: bold;
-      white-space: nowrap;
+      text-align: center;
+      flex: 1;
     }
 
     nav a {
@@ -56,8 +54,8 @@
     }
 
     .icon {
-      width: 24px;
-      height: 24px;
+      width: 40px;
+      height: 40px;
     }
 
     .insta-icon {
@@ -194,8 +192,8 @@
     }
 
     .footer .left-footer img {
-      width: 30px;
-      height: 30px;
+      width: 40px;
+      height: 40px;
     }
 
     .footer .right-footer {
@@ -213,8 +211,34 @@
     }
 
     @media (max-width: 768px) {
-      .burger {
+      header {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+      .left-nav {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+      }
+      .center-title {
+        order: 1;
+        flex-basis: 100%;
+        text-align: center;
+        margin-top: 1rem;
+        font-size: 1.6rem;
+      }
+      .right-nav {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+      }
+      .right-nav a {
         display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.25rem;
       }
       nav {
         display: none;
@@ -222,27 +246,9 @@
       .mobile-nav {
         display: flex;
       }
-      header, .hero, .about-block, .footer, .products-grid {
-        width: 100%;
-        margin: 20px auto;
-        border-radius: 0;
+      .products-grid {
         flex-direction: column;
         align-items: center;
-        text-align: center;
-      }
-      .center-title {
-        position: static;
-        transform: none;
-        font-size: 1.6rem;
-        text-align: center;
-        margin-top: 1rem;
-        width: 100%;
-      }
-      .left-nav, .right-nav {
-        flex-direction: row;
-        justify-content: space-between;
-        width: 100%;
-        padding: 0 1rem;
       }
       .product-card {
         width: 100%;
@@ -264,7 +270,12 @@
           <div></div>
           <div></div>
         </div>
-        <a href="index.html"><img src="./moulin-coeur-blanc.png" class="icon" alt="Logo"></a>
+        <div class="right-nav">
+          <a href="index.html">
+            <img src="./moulin-coeur-blanc.png" class="icon" alt="Logo">
+            <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png" class="insta-icon" alt="Instagram">
+          </a>
+        </div>
         <nav>
           <a href="tshirt.html">Produits</a><span style="margin: 0 0.5rem;"></span><a href="#">About</a>
         </nav>
@@ -274,11 +285,6 @@
         </div>
       </div>
       <div class="center-title">Old Mill Riders</div>
-      <div class="right-nav">
-        <a href="https://www.instagram.com/old_mill_riders/" target="_blank">
-          <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png" class="insta-icon" alt="Instagram">
-        </a>
-      </div>
     </header>
 
     <!-- Hero -->
