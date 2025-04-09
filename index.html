@@ -65,6 +65,26 @@
       height: 16px;
     }
 
+    .burger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .burger div {
+      width: 25px;
+      height: 3px;
+      background-color: white;
+    }
+
+    .mobile-nav {
+      display: none;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
     .hero {
       background-image: url('./487311528_1695956707981679_6857312795974471995_n.jpg');
       background-size: cover;
@@ -192,6 +212,15 @@
     }
 
     @media (max-width: 768px) {
+      .burger {
+        display: flex;
+      }
+      nav {
+        display: none;
+      }
+      .mobile-nav {
+        display: flex;
+      }
       header, .hero, .about-block, .footer {
         width: 100%;
         margin: 20px auto;
@@ -235,9 +264,18 @@
     <header>
       <div class="left-nav">
         <a href="index.html"><img src="./moulin-coeur-blanc.png" class="icon" alt="Logo"></a>
+        <div class="burger" onclick="toggleMenu()">
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
         <nav>
           <a href="tshirt.html">Produits</a><span style="margin: 0 0.5rem;"></span><a href="#">About</a>
         </nav>
+        <div class="mobile-nav" id="mobileMenu" style="display:none;">
+          <a href="tshirt.html">Produits</a>
+          <a href="#">About</a>
+        </div>
       </div>
       <div class="center-title">Old Mill Riders</div>
       <div class="right-nav">
@@ -292,6 +330,16 @@
     </div>
   </div>
 
+  <script>
+    function toggleMenu() {
+      const menu = document.getElementById("mobileMenu");
+      if (menu.style.display === "none" || menu.style.display === "") {
+        menu.style.display = "flex";
+      } else {
+        menu.style.display = "none";
+      }
+    }
+  </script>
+
 </body>
 </html>
-
