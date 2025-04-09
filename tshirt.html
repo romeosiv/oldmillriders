@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>T-shirt Old Mill Riders</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="./moulin-coeur-blanc.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background-color: #e5e5e5;
+      margin: 0;
+      color: #000;
+    }
+
+    .container {
+      max-width: 1024px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    header {
+      background-color: #000;
+      color: white;
+      border-radius: 20px;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      margin: 20px auto;
+      max-width: 1024px;
+    }
+
+    .left-nav, .right-nav {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .center-title {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.8rem;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+
+    .icon {
+      width: 24px;
+      height: 24px;
+    }
+
+    .insta-icon {
+      width: 16px;
+      height: 16px;
+    }
+
+    .product-section {
+      display: flex;
+      flex-direction: row;
+      gap: 2rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .image-block {
+      flex: 1 1 50%;
+    }
+
+    .carousel-main {
+      width: 100%;
+      max-height: 600px;
+      border-radius: 20px;
+      object-fit: cover;
+    }
+
+    .thumbnails {
+      margin-top: 1rem;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .thumbnails img {
+      width: 80px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 10px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border 0.2s;
+    }
+
+    .thumbnails img.active {
+      border-color: black;
+    }
+
+    .info-block {
+      flex: 1 1 40%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-self: center;
+    }
+
+    .description {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+    }
+
+    .sizes {
+      font-weight: bold;
+      margin-bottom: 1.5rem;
+    }
+
+    .preorder-button {
+      background-color: white;
+      color: black;
+      border: 2px solid black;
+      border-radius: 999px;
+      padding: 0.6rem 1.2rem;
+      font-weight: bold;
+      box-shadow: 2px 2px 0 black;
+      cursor: pointer;
+      transition: 0.2s ease;
+      width: fit-content;
+      align-self: start;
+    }
+
+    .preorder-button:hover {
+      transform: translateY(2px);
+      box-shadow: none;
+    }
+
+    .footer {
+      background-color: #e5e5e5;
+      color: black;
+      padding: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      border-radius: 20px;
+      max-width: 1024px;
+      margin: 3rem auto 0;
+      box-sizing: border-box;
+    }
+
+    .footer .left-footer {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-left: 1rem;
+    }
+
+    .footer .left-footer img {
+      width: 30px;
+      height: 30px;
+    }
+
+    .footer .right-footer {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-left: auto;
+      margin-right: 1rem;
+    }
+
+    .footer .right-footer a {
+      text-decoration: none;
+      font-weight: normal;
+      color: black;
+      font-size: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      header, .footer {
+        width: 100%;
+        margin: 20px auto;
+        border-radius: 0;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+      .center-title {
+        position: static;
+        transform: none;
+        font-size: 1.4rem;
+        text-align: center;
+      }
+      .left-nav, .right-nav {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .product-section {
+        flex-direction: column;
+      }
+    }
+  </style>
+  <script>
+    function showImage(imgSrc, element) {
+      document.getElementById("main-image").src = imgSrc;
+      document.querySelectorAll('.thumbnails img').forEach(img => {
+        img.classList.remove('active');
+      });
+      element.classList.add('active');
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="left-nav">
+        <a href="index.html"><img src="./moulin-coeur-blanc.png" class="icon" alt="Logo"></a>
+        <nav>
+          <a href="tshirt.html">Produits</a><span style="margin: 0 0.5rem;"></span><a href="#">About</a>
+        </nav>
+      </div>
+      <div class="center-title">Old Mill Riders</div>
+      <div class="right-nav">
+        <a href="https://www.instagram.com/old_mill_riders/" target="_blank">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png" class="insta-icon" alt="Instagram">
+        </a>
+      </div>
+    </header>
+
+    <h1 style="text-align: center;">T-shirt Old Mill Riders</h1>
+
+    <div class="product-section">
+      <div class="image-block">
+        <img id="main-image" src="5W9A4780-HDR.jpg" class="carousel-main" alt="T-shirt Old Mill" />
+        <div class="thumbnails">
+          <img src="5W9A4780-HDR.jpg" class="active" onclick="showImage(this.src, this)" alt="thumb">
+          <img src="5W9A4657.jpg" onclick="showImage(this.src, this)" alt="thumb">
+          <img src="5W9A4687 (1).jpg" onclick="showImage(this.src, this)" alt="thumb">
+          <img src="5W9A4759.jpg" onclick="showImage(this.src, this)" alt="thumb">
+          <img src="5W9A4827.jpg" onclick="showImage(this.src, this)" alt="thumb">
+          <img src="5W9A4890.jpg" onclick="showImage(this.src, this)" alt="thumb">
+        </div>
+      </div>
+
+      <div class="info-block">
+        <div class="description">
+          Le premier T-Shirt Old Mill Riders réalisé en collaboration avec une artiste lyonnaise !<br>
+          Disponible en noir, bordeaux ou vert sapin.<br>
+          Tee-shirt en coton biologique à manches courtes et col rond.
+        </div>
+        <div class="sizes">
+          Tailles disponibles : S, M, L, XL
+        </div>
+        <a href="#"><button class="preorder-button">Pré-commander</button></a>
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="left-footer">
+        <img src="./moulin-coeur-blanc.png" alt="Logo">
+        <span>Old Mill Riders</span>
+      </div>
+      <div class="right-footer">
+        <a href="tshirt.html">Produits</a><span style="margin: 0 0.5rem;"></span><a href="#">About</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

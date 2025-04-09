@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Old Mill Riders</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="./moulin-coeur-blanc.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background-color: #e5e5e5;
+      margin: 0;
+      color: #000;
+    }
+
+    .container {
+      max-width: 1024px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    header {
+      background-color: #000;
+      color: white;
+      border-radius: 20px;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      margin: 20px auto;
+      max-width: 1024px;
+    }
+
+    .left-nav, .right-nav {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .center-title {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.8rem;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+
+    .icon {
+      width: 24px;
+      height: 24px;
+    }
+
+    .insta-icon {
+      width: 16px;
+      height: 16px;
+    }
+
+    .hero {
+      background-image: url('./487311528_1695956707981679_6857312795974471995_n.jpg');
+      background-size: cover;
+      background-position: center bottom;
+      filter: grayscale(100%);
+      height: 350px;
+      border-radius: 20px;
+      margin: 0 auto 40px auto;
+      position: relative;
+      max-width: 1024px;
+    }
+
+    .hero-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 3rem;
+      text-align: center;
+    }
+
+    .section {
+      background: white;
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+
+    .products-grid {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      max-width: 1024px;
+      margin: 0 auto;
+      gap: 1rem;
+    }
+
+    .product-card {
+      background: #f9f9f9;
+      border-radius: 16px;
+      padding: 1.5rem;
+      width: calc(33.333% - 1rem);
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .product-card img {
+      width: 100%;
+      border-radius: 12px;
+      aspect-ratio: 1 / 1;
+      object-fit: cover;
+      margin-bottom: 1rem;
+    }
+
+    .product-card h3 {
+      margin-bottom: 1rem;
+    }
+
+    .product-card button {
+      background-color: white;
+      color: black;
+      border: 2px solid black;
+      border-radius: 999px;
+      padding: 0.6rem 1.2rem;
+      font-weight: bold;
+      box-shadow: 2px 2px 0 black;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+
+    .product-card button:hover {
+      transform: translateY(2px);
+      box-shadow: none;
+    }
+
+    .about-block {
+      background-color: #000;
+      color: white;
+      padding: 2rem;
+      border-radius: 20px;
+      max-width: 1024px;
+      margin: 3rem auto;
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    .footer {
+      background-color: #e5e5e5;
+      color: black;
+      padding: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      border-radius: 20px;
+      max-width: 1024px;
+      margin: 3rem auto 0;
+      box-sizing: border-box;
+    }
+
+    .footer .left-footer {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-left: 1rem;
+    }
+
+    .footer .left-footer img {
+      width: 30px;
+      height: 30px;
+    }
+
+    .footer .right-footer {
+      display: flex;
+      gap: 1.5rem;
+      margin-left: auto;
+      margin-right: 1rem;
+    }
+
+    .footer .right-footer a {
+      text-decoration: none;
+      font-weight: normal;
+      color: black;
+      font-size: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      header, .hero, .about-block, .footer {
+        width: 100%;
+        margin: 20px auto;
+        border-radius: 0;
+      }
+      .center-title {
+        position: static;
+        transform: none;
+        font-size: 1.4rem;
+        text-align: center;
+      }
+      .left-nav, .right-nav {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      .products-grid {
+        flex-direction: column;
+        gap: 2rem;
+      }
+      .product-card {
+        width: 100%;
+      }
+      .hero-text {
+        font-size: 2rem;
+        padding: 0 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <!-- Header -->
+    <header>
+      <div class="left-nav">
+        <a href="index.html"><img src="./moulin-coeur-blanc.png" class="icon" alt="Logo"></a>
+        <nav>
+          <a href="tshirt.html">Produits</a><span style="margin: 0 0.5rem;"></span><a href="#">About</a>
+        </nav>
+      </div>
+      <div class="center-title">Old Mill Riders</div>
+      <div class="right-nav">
+        <a href="https://www.instagram.com/old_mill_riders/" target="_blank">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png" class="insta-icon" alt="Instagram">
+        </a>
+      </div>
+    </header>
+
+    <!-- Hero -->
+    <div class="hero">
+      <div class="hero-text">Des routes et<br>des potes</div>
+    </div>
+
+  </div>
+
+  <!-- Produits -->
+  <section class="section">
+    <h2>Nouveau T-shirt</h2>
+    <div class="products-grid">
+      <div class="product-card">
+        <img src="./5W9A4780-HDR.jpg" alt="T-shirt noir logo">
+        <h3>T-shirt noir logo</h3>
+        <a href="tshirt.html"><button>Pré-commander</button></a>
+      </div>
+      <div class="product-card">
+        <img src="./5W9A4657.jpg" alt="T-shirt blanc vintage">
+        <h3>T-shirt blanc vintage</h3>
+        <a href="tshirt.html"><button>Pré-commander</button></a>
+      </div>
+      <div class="product-card">
+        <img src="./5W9A4687 (1).jpg" alt="T-shirt oversize gris">
+        <h3>T-shirt oversize gris</h3>
+        <a href="tshirt.html"><button>Pré-commander</button></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bloc description -->
+  <div class="about-block">
+    Un groupe de copains réunis autour d'une même passion pour la moto, les potes, la route et les vêtements bien coupés.
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="left-footer">
+      <img src="./moulin-coeur-blanc.png" alt="Logo">
+      <span>Old Mill Riders</span>
+    </div>
+      <div class="right-footer">
+        <a href="tshirt.html">Produits</a><span style="margin: 0 0.5rem;"></span><a href="#">About</a>
+      </div>
+  </div>
+
+</body>
+</html>
