@@ -190,6 +190,7 @@
       color: black;
       font-size: 1rem;
     }
+
     /* --- MEDIA QUERIES --- */
     @media (max-width: 768px) {
       header {
@@ -225,9 +226,8 @@
       .left-nav nav.open {
         display: flex;
       }
-      /* Pour que le header reste identique :
-         - Les éléments de .left-nav passent en colonne ;
-         - Le bloc .right-nav s'aligne verticalement au centre */
+      /* On aligne la .right-nav verticalement au centre, et la .center-title
+         devient un bloc centré (text-align: center). */
       .left-nav {
         flex-direction: column;
         gap: 0.5rem;
@@ -319,7 +319,19 @@
 
   <!-- Script pour le menu burger en mobile -->
   <script>
-    document.addEventListener("DOMContentLoaded", function(){
+    function showImage(imgSrc, element) {
+      document.getElementById("main-image").src = imgSrc;
+      document.querySelectorAll('.thumbnails img').forEach(img => {
+        img.classList.remove('active');
+      });
+      element.classList.add('active');
+    }
+    function scrollToForm() {
+      const form = document.getElementById("preorder-form");
+      form.style.display = "block";
+      form.scrollIntoView({ behavior: "smooth" });
+    }
+    document.addEventListener('DOMContentLoaded', function() {
       const menuToggle = document.querySelector('.menu-toggle');
       const navMenu = document.querySelector('header .left-nav nav');
       menuToggle.addEventListener('click', () => {
