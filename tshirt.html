@@ -190,13 +190,12 @@
       color: black;
       font-size: 1rem;
     }
-
     /* --- MEDIA QUERIES --- */
     @media (max-width: 768px) {
       header {
         padding: 0.5rem 1rem;
       }
-      /* Forcer le centrage du titre sur mobile */
+      /* Forcer le centrage du titre */
       .center-title {
         position: static !important;
         transform: none !important;
@@ -228,14 +227,12 @@
       .left-nav nav.open {
         display: flex;
       }
-      /* Conserver la structure similaire à index : aucun réagencement supplémentaire pour left-nav et right-nav */
-      .products-grid {
-        flex-direction: column;
-        align-items: center;
+      /* On aligne verticalement la zone .right-nav */
+      .right-nav {
+        align-self: center;
       }
-      .product-card {
-        width: 100%;
-      }
+      /* Rétablir la disposition par défaut pour la section produit : rester en row (comme sur PC) */
+      /* (Si l'écran est vraiment étroit, le comportement d'overflow restera géré par flex-wrap) */
     }
   </style>
 </head>
@@ -310,7 +307,7 @@
     </div>
   </div>
 
-  <!-- Script pour le menu burger en mobile -->
+  <!-- Script pour le menu burger -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const menuToggle = document.querySelector('.menu-toggle');
