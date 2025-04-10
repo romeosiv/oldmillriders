@@ -190,18 +190,20 @@
       color: black;
       font-size: 1rem;
     }
-    /* --- MEDIA QUERIES (identiques à Index) --- */
+
+    /* --- MEDIA QUERIES --- */
     @media (max-width: 768px) {
       header {
         padding: 0.5rem 1rem;
       }
+      /* Forcer le centrage du titre sur mobile */
       .center-title {
-        position: static;
-        transform: none;
-        font-size: 1.4rem;
-        text-align: center;
-        width: 100%;
-        margin: 0 auto;
+        position: static !important;
+        transform: none !important;
+        font-size: 1.4rem !important;
+        text-align: center !important;
+        width: 100% !important;
+        margin: 0 auto !important;
       }
       .left-nav a.logo {
         display: none;
@@ -226,8 +228,7 @@
       .left-nav nav.open {
         display: flex;
       }
-      /* On conserve la même structure que sur la page index */
-      /* Pas de réorganisation supplémentaire pour .left-nav et .right-nav */
+      /* Conserver la structure similaire à index : aucun réagencement supplémentaire pour left-nav et right-nav */
       .products-grid {
         flex-direction: column;
         align-items: center;
@@ -240,7 +241,7 @@
 </head>
 <body>
   <div class="container">
-    <!-- HEADER identique à Index -->
+    <!-- HEADER identique -->
     <header>
       <div class="left-nav">
         <a href="index.html" class="logo">
@@ -296,7 +297,7 @@
       </div>
     </div>
 
-    <!-- FOOTER identique à Index -->
+    <!-- FOOTER identique -->
     <div class="footer">
       <div class="left-footer">
         <img src="./moulin-coeur-noir.png" alt="Logo">
@@ -318,7 +319,6 @@
         navMenu.classList.toggle('open');
       });
     });
-    
     function showImage(imgSrc, element) {
       document.getElementById("main-image").src = imgSrc;
       document.querySelectorAll('.thumbnails img').forEach(img => {
