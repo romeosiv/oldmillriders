@@ -2,12 +2,11 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <title>T-shirt Old Mill Riders</title>
+  <title>Accueil Old Mill Riders</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" href="./moulin-coeur-noir.png" type="image/png" />
+  <link rel="icon" type="image/png" href="./moulin-coeur-noir.png" />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet" />
   <style>
-    /* ----------- Reset & Base ----------- */
     body {
       font-family: 'Space Grotesk', sans-serif;
       background-color: #e5e5e5;
@@ -19,8 +18,8 @@
       margin: 0 auto;
       padding: 0 1rem;
     }
-    
-    /* ----------- Header ----------- */
+
+    /* ---------- HEADER ---------- */
     header {
       background-color: #000;
       color: white;
@@ -30,7 +29,7 @@
       align-items: center;
       justify-content: space-between;
       position: relative;
-      margin: 20px auto;
+      margin: 20px auto; /* 20px de marge en haut et en bas */
       max-width: 1024px;
       box-sizing: border-box;
     }
@@ -47,6 +46,7 @@
       font-weight: bold;
       white-space: nowrap;
     }
+    /* Le titre central est cliquable */
     .center-title a {
       color: inherit;
       text-decoration: none;
@@ -77,60 +77,77 @@
       width: 16px;
       height: 16px;
     }
-    
-    /* ----------- Contenu Page T-shirt ----------- */
-    .product-section {
-      display: flex;
-      flex-direction: row;
-      gap: 2rem;
-      margin-top: 2rem;
-      flex-wrap: wrap;
-    }
-    .image-block {
-      flex: 1 1 50%;
-    }
-    .carousel-main {
-      width: 100%;
-      max-height: 600px;
+
+    /* ---------- HERO ---------- */
+    .hero {
+      background-image: url('./487311528_1695956707981679_6857312795974471995_n.jpg');
+      background-size: cover;
+      background-position: center bottom;
+      filter: grayscale(100%);
+      height: 350px; /* Hauteur identique à PC */
       border-radius: 20px;
-      object-fit: cover;
+      margin: 0 auto 20px auto; /* Espace de 20px sous le hero */
+      position: relative;
+      max-width: 1024px;
     }
-    .thumbnails {
-      margin-top: 1rem;
+    .hero-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 3rem;
+      text-align: center;
+    }
+
+    /* ---------- ABOUT BLOCK ---------- */
+    .about-block {
+      background-color: #000;
+      color: white;
+      padding: 2rem;
+      border-radius: 20px;
+      max-width: 1024px;
+      margin: 20px auto; /* Même espace que le hero */
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    /* ---------- Section Produits ---------- */
+    .section {
+      background: white;
+      padding: 2rem;
+      border-radius: 20px; /* Blocs arrondis */
+      text-align: center;
+      margin: 20px auto; /* Espace au-dessus et en-dessous identique */
+      max-width: 1024px;
+      box-sizing: border-box;
+    }
+    .section h2 {
+      margin: 0 0 1rem 0;
+    }
+    .products-grid {
       display: flex;
       justify-content: center;
+      gap: 1rem;
       flex-wrap: wrap;
-      gap: 10px;
     }
-    .thumbnails img {
-      width: 80px;
-      height: 80px;
+    /* Chaque carte ne contient désormais QUE l'image */
+    .product-card {
+      background: transparent;
+      border: none;
+      padding: 0;
+      width: calc(33.333% - 1rem);
+      box-sizing: border-box;
+    }
+    .product-card img {
+      width: 100%;
+      border-radius: 12px;
+      aspect-ratio: 1/1;
       object-fit: cover;
-      border-radius: 10px;
-      cursor: pointer;
-      border: 2px solid transparent;
-      transition: border 0.2s;
+      display: block;
     }
-    .thumbnails img.active {
-      border-color: black;
-    }
-    .info-block {
-      flex: 1 1 40%;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-self: center;
-    }
-    .description {
-      font-size: 1.1rem;
-      line-height: 1.6;
-      margin-bottom: 1rem;
-    }
-    .sizes {
-      font-weight: bold;
-      margin-bottom: 1.5rem;
-    }
-    .preorder-button {
+    /* Bouton unique et centré */
+    .preorder-single {
       background-color: white;
       color: black;
       border: 2px solid black;
@@ -140,22 +157,15 @@
       box-shadow: 2px 2px 0 black;
       cursor: pointer;
       transition: 0.2s ease;
-      width: fit-content;
-      /* Modification : centrer le bouton */
-      align-self: center;
+      display: inline-block;
+      margin-top: 1.5rem;
     }
-    .preorder-button:hover {
+    .preorder-single:hover {
       transform: translateY(2px);
       box-shadow: none;
     }
-    .form-wrapper {
-      background-color: white;
-      border-radius: 20px;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      padding: 2rem;
-    }
-    
-    /* ----------- Footer ----------- */
+
+    /* ---------- FOOTER ---------- */
     .footer {
       background-color: #e5e5e5;
       color: black;
@@ -191,8 +201,8 @@
       color: black;
       font-size: 1rem;
     }
-    
-    /* ----------- Media Queries ----------- */
+
+    /* ---------- MEDIA QUERIES ---------- */
     @media (max-width: 768px) {
       header {
         padding: 0.5rem 1rem;
@@ -228,17 +238,13 @@
       .left-nav nav.open {
         display: flex;
       }
-      .right-nav {
-        align-self: center;
-      }
-      /* Pour la section produit, on passe en colonne sur mobile */
-      .product-section {
+      /* Sur mobile, la grille des produits passe en colonne */
+      .products-grid {
         flex-direction: column;
+        align-items: center;
       }
-      .image-block,
-      .info-block {
+      .product-card {
         width: 100%;
-        flex: 1 1 auto;
       }
     }
   </style>
@@ -267,41 +273,33 @@
       </div>
     </header>
 
-    <h1 style="text-align: center; margin-top: 2rem;">T-shirt Old Mill Riders</h1>
-
-    <!-- Section Produits -->
-    <div class="product-section">
-      <div class="image-block">
-        <img id="main-image" src="5W9A4780-HDR.jpg" class="carousel-main" alt="T-shirt Old Mill" />
-        <div class="thumbnails">
-          <img src="5W9A4780-HDR.jpg" class="active" onclick="showImage(this.src, this)" alt="thumb">
-          <img src="5W9A4657.jpg" onclick="showImage(this.src, this)" alt="thumb">
-          <img src="5W9A4687 (1).jpg" onclick="showImage(this.src, this)" alt="thumb">
-          <img src="5W9A4759.jpg" onclick="showImage(this.src, this)" alt="thumb">
-          <img src="5W9A4827.jpg" onclick="showImage(this.src, this)" alt="thumb">
-          <img src="5W9A4890.jpg" onclick="showImage(this.src, this)" alt="thumb">
-        </div>
-      </div>
-      <div class="info-block">
-        <div class="description">
-          Le premier T-Shirt Old Mill Riders réalisé en collaboration avec Cindy, graphiste lyonnaise à Cin&quanon !<br>
-          Disponible en noir, bordeaux ou vert sapin.<br>
-          Tee-shirt en coton biologique à manches courtes et col rond.
-        </div>
-        <div class="sizes">
-          Tailles disponibles : S, M, L, XL
-        </div>
-        <button class="preorder-button" onclick="scrollToForm()">Pré-commander</button>
-      </div>
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-text">Des routes et<br>des potes</div>
     </div>
 
-    <!-- Formulaire de précommande -->
-    <div id="preorder-form" class="preorder-section" style="display: none; margin-top: 3rem;">
-      <div class="form-wrapper">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeWCsgR-2JmqIF3gpvUY6dFdYXxhUgeDT7Bw0baK5dUGDgXwg/viewform?embedded=true"
-                width="100%" height="1200" frameborder="0" marginheight="0" marginwidth="0">Chargement…</iframe>
-      </div>
+    <!-- ABOUT BLOCK -->
+    <div class="about-block">
+      Un groupe de copains lyonnais unit autour d'une passion commune : la moto. 
+      Notre envie, partager avec vous des conseils, des moments, des voyages et des rencontres.
     </div>
+
+    <!-- SECTION PRODUITS -->
+    <section class="section">
+      <h2>Nouveau T-shirt</h2>
+      <div class="products-grid">
+        <div class="product-card">
+          <img src="./5W9A4780-HDR.jpg" alt="T-shirt noir logo">
+        </div>
+        <div class="product-card">
+          <img src="./5W9A4657.jpg" alt="T-shirt blanc vintage">
+        </div>
+        <div class="product-card">
+          <img src="./5W9A4687 (1).jpg" alt="T-shirt oversize gris">
+        </div>
+      </div>
+      <button class="preorder-single">Pré-commander</button>
+    </section>
 
     <!-- FOOTER -->
     <div class="footer">
@@ -316,9 +314,8 @@
     </div>
   </div>
 
-  <!-- Scripts -->
+  <!-- Script burger -->
   <script>
-    // Menu burger
     document.addEventListener('DOMContentLoaded', function() {
       const menuToggle = document.querySelector('.menu-toggle');
       const navMenu = document.querySelector('header .left-nav nav');
@@ -326,20 +323,6 @@
         navMenu.classList.toggle('open');
       });
     });
-    // Carousel
-    function showImage(imgSrc, element) {
-      document.getElementById("main-image").src = imgSrc;
-      document.querySelectorAll('.thumbnails img').forEach(img => {
-        img.classList.remove('active');
-      });
-      element.classList.add('active');
-    }
-    // Scroll vers le formulaire
-    function scrollToForm() {
-      const form = document.getElementById("preorder-form");
-      form.style.display = "block";
-      form.scrollIntoView({ behavior: "smooth" });
-    }
   </script>
 </body>
 </html>
