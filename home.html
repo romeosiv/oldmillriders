@@ -79,17 +79,18 @@
     }
 
     /* ---------- HERO ---------- */
-    .hero {
-      background-image: url('./487311528_1695956707981679_6857312795974471995_n.jpg');
-      background-size: cover;
-      background-position: center bottom;
-      filter: grayscale(100%);
-      height: 350px; /* Hauteur identique à PC */
-      border-radius: 20px;
-      margin: 0 auto 20px auto; /* Espace de 20px sous le hero */
-      position: relative;
-      max-width: 1024px;
-    }
+.hero {
+  background-image: url('./487311528_1695956707981679_6857312795974471995_n.jpg');
+  background-size: cover;
+  background-position: center bottom;
+  filter: grayscale(100%);
+  border-radius: 20px;
+  margin: 0 auto 20px auto;
+  max-width: 1024px;
+  /* Supprime la hauteur fixe et ajoute l'aspect-ratio pour conserver le même rapport */
+  aspect-ratio: 1024 / 350;
+}
+
     .hero-text {
       position: absolute;
       top: 50%;
@@ -251,6 +252,9 @@
         white-space: normal;   /* Autorise les retours à la ligne */
         text-align: center;    /* Centre le texte */
       }
+        .hero {
+    aspect-ratio: 1024 / 350;
+  }
         }
   </style>
 </head>
