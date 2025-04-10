@@ -19,7 +19,7 @@
       margin: 0 auto;
       padding: 0 1rem;
     }
-
+    
     /* ----------- Header ----------- */
     header {
       background-color: #000;
@@ -77,14 +77,14 @@
       width: 16px;
       height: 16px;
     }
-
-    /* ----------- Section T-shirt ----------- */
+    
+    /* ----------- Contenu Page T-shirt ----------- */
     .product-section {
       display: flex;
       flex-direction: row;
       gap: 2rem;
       margin-top: 2rem;
-      flex-wrap: wrap; /* Permettra de passer en colonne sur mobile */
+      flex-wrap: wrap;
     }
     .image-block {
       flex: 1 1 50%;
@@ -141,7 +141,8 @@
       cursor: pointer;
       transition: 0.2s ease;
       width: fit-content;
-      align-self: start;
+      /* Modification : centrer le bouton */
+      align-self: center;
     }
     .preorder-button:hover {
       transform: translateY(2px);
@@ -153,7 +154,7 @@
       box-shadow: 0 4px 20px rgba(0,0,0,0.1);
       padding: 2rem;
     }
-
+    
     /* ----------- Footer ----------- */
     .footer {
       background-color: #e5e5e5;
@@ -190,13 +191,12 @@
       color: black;
       font-size: 1rem;
     }
-
+    
     /* ----------- Media Queries ----------- */
     @media (max-width: 768px) {
       header {
         padding: 0.5rem 1rem;
       }
-      /* Forcer le centrage du titre sur mobile */
       .center-title {
         position: static !important;
         transform: none !important;
@@ -205,14 +205,12 @@
         width: 100% !important;
         margin: 0 auto !important;
       }
-      /* Masquer le logo (moulin) sur mobile */
       .left-nav a.logo {
         display: none;
       }
       .menu-toggle {
         display: block;
       }
-      /* Menu en mode dropdown */
       .left-nav nav {
         display: none;
         flex-direction: column;
@@ -230,15 +228,15 @@
       .left-nav nav.open {
         display: flex;
       }
-      /* Aligner la zone .right-nav au centre verticalement */
       .right-nav {
         align-self: center;
       }
-      /* Sur mobile : on empile (row -> column) la section produit */
+      /* Pour la section produit, on passe en colonne sur mobile */
       .product-section {
         flex-direction: column;
       }
-      .image-block, .info-block {
+      .image-block,
+      .info-block {
         width: 100%;
         flex: 1 1 auto;
       }
@@ -247,7 +245,7 @@
 </head>
 <body>
   <div class="container">
-    <!-- Header -->
+    <!-- HEADER -->
     <header>
       <div class="left-nav">
         <a href="index.html" class="logo">
@@ -297,7 +295,7 @@
       </div>
     </div>
 
-    <!-- Formulaire -->
+    <!-- Formulaire de précommande -->
     <div id="preorder-form" class="preorder-section" style="display: none; margin-top: 3rem;">
       <div class="form-wrapper">
         <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeWCsgR-2JmqIF3gpvUY6dFdYXxhUgeDT7Bw0baK5dUGDgXwg/viewform?embedded=true"
@@ -305,7 +303,7 @@
       </div>
     </div>
 
-    <!-- Footer -->
+    <!-- FOOTER -->
     <div class="footer">
       <div class="left-footer">
         <img src="./moulin-coeur-noir.png" alt="Logo">
@@ -318,19 +316,16 @@
     </div>
   </div>
 
-  <!-- Script -->
+  <!-- Scripts -->
   <script>
     // Menu burger
     document.addEventListener('DOMContentLoaded', function() {
       const menuToggle = document.querySelector('.menu-toggle');
       const navMenu = document.querySelector('header .left-nav nav');
-      if (menuToggle) {
-        menuToggle.addEventListener('click', () => {
-          navMenu.classList.toggle('open');
-        });
-      }
+      menuToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('open');
+      });
     });
-
     // Carousel
     function showImage(imgSrc, element) {
       document.getElementById("main-image").src = imgSrc;
@@ -339,7 +334,6 @@
       });
       element.classList.add('active');
     }
-
     // Scroll vers le formulaire
     function scrollToForm() {
       const form = document.getElementById("preorder-form");
