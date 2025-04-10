@@ -18,7 +18,7 @@
       margin: 0 auto;
       padding: 0 1rem;
     }
-    /* --- HEADER identique à la page d'accueil --- */
+    /* --- HEADER identique --- */
     header {
       background-color: #000;
       color: white;
@@ -45,7 +45,6 @@
       font-weight: bold;
       white-space: nowrap;
     }
-    /* Pour que le titre central redirige vers l'accueil */
     .center-title a {
       color: inherit;
       text-decoration: none;
@@ -60,7 +59,6 @@
       text-decoration: none;
       font-size: 1rem;
     }
-    /* Bouton hamburger pour mobile */
     .menu-toggle {
       display: none;
       background: none;
@@ -156,7 +154,7 @@
     }
     /* --- FIN CONTENU PAGE T-SHIRT --- */
 
-    /* --- FOOTER identique à la page d'accueil --- */
+    /* --- FOOTER identique --- */
     .footer {
       background-color: #e5e5e5;
       color: black;
@@ -192,9 +190,7 @@
       color: black;
       font-size: 1rem;
     }
-    /* --- FIN FOOTER --- */
-
-    /* --- MEDIA QUERIES identiques à la page d'accueil --- */
+    /* --- MEDIA QUERIES --- */
     @media (max-width: 768px) {
       header {
         padding: 0.5rem 1rem;
@@ -206,14 +202,12 @@
         text-align: center;
         width: 100%;
       }
-      /* Masquer le logo (moulin) sur mobile */
       .left-nav a.logo {
         display: none;
       }
       .menu-toggle {
         display: block;
       }
-      /* Dropdown pour le menu mobile */
       .left-nav nav {
         display: none;
         flex-direction: column;
@@ -231,16 +225,15 @@
       .left-nav nav.open {
         display: flex;
       }
-      /* Dans le header en mobile, seuls les éléments de .left-nav passent en colonne.
-         Pour corriger la position du logo Instagram, on force .right-nav à s'aligner à droite */
+      /* Pour que le logo Instagram reste aligné verticalement au centre */
+      .right-nav {
+        align-self: center;
+      }
       .left-nav {
         flex-direction: column;
         gap: 0.5rem;
         width: 100%;
         align-items: flex-start;
-      }
-      .right-nav {
-        align-self: flex-end;
       }
       .product-section {
         flex-direction: column;
@@ -252,7 +245,6 @@
         padding: 1rem 0;
       }
     }
-    /* --- FIN MEDIA QUERIES --- */
   </style>
   <script>
     function showImage(imgSrc, element) {
@@ -280,7 +272,6 @@
 </head>
 <body>
   <div class="container">
-    <!-- HEADER identique à la page d'accueil -->
     <header>
       <div class="left-nav">
         <a href="index.html" class="logo">
@@ -302,7 +293,6 @@
       </div>
     </header>
 
-    <!-- CONTENU spécifique à la page T-shirt -->
     <h1 style="text-align: center; margin-top: 2rem;">T-shirt Old Mill Riders</h1>
     <div class="product-section">
       <div class="image-block">
@@ -329,16 +319,13 @@
       </div>
     </div>
 
-    <!-- FORMULAIRE de précommande -->
     <div id="preorder-form" class="preorder-section" style="display: none; margin-top: 3rem;">
       <div class="form-wrapper">
         <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeWCsgR-2JmqIF3gpvUY6dFdYXxhUgeDT7Bw0baK5dUGDgXwg/viewform?embedded=true"
-                width="100%" height="1200" frameborder="0"
-                marginheight="0" marginwidth="0">Chargement…</iframe>
+                width="100%" height="1200" frameborder="0" marginheight="0" marginwidth="0">Chargement…</iframe>
       </div>
     </div>
 
-    <!-- FOOTER identique à la page d'accueil -->
     <div class="footer">
       <div class="left-footer">
         <img src="./moulin-coeur-noir.png" alt="Logo">
@@ -351,7 +338,6 @@
     </div>
   </div>
 
-  <!-- Script pour le menu mobile -->
   <script>
     const menuToggle = document.querySelector('.menu-toggle');
     const navMenu = document.querySelector('header .left-nav nav');
