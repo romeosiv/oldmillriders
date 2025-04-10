@@ -248,11 +248,11 @@
         width: 100%;
       }
   .hero-text {
-    font-size: 2rem !important;
+    font-size: 1.8rem !important;
     width: 90% !important;
-    white-space: normal !important; /* Autorise la coupure sur 2 lignes */
+    white-space: normal !important;       /* Permet le saut de ligne */
     text-align: center !important;
-    color: #fff !important; /* Au cas où */
+    color: #fff !important;
     z-index: 2 !important;
     position: absolute !important;
     top: 50% !important;
@@ -261,12 +261,13 @@
     margin: 0 auto !important;
   }
 .hero {
-    /* Hauteur adaptative par rapport à la taille de l’écran */
-    height: 50vh !important; 
-    /* On garantit une hauteur minimale pour éviter que le texte ne déborde */
-    min-height: 320px !important;
+    height: 250px !important;
+    background-size: cover !important;    /* S’assure que l’image occupe tout le bloc */
+    background-position: center !important;
     margin-bottom: 20px !important;
-    position: relative; /* Assure que le texte absoluté se positionne bien dedans */
+    border-radius: 20px !important;
+    position: relative !important;
+    overflow: hidden !important;          /* Empêche l'image de déborder */
   }
         }
   </style>
