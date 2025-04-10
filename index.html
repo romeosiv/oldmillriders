@@ -20,6 +20,7 @@
       padding: 0 1rem;
     }
 
+    /* --- HEADER identique --- */
     header {
       background-color: #000;
       color: white;
@@ -33,13 +34,11 @@
       max-width: 1024px;
       box-sizing: border-box;
     }
-
     .left-nav, .right-nav {
       display: flex;
       align-items: center;
       gap: 1.5rem;
     }
-
     .center-title {
       position: absolute;
       left: 50%;
@@ -48,13 +47,11 @@
       font-weight: bold;
       white-space: nowrap;
     }
-	     /* Pour que le titre central redirige vers l'accueil */
+    /* Le titre central est cliquable */
     .center-title a {
       color: inherit;
       text-decoration: none;
     }
-
-    /* Navigation inline pour desktop */
     nav {
       display: flex;
       align-items: center;
@@ -65,8 +62,6 @@
       text-decoration: none;
       font-size: 1rem;
     }
-
-    /* Bouton hamburger pour mobile */
     .menu-toggle {
       display: none;
       background: none;
@@ -75,7 +70,6 @@
       color: white;
       cursor: pointer;
     }
-
     .icon {
       width: 24px;
       height: 24px;
@@ -84,13 +78,14 @@
       width: 16px;
       height: 16px;
     }
+    /* --- FIN HEADER --- */
 
     .hero {
       background-image: url('./487311528_1695956707981679_6857312795974471995_n.jpg');
       background-size: cover;
       background-position: center bottom;
       filter: grayscale(100%);
-      height: 350px;
+      height: 350px; /* Même hauteur qu'en version PC */
       border-radius: 20px;
       margin: 0 auto 40px auto;
       position: relative;
@@ -160,11 +155,12 @@
       padding: 2rem;
       border-radius: 20px;
       max-width: 1024px;
-      margin: 3rem auto;
+      margin: 40px auto; /* Même largeur que le hero */
       text-align: center;
       box-sizing: border-box;
     }
 
+    /* --- FOOTER identique --- */
     .footer {
       background-color: #e5e5e5;
       color: black;
@@ -200,8 +196,7 @@
       color: black;
       font-size: 1rem;
     }
-
-    /* Mobile Styles */
+    /* --- MEDIA QUERIES --- */
     @media (max-width: 768px) {
       header {
         padding: 0.5rem 1rem;
@@ -213,18 +208,12 @@
         text-align: center;
         width: 100%;
       }
-
-      /* Masquer le logo (moulin) sur mobile */
       .left-nav a.logo {
         display: none;
       }
-
-      /* Afficher le bouton hamburger */
       .menu-toggle {
         display: block;
       }
-
-      /* Cacher le menu inline et préparer le dropdown avec bords arrondis */
       .left-nav nav {
         display: none;
         flex-direction: column;
@@ -233,34 +222,21 @@
         top: 100%;
         left: 0;
         right: 0;
-        width: auto;
         padding: 1rem;
         background-color: #000;
-        border-radius: 20px;  /* Bords arrondis rétablis */
+        border-radius: 20px;
         box-sizing: border-box;
         z-index: 10;
       }
       .left-nav nav.open {
         display: flex;
       }
-
-      .hero {
-        height: 250px;
+      /* Aligner verticalement le logo Instagram sur la droite */
+      .right-nav {
+        align-self: center;
       }
-      .hero-text {
-        font-size: 2rem;
-        padding: 0 1rem;
-      }
-      .products-grid {
-        flex-direction: column;
-        align-items: center;
-      }
-      .product-card {
-        width: 100%;
-      }
-      nav a {
-        font-size: 1.1rem;
-      }
+      /* Ne pas modifier la hauteur du hero pour respecter la version PC */
+      /* .hero { height: 350px; } reste inchangé */
     }
   </style>
 </head>
@@ -268,75 +244,61 @@
   <div class="container">
     <header>
       <div class="left-nav">
-        <!-- Ajout d'une classe "logo" afin de pouvoir la cacher en mobile -->
         <a href="index.html" class="logo">
           <img src="./moulin-coeur-blanc.png" class="icon" alt="Logo">
         </a>
-        <!-- Bouton hamburger pour mobile -->
         <button class="menu-toggle" aria-label="Ouvrir le menu">☰</button>
-        <!-- Menu inline pour desktop / dropdown pour mobile -->
         <nav>
           <a href="#">La Bande</a>
           <a href="tshirt.html">Le Shop</a>
         </nav>
       </div>
-      <div class="center-title">Old Mill Riders</div>
+      <div class="center-title">
+        <a href="index.html">Old Mill Riders</a>
+      </div>
       <div class="right-nav">
         <a href="https://www.instagram.com/old_mill_riders/" target="_blank">
           <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png" class="insta-icon" alt="Instagram">
         </a>
       </div>
     </header>
-    <!-- Section Hero -->
     <div class="hero">
       <div class="hero-text">Des routes et<br>des potes</div>
     </div>
-  </div>
-  <!-- Bloc description -->
-  <div class="about-block">
-    Un groupe de copains lyonnais unit autour d'une passion commune : la moto. 
-    Notre envie, partager avec vous des conseils, des moments, des voyages et des rencontres.
-  </div>
-  <!-- Section Produits -->
-  <section class="section">
-    <h2>Nouveau T-shirt</h2>
-    <div class="products-grid">
-      <div class="product-card">
-        <img src="./5W9A4780-HDR.jpg" alt="T-shirt noir logo">
-        <h3>T-shirt noir logo</h3>
-        <a href="tshirt.html"><button>Pré-commander</button></a>
+    <div class="about-block">
+      Un groupe de copains lyonnais unit autour d'une passion commune : la moto. 
+      Notre envie, partager avec vous des conseils, des moments, des voyages et des rencontres.
+    </div>
+    <section class="section">
+      <h2>Nouveau T-shirt</h2>
+      <div class="products-grid">
+        <div class="product-card">
+          <img src="./5W9A4780-HDR.jpg" alt="T-shirt noir logo">
+          <h3>T-shirt noir logo</h3>
+          <a href="tshirt.html"><button>Pré-commander</button></a>
+        </div>
+        <div class="product-card">
+          <img src="./5W9A4657.jpg" alt="T-shirt blanc vintage">
+          <h3>T-shirt blanc vintage</h3>
+          <a href="tshirt.html"><button>Pré-commander</button></a>
+        </div>
+        <div class="product-card">
+          <img src="./5W9A4687 (1).jpg" alt="T-shirt oversize gris">
+          <h3>T-shirt oversize gris</h3>
+          <a href="tshirt.html"><button>Pré-commander</button></a>
+        </div>
       </div>
-      <div class="product-card">
-        <img src="./5W9A4657.jpg" alt="T-shirt blanc vintage">
-        <h3>T-shirt blanc vintage</h3>
-        <a href="tshirt.html"><button>Pré-commander</button></a>
+    </section>
+    <div class="footer">
+      <div class="left-footer">
+        <img src="./moulin-coeur-noir.png" alt="Logo">
+        <span>Old Mill Riders</span>
       </div>
-      <div class="product-card">
-        <img src="./5W9A4687 (1).jpg" alt="T-shirt oversize gris">
-        <h3>T-shirt oversize gris</h3>
-        <a href="tshirt.html"><button>Pré-commander</button></a>
+      <div class="right-footer">
+        <a href="#">La Bande</a>
+        <a href="tshirt.html">Le Shop</a>
       </div>
     </div>
-  </section>
-  <!-- Footer -->
-  <div class="footer">
-    <div class="left-footer">
-      <img src="./moulin-coeur-noir.png" alt="Logo">
-      <span>Old Mill Riders</span>
-    </div>
-    <div class="right-footer">
-      <a href="#">La Bande</a>
-      <a href="tshirt.html">Le Shop</a>
-    </div>
   </div>
-
-  <!-- Script pour le toggle du menu mobile -->
-  <script>
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navMenu = document.querySelector('header .left-nav nav');
-    menuToggle.addEventListener('click', () => {
-      navMenu.classList.toggle('open');
-    });
-  </script>
 </body>
 </html>
