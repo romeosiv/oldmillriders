@@ -190,8 +190,7 @@
       color: black;
       font-size: 1rem;
     }
-
-    /* --- MEDIA QUERIES --- */
+    /* --- MEDIA QUERIES (identiques à Index) --- */
     @media (max-width: 768px) {
       header {
         padding: 0.5rem 1rem;
@@ -202,6 +201,7 @@
         font-size: 1.4rem;
         text-align: center;
         width: 100%;
+        margin: 0 auto;
       }
       .left-nav a.logo {
         display: none;
@@ -216,7 +216,7 @@
         position: absolute;
         top: 100%;
         left: 0;
-        width: 100%;
+        right: 0;
         padding: 1rem;
         background-color: #000;
         border-radius: 20px;
@@ -226,31 +226,21 @@
       .left-nav nav.open {
         display: flex;
       }
-      /* On aligne la .right-nav verticalement au centre, et la .center-title
-         devient un bloc centré (text-align: center). */
-      .left-nav {
+      /* On conserve la même structure que sur la page index */
+      /* Pas de réorganisation supplémentaire pour .left-nav et .right-nav */
+      .products-grid {
         flex-direction: column;
-        gap: 0.5rem;
+        align-items: center;
+      }
+      .product-card {
         width: 100%;
-        align-items: flex-start;
-      }
-      .right-nav {
-        align-self: center;
-      }
-      .product-section {
-        flex-direction: column;
-      }
-      .carousel-main {
-        max-height: 400px;
-      }
-      .info-block {
-        padding: 1rem 0;
       }
     }
   </style>
 </head>
 <body>
   <div class="container">
+    <!-- HEADER identique à Index -->
     <header>
       <div class="left-nav">
         <a href="index.html" class="logo">
@@ -272,6 +262,7 @@
       </div>
     </header>
 
+    <!-- CONTENU spécifique à la page T-shirt -->
     <h1 style="text-align: center; margin-top: 2rem;">T-shirt Old Mill Riders</h1>
     <div class="product-section">
       <div class="image-block">
@@ -305,6 +296,7 @@
       </div>
     </div>
 
+    <!-- FOOTER identique à Index -->
     <div class="footer">
       <div class="left-footer">
         <img src="./moulin-coeur-noir.png" alt="Logo">
@@ -319,6 +311,14 @@
 
   <!-- Script pour le menu burger en mobile -->
   <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuToggle = document.querySelector('.menu-toggle');
+      const navMenu = document.querySelector('header .left-nav nav');
+      menuToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('open');
+      });
+    });
+    
     function showImage(imgSrc, element) {
       document.getElementById("main-image").src = imgSrc;
       document.querySelectorAll('.thumbnails img').forEach(img => {
@@ -331,13 +331,6 @@
       form.style.display = "block";
       form.scrollIntoView({ behavior: "smooth" });
     }
-    document.addEventListener('DOMContentLoaded', function() {
-      const menuToggle = document.querySelector('.menu-toggle');
-      const navMenu = document.querySelector('header .left-nav nav');
-      menuToggle.addEventListener('click', () => {
-        navMenu.classList.toggle('open');
-      });
-    });
   </script>
 </body>
 </html>
