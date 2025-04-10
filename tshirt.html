@@ -7,6 +7,7 @@
   <link rel="icon" href="./moulin-coeur-noir.png" type="image/png" />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet" />
   <style>
+    /* ----------- Reset & Base ----------- */
     body {
       font-family: 'Space Grotesk', sans-serif;
       background-color: #e5e5e5;
@@ -18,7 +19,8 @@
       margin: 0 auto;
       padding: 0 1rem;
     }
-    /* --- HEADER identique --- */
+
+    /* ----------- Header ----------- */
     header {
       background-color: #000;
       color: white;
@@ -75,20 +77,17 @@
       width: 16px;
       height: 16px;
     }
-    /* --- FIN HEADER --- */
 
-    /* --- CONTENU PAGE T-SHIRT --- */
+    /* ----------- Section T-shirt ----------- */
     .product-section {
       display: flex;
       flex-direction: row;
       gap: 2rem;
       margin-top: 2rem;
-      /* Ne pas utiliser flex-wrap pour forcer la disposition en row */
-      flex-wrap: nowrap;
-      overflow-x: auto;
+      flex-wrap: wrap; /* Permettra de passer en colonne sur mobile */
     }
     .image-block {
-      flex: 0 0 60%;
+      flex: 1 1 50%;
     }
     .carousel-main {
       width: 100%;
@@ -100,9 +99,8 @@
       margin-top: 1rem;
       display: flex;
       justify-content: center;
+      flex-wrap: wrap;
       gap: 10px;
-      /* Toujours affichées en row */
-      flex-wrap: nowrap;
     }
     .thumbnails img {
       width: 80px;
@@ -117,7 +115,7 @@
       border-color: black;
     }
     .info-block {
-      flex: 0 0 40%;
+      flex: 1 1 40%;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -155,9 +153,8 @@
       box-shadow: 0 4px 20px rgba(0,0,0,0.1);
       padding: 2rem;
     }
-    /* --- FIN CONTENU PAGE T-SHIRT --- */
 
-    /* --- FOOTER identique --- */
+    /* ----------- Footer ----------- */
     .footer {
       background-color: #e5e5e5;
       color: black;
@@ -193,7 +190,8 @@
       color: black;
       font-size: 1rem;
     }
-    /* --- MEDIA QUERIES --- */
+
+    /* ----------- Media Queries ----------- */
     @media (max-width: 768px) {
       header {
         padding: 0.5rem 1rem;
@@ -207,12 +205,14 @@
         width: 100% !important;
         margin: 0 auto !important;
       }
+      /* Masquer le logo (moulin) sur mobile */
       .left-nav a.logo {
         display: none;
       }
       .menu-toggle {
         display: block;
       }
+      /* Menu en mode dropdown */
       .left-nav nav {
         display: none;
         flex-direction: column;
@@ -230,25 +230,24 @@
       .left-nav nav.open {
         display: flex;
       }
+      /* Aligner la zone .right-nav au centre verticalement */
       .right-nav {
         align-self: center;
       }
-      /* Pour la section produit, on conserve la disposition en row */
+      /* Sur mobile : on empile (row -> column) la section produit */
       .product-section {
-        flex-wrap: nowrap;
+        flex-direction: column;
       }
-      .image-block {
-        flex: 0 0 60%;
-      }
-      .info-block {
-        flex: 0 0 40%;
+      .image-block, .info-block {
+        width: 100%;
+        flex: 1 1 auto;
       }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- HEADER identique -->
+    <!-- Header -->
     <header>
       <div class="left-nav">
         <a href="index.html" class="logo">
@@ -270,8 +269,9 @@
       </div>
     </header>
 
-    <!-- CONTENU spécifique à la page T-shirt -->
     <h1 style="text-align: center; margin-top: 2rem;">T-shirt Old Mill Riders</h1>
+
+    <!-- Section Produits -->
     <div class="product-section">
       <div class="image-block">
         <img id="main-image" src="5W9A4780-HDR.jpg" class="carousel-main" alt="T-shirt Old Mill" />
@@ -297,6 +297,7 @@
       </div>
     </div>
 
+    <!-- Formulaire -->
     <div id="preorder-form" class="preorder-section" style="display: none; margin-top: 3rem;">
       <div class="form-wrapper">
         <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeWCsgR-2JmqIF3gpvUY6dFdYXxhUgeDT7Bw0baK5dUGDgXwg/viewform?embedded=true"
@@ -304,7 +305,7 @@
       </div>
     </div>
 
-    <!-- FOOTER identique -->
+    <!-- Footer -->
     <div class="footer">
       <div class="left-footer">
         <img src="./moulin-coeur-noir.png" alt="Logo">
@@ -317,15 +318,20 @@
     </div>
   </div>
 
-  <!-- Scripts -->
+  <!-- Script -->
   <script>
+    // Menu burger
     document.addEventListener('DOMContentLoaded', function() {
       const menuToggle = document.querySelector('.menu-toggle');
       const navMenu = document.querySelector('header .left-nav nav');
-      menuToggle.addEventListener('click', () => {
-        navMenu.classList.toggle('open');
-      });
+      if (menuToggle) {
+        menuToggle.addEventListener('click', () => {
+          navMenu.classList.toggle('open');
+        });
+      }
     });
+
+    // Carousel
     function showImage(imgSrc, element) {
       document.getElementById("main-image").src = imgSrc;
       document.querySelectorAll('.thumbnails img').forEach(img => {
@@ -333,6 +339,8 @@
       });
       element.classList.add('active');
     }
+
+    // Scroll vers le formulaire
     function scrollToForm() {
       const form = document.getElementById("preorder-form");
       form.style.display = "block";
