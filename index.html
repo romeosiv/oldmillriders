@@ -13,13 +13,11 @@
       margin: 0;
       color: #000;
     }
-
     .container {
       max-width: 1024px;
       margin: 0 auto;
       padding: 0 1rem;
     }
-
     /* --- HEADER identique --- */
     header {
       background-color: #000;
@@ -85,7 +83,7 @@
       background-size: cover;
       background-position: center bottom;
       filter: grayscale(100%);
-      height: 350px; /* Même hauteur qu'en version PC */
+      height: 350px;
       border-radius: 20px;
       margin: 0 auto 40px auto;
       position: relative;
@@ -99,6 +97,17 @@
       color: white;
       font-size: 3rem;
       text-align: center;
+    }
+
+    .about-block {
+      background-color: #000;
+      color: white;
+      padding: 2rem;
+      border-radius: 20px;
+      max-width: 1024px;
+      margin: 40px auto;
+      text-align: center;
+      box-sizing: border-box;
     }
 
     .section {
@@ -126,7 +135,7 @@
     .product-card img {
       width: 100%;
       border-radius: 12px;
-      aspect-ratio: 1 / 1;
+      aspect-ratio: 1/1;
       object-fit: cover;
       margin-bottom: 1rem;
     }
@@ -147,17 +156,6 @@
     .product-card button:hover {
       transform: translateY(2px);
       box-shadow: none;
-    }
-
-    .about-block {
-      background-color: #000;
-      color: white;
-      padding: 2rem;
-      border-radius: 20px;
-      max-width: 1024px;
-      margin: 40px auto; /* Même largeur que le hero */
-      text-align: center;
-      box-sizing: border-box;
     }
 
     /* --- FOOTER identique --- */
@@ -196,6 +194,7 @@
       color: black;
       font-size: 1rem;
     }
+
     /* --- MEDIA QUERIES --- */
     @media (max-width: 768px) {
       header {
@@ -231,12 +230,13 @@
       .left-nav nav.open {
         display: flex;
       }
-      /* Aligner verticalement le logo Instagram sur la droite */
-      .right-nav {
-        align-self: center;
+      .products-grid {
+        flex-direction: column;
+        align-items: center;
       }
-      /* Ne pas modifier la hauteur du hero pour respecter la version PC */
-      /* .hero { height: 350px; } reste inchangé */
+      .product-card {
+        width: 100%;
+      }
     }
   </style>
 </head>
@@ -262,13 +262,16 @@
         </a>
       </div>
     </header>
+
     <div class="hero">
       <div class="hero-text">Des routes et<br>des potes</div>
     </div>
+
     <div class="about-block">
       Un groupe de copains lyonnais unit autour d'une passion commune : la moto. 
       Notre envie, partager avec vous des conseils, des moments, des voyages et des rencontres.
     </div>
+
     <section class="section">
       <h2>Nouveau T-shirt</h2>
       <div class="products-grid">
@@ -289,6 +292,7 @@
         </div>
       </div>
     </section>
+
     <div class="footer">
       <div class="left-footer">
         <img src="./moulin-coeur-noir.png" alt="Logo">
@@ -300,5 +304,16 @@
       </div>
     </div>
   </div>
+
+  <!-- Script pour le menu burger en mobile -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function(){
+      const menuToggle = document.querySelector('.menu-toggle');
+      const navMenu = document.querySelector('header .left-nav nav');
+      menuToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('open');
+      });
+    });
+  </script>
 </body>
 </html>
