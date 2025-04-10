@@ -248,18 +248,25 @@
         width: 100%;
       }
   .hero-text {
-    font-size: 1.8rem !important;  /* Réduit la taille pour une meilleure adaptation */
-    white-space: normal !important; /* Permet aux retours à la ligne d'être pris en compte */
+    font-size: 2rem !important;
+    width: 90% !important;
+    white-space: normal !important; /* Autorise la coupure sur 2 lignes */
     text-align: center !important;
-    width: 90% !important;         /* Limite la largeur pour forcer le wrapping */
-    z-index: 10 !important;         /* S'assure que le texte est bien par-dessus le background */
+    color: #fff !important; /* Au cas où */
+    z-index: 2 !important;
+    position: absolute !important;
     top: 50% !important;
     left: 50% !important;
     transform: translate(-50%, -50%) !important;
-    padding: 0 10px;               /* Optionnel : ajout d'un petit padding pour éviter que le texte touche les bords */
+    margin: 0 auto !important;
   }
-        .hero {
-    aspect-ratio: 1024 / 350;
+.hero {
+    /* Hauteur adaptative par rapport à la taille de l’écran */
+    height: 50vh !important; 
+    /* On garantit une hauteur minimale pour éviter que le texte ne déborde */
+    min-height: 320px !important;
+    margin-bottom: 20px !important;
+    position: relative; /* Assure que le texte absoluté se positionne bien dedans */
   }
         }
   </style>
