@@ -149,7 +149,7 @@
     .form-wrapper {
       background-color: white;
       border-radius: 20px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
       padding: 2rem;
     }
     /* --- FIN CONTENU PAGE T-SHIRT --- */
@@ -225,15 +225,17 @@
       .left-nav nav.open {
         display: flex;
       }
-      /* Pour que le logo Instagram reste aligné verticalement au centre */
-      .right-nav {
-        align-self: center;
-      }
+      /* Pour que le header reste identique :
+         - Les éléments de .left-nav passent en colonne ;
+         - Le bloc .right-nav s'aligne verticalement au centre */
       .left-nav {
         flex-direction: column;
         gap: 0.5rem;
         width: 100%;
         align-items: flex-start;
+      }
+      .right-nav {
+        align-self: center;
       }
       .product-section {
         flex-direction: column;
@@ -246,29 +248,6 @@
       }
     }
   </style>
-  <script>
-    function showImage(imgSrc, element) {
-      document.getElementById("main-image").src = imgSrc;
-      document.querySelectorAll('.thumbnails img').forEach(img => {
-        img.classList.remove('active');
-      });
-      element.classList.add('active');
-    }
-    function scrollToForm() {
-      const form = document.getElementById("preorder-form");
-      form.style.display = "block";
-      form.scrollIntoView({ behavior: "smooth" });
-    }
-    document.addEventListener('DOMContentLoaded', function() {
-      const menuToggle = document.querySelector('.menu-toggle');
-      const navMenu = document.querySelector('header .left-nav nav');
-      if(menuToggle) {
-        menuToggle.addEventListener('click', () => {
-          navMenu.classList.toggle('open');
-        });
-      }
-    });
-  </script>
 </head>
 <body>
   <div class="container">
@@ -338,11 +317,14 @@
     </div>
   </div>
 
+  <!-- Script pour le menu burger en mobile -->
   <script>
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navMenu = document.querySelector('header .left-nav nav');
-    menuToggle.addEventListener('click', () => {
-      navMenu.classList.toggle('open');
+    document.addEventListener("DOMContentLoaded", function(){
+      const menuToggle = document.querySelector('.menu-toggle');
+      const navMenu = document.querySelector('header .left-nav nav');
+      menuToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('open');
+      });
     });
   </script>
 </body>
