@@ -219,23 +219,28 @@
         display: block;
       }
 
-      /* Cacher le menu inline et préparer le dropdown */
+      /* Menu dropdown avec animation de transition */
       .left-nav nav {
-        display: none;
-        flex-direction: column;
-        gap: 1rem;
         position: absolute;
         top: 100%;
         left: 0;
         width: 100%;
         padding: 1rem;
         background-color: #000;
-        border-radius: 20px; /* bords arrondis */
+        border-radius: 20px;
         box-sizing: border-box;
-        z-index: 10;
+        overflow: hidden;
+        opacity: 0;
+        transform: translateY(-10px);
+        max-height: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease, transform 0.3s ease, max-height 0.3s ease;
       }
       .left-nav nav.open {
-        display: flex;
+        opacity: 1;
+        transform: translateY(0);
+        max-height: 200px; /* ajustable selon le contenu */
+        pointer-events: auto;
       }
 
       .hero {
@@ -262,7 +267,7 @@
   <div class="container">
     <header>
       <div class="left-nav">
-        <!-- Ajout d'une classe "logo" afin de pouvoir la cacher en mobile -->
+        <!-- Logo masqué sur mobile grâce à la classe "logo" -->
         <a href="index.html" class="logo">
           <img src="./moulin-coeur-blanc.png" class="icon" alt="Logo">
         </a>
