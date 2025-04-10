@@ -18,7 +18,8 @@
       margin: 0 auto;
       padding: 0 1rem;
     }
-    /* --- HEADER identique --- */
+
+    /* ---------- HEADER ---------- */
     header {
       background-color: #000;
       color: white;
@@ -28,7 +29,7 @@
       align-items: center;
       justify-content: space-between;
       position: relative;
-      margin: 20px auto;
+      margin: 20px auto; /* 20px de marge en haut et en bas */
       max-width: 1024px;
       box-sizing: border-box;
     }
@@ -76,16 +77,16 @@
       width: 16px;
       height: 16px;
     }
-    /* --- FIN HEADER --- */
 
+    /* ---------- HERO ---------- */
     .hero {
       background-image: url('./487311528_1695956707981679_6857312795974471995_n.jpg');
       background-size: cover;
       background-position: center bottom;
       filter: grayscale(100%);
-      height: 350px;
+      height: 350px; /* Hauteur identique à PC */
       border-radius: 20px;
-      margin: 0 auto 40px auto;
+      margin: 0 auto 20px auto; /* Espace de 20px sous le hero */
       position: relative;
       max-width: 1024px;
     }
@@ -99,37 +100,43 @@
       text-align: center;
     }
 
+    /* ---------- ABOUT BLOCK ---------- */
     .about-block {
       background-color: #000;
       color: white;
       padding: 2rem;
       border-radius: 20px;
       max-width: 1024px;
-      margin: 40px auto;
+      margin: 20px auto; /* Même espace que le hero */
       text-align: center;
       box-sizing: border-box;
     }
 
+    /* ---------- Section Produits ---------- */
     .section {
       background: white;
-      padding: 2rem 1rem;
+      padding: 2rem;
+      border-radius: 20px; /* Blocs arrondis */
       text-align: center;
+      margin: 20px auto; /* Espace au-dessus et en-dessous identique */
+      max-width: 1024px;
+      box-sizing: border-box;
     }
-
+    .section h2 {
+      margin: 0 0 1rem 0;
+    }
     .products-grid {
       display: flex;
       justify-content: center;
-      flex-wrap: wrap;
-      max-width: 1024px;
-      margin: 0 auto;
       gap: 1rem;
+      flex-wrap: wrap;
     }
+    /* Chaque carte ne contient désormais QUE l'image */
     .product-card {
-      background: #f9f9f9;
-      border-radius: 16px;
-      padding: 1.5rem;
+      background: transparent;
+      border: none;
+      padding: 0;
       width: calc(33.333% - 1rem);
-      text-align: center;
       box-sizing: border-box;
     }
     .product-card img {
@@ -137,12 +144,10 @@
       border-radius: 12px;
       aspect-ratio: 1/1;
       object-fit: cover;
-      margin-bottom: 1rem;
+      display: block;
     }
-    .product-card h3 {
-      margin-bottom: 1rem;
-    }
-    .product-card button {
+    /* Bouton unique et centré */
+    .preorder-single {
       background-color: white;
       color: black;
       border: 2px solid black;
@@ -152,13 +157,15 @@
       box-shadow: 2px 2px 0 black;
       cursor: pointer;
       transition: 0.2s ease;
+      display: inline-block;
+      margin-top: 1.5rem;
     }
-    .product-card button:hover {
+    .preorder-single:hover {
       transform: translateY(2px);
       box-shadow: none;
     }
 
-    /* --- FOOTER identique --- */
+    /* ---------- FOOTER ---------- */
     .footer {
       background-color: #e5e5e5;
       color: black;
@@ -195,17 +202,18 @@
       font-size: 1rem;
     }
 
-    /* --- MEDIA QUERIES --- */
+    /* ---------- MEDIA QUERIES ---------- */
     @media (max-width: 768px) {
       header {
         padding: 0.5rem 1rem;
       }
       .center-title {
-        position: static;
-        transform: none;
-        font-size: 1.4rem;
-        text-align: center;
-        width: 100%;
+        position: static !important;
+        transform: none !important;
+        font-size: 1.4rem !important;
+        text-align: center !important;
+        width: 100% !important;
+        margin: 0 auto !important;
       }
       .left-nav a.logo {
         display: none;
@@ -230,6 +238,7 @@
       .left-nav nav.open {
         display: flex;
       }
+      /* Sur mobile, la grille des produits passe en colonne */
       .products-grid {
         flex-direction: column;
         align-items: center;
@@ -242,6 +251,7 @@
 </head>
 <body>
   <div class="container">
+    <!-- HEADER -->
     <header>
       <div class="left-nav">
         <a href="index.html" class="logo">
@@ -263,36 +273,35 @@
       </div>
     </header>
 
+    <!-- HERO -->
     <div class="hero">
       <div class="hero-text">Des routes et<br>des potes</div>
     </div>
 
+    <!-- ABOUT BLOCK -->
     <div class="about-block">
       Un groupe de copains lyonnais unit autour d'une passion commune : la moto. 
       Notre envie, partager avec vous des conseils, des moments, des voyages et des rencontres.
     </div>
 
+    <!-- SECTION PRODUITS -->
     <section class="section">
       <h2>Nouveau T-shirt</h2>
       <div class="products-grid">
         <div class="product-card">
           <img src="./5W9A4780-HDR.jpg" alt="T-shirt noir logo">
-          <h3>T-shirt noir logo</h3>
-          <a href="tshirt.html"><button>Pré-commander</button></a>
         </div>
         <div class="product-card">
           <img src="./5W9A4657.jpg" alt="T-shirt blanc vintage">
-          <h3>T-shirt blanc vintage</h3>
-          <a href="tshirt.html"><button>Pré-commander</button></a>
         </div>
         <div class="product-card">
           <img src="./5W9A4687 (1).jpg" alt="T-shirt oversize gris">
-          <h3>T-shirt oversize gris</h3>
-          <a href="tshirt.html"><button>Pré-commander</button></a>
         </div>
       </div>
+      <button class="preorder-single">Pré-commander</button>
     </section>
 
+    <!-- FOOTER -->
     <div class="footer">
       <div class="left-footer">
         <img src="./moulin-coeur-noir.png" alt="Logo">
@@ -305,9 +314,9 @@
     </div>
   </div>
 
-  <!-- Script pour le menu burger en mobile -->
+  <!-- Script burger -->
   <script>
-    document.addEventListener("DOMContentLoaded", function(){
+    document.addEventListener('DOMContentLoaded', function() {
       const menuToggle = document.querySelector('.menu-toggle');
       const navMenu = document.querySelector('header .left-nav nav');
       menuToggle.addEventListener('click', () => {
