@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <title>Le Shop</title>
+  <title>T-shirt Old Mill Riders</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" href="./moulin-coeur-noir.png" type="image/png" />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet" />
@@ -31,7 +31,6 @@
       position: relative;
       margin: 20px auto;
       max-width: 1024px;
-      flex-wrap: wrap;
       box-sizing: border-box;
     }
 
@@ -56,7 +55,7 @@
       font-size: 1rem;
     }
 
-    /* Bouton hamburger à ajouter pour mobile */
+    /* Bouton hamburger pour mobile */
     .menu-toggle {
       display: none;
       background: none;
@@ -203,16 +202,10 @@
       font-size: 1rem;
     }
 
-    /* Mobile Styles : adaptation du header pour la cohérence */
+    /* Mobile Styles identiques à la page d'accueil */
     @media (max-width: 768px) {
-      header, .footer {
-        width: 100%;
-        margin: 20px auto;
-        border-radius: 0;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-        padding: 1rem;
+      header {
+        padding: 0.5rem 1rem;
       }
       .center-title {
         position: static;
@@ -221,22 +214,12 @@
         text-align: center;
         width: 100%;
       }
-      .left-nav, .right-nav {
-        flex-direction: column;
-        gap: 0.5rem;
-        width: 100%;
-        align-items: flex-start;
-      }
-      
-      /* Masquer le logo sur mobile et afficher le bouton hamburger */
-      .left-nav a.icon, 
       .left-nav a.logo {
         display: none;
       }
       .menu-toggle {
         display: block;
       }
-      /* Préparer le dropdown pour la navigation mobile */
       .left-nav nav {
         display: none;
         flex-direction: column;
@@ -245,6 +228,7 @@
         top: 100%;
         left: 0;
         right: 0;
+        width: auto;
         padding: 1rem;
         background-color: #000;
         border-radius: 20px;
@@ -254,7 +238,12 @@
       .left-nav nav.open {
         display: flex;
       }
-      
+      .left-nav, .right-nav {
+        flex-direction: column;
+        gap: 0.5rem;
+        width: 100%;
+        align-items: flex-start;
+      }
       .product-section {
         flex-direction: column;
       }
