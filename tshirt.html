@@ -83,10 +83,12 @@
       flex-direction: row;
       gap: 2rem;
       margin-top: 2rem;
-      flex-wrap: wrap;
+      /* Ne pas utiliser flex-wrap pour forcer la disposition en row */
+      flex-wrap: nowrap;
+      overflow-x: auto;
     }
     .image-block {
-      flex: 1 1 50%;
+      flex: 0 0 60%;
     }
     .carousel-main {
       width: 100%;
@@ -98,8 +100,9 @@
       margin-top: 1rem;
       display: flex;
       justify-content: center;
-      flex-wrap: wrap;
       gap: 10px;
+      /* Toujours affichées en row */
+      flex-wrap: nowrap;
     }
     .thumbnails img {
       width: 80px;
@@ -114,7 +117,7 @@
       border-color: black;
     }
     .info-block {
-      flex: 1 1 40%;
+      flex: 0 0 40%;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -195,7 +198,7 @@
       header {
         padding: 0.5rem 1rem;
       }
-      /* Forcer le centrage du titre */
+      /* Forcer le centrage du titre sur mobile */
       .center-title {
         position: static !important;
         transform: none !important;
@@ -227,12 +230,19 @@
       .left-nav nav.open {
         display: flex;
       }
-      /* On aligne verticalement la zone .right-nav */
       .right-nav {
         align-self: center;
       }
-      /* Rétablir la disposition par défaut pour la section produit : rester en row (comme sur PC) */
-      /* (Si l'écran est vraiment étroit, le comportement d'overflow restera géré par flex-wrap) */
+      /* Pour la section produit, on conserve la disposition en row */
+      .product-section {
+        flex-wrap: nowrap;
+      }
+      .image-block {
+        flex: 0 0 60%;
+      }
+      .info-block {
+        flex: 0 0 40%;
+      }
     }
   </style>
 </head>
@@ -307,7 +317,7 @@
     </div>
   </div>
 
-  <!-- Script pour le menu burger -->
+  <!-- Scripts -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const menuToggle = document.querySelector('.menu-toggle');
