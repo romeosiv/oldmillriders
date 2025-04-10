@@ -247,27 +247,44 @@
       .product-card {
         width: 100%;
       }
+  .hero {
+    /* Occupe toute la largeur de l'écran, comme le header */
+    width: 100% !important;
+    /* Pas de max-width ici pour éviter tout débordement */
+    max-width: none !important;
+
+    /* Conserve un ratio proche de la version PC (≈ 2.93) */
+    aspect-ratio: 2.93 !important;
+
+    /* Gère l'espacement bas */
+    margin: 0 auto 20px auto !important;
+
+    /* Empêche tout débordement latéral ou vertical */
+    overflow: hidden !important;
+
+    /* Laissons background-size: cover pour respecter l'image */
+    background-size: cover !important;
+    background-position: center center !important;
+    border-radius: 20px !important;
+    position: relative !important; /* Assure que le hero-text se positionne correctement */
+    filter: grayscale(100%) !important;
+  }
+
   .hero-text {
-    font-size: 1.8rem !important;
-    width: 90% !important;
-    white-space: normal !important;       /* Permet le saut de ligne */
+    /* Ajuste la taille si besoin pour qu’il ne déborde pas */
+    font-size: 2rem !important;
     text-align: center !important;
-    color: #fff !important;
-    z-index: 2 !important;
+    white-space: normal !important;
+
+    /* Maintien du centrage vertical */
     position: absolute !important;
     top: 50% !important;
     left: 50% !important;
     transform: translate(-50%, -50%) !important;
+
+    z-index: 2 !important;
+    width: 90% !important;    /* Pour éviter que le texte touche les bords */
     margin: 0 auto !important;
-  }
-.hero {
-    height: 250px !important;
-    background-size: cover !important;    /* S’assure que l’image occupe tout le bloc */
-    background-position: center !important;
-    margin-bottom: 20px !important;
-    border-radius: 20px !important;
-    position: relative !important;
-    overflow: hidden !important;          /* Empêche l'image de déborder */
   }
         }
   </style>
