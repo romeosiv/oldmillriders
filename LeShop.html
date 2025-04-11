@@ -19,7 +19,6 @@
       margin: 0 auto;
       padding: 0 1rem;
     }
-    
     /* ----------- Header ----------- */
     header {
       background-color: #000;
@@ -77,7 +76,6 @@
       width: 16px;
       height: 16px;
     }
-    
     /* ----------- Contenu Page T-shirt ----------- */
     .product-section {
       display: flex;
@@ -141,7 +139,6 @@
       cursor: pointer;
       transition: 0.2s ease;
       width: fit-content;
-      /* Modification : centrer le bouton */
       align-self: center;
     }
     .preorder-button:hover {
@@ -154,7 +151,6 @@
       box-shadow: 0 4px 20px rgba(0,0,0,0.1);
       padding: 2rem;
     }
-    
     /* ----------- Footer ----------- */
     .footer {
       background-color: #e5e5e5;
@@ -191,7 +187,14 @@
       color: black;
       font-size: 1rem;
     }
-    
+    /* Règles pour le lien Old Mill Riders (état normal, visité, survolé, actif) */
+    .home-link,
+    .home-link:visited,
+    .home-link:hover,
+    .home-link:active {
+      text-decoration: none;
+      color: #000;
+    }
     /* ----------- Media Queries ----------- */
     @media (max-width: 768px) {
       header {
@@ -231,7 +234,6 @@
       .right-nav {
         align-self: center;
       }
-      /* Pour la section produit, on passe en colonne sur mobile */
       .product-section {
         flex-direction: column;
       }
@@ -304,18 +306,19 @@
     </div>
 
     <!-- FOOTER -->
-<div class="footer">
-  <div class="left-footer">
-    <a href="home.html" style="display: flex; align-items: center; gap: 0.5rem;">
-      <img src="./moulin-coeur-noir.png" alt="Logo">
-      <span>Old Mill Riders</span>
-    </a>
+    <div class="footer">
+      <div class="left-footer">
+        <a href="home.html" class="home-link" style="display: flex; align-items: center; gap: 0.5rem;">
+          <img src="./moulin-coeur-noir.png" alt="Logo">
+          <span>Old Mill Riders</span>
+        </a>
+      </div>
+      <div class="right-footer">
+        <a href="#">La Bande</a>
+        <a href="LeShop.html">Le Shop</a>
+      </div>
+    </div>
   </div>
-  <div class="right-footer">
-    <a href="#">La Bande</a>
-    <a href="LeShop.html">Le Shop</a>
-  </div>
-</div>
 
   <!-- Scripts -->
   <script>
