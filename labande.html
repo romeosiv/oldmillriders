@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>La Bande - Old Mill Riders</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="./moulin-coeur-noir.png" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ----------- Base & Réglages généraux ----------- */
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background-color: #e5e5e5;
+      margin: 0;
+      color: #000;
+    }
+    .container {
+      max-width: 1024px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+    /* ----------- HEADER ----------- */
+    header {
+      background-color: #000;
+      color: white;
+      border-radius: 20px;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+      margin: 20px auto;
+      max-width: 1024px;
+      box-sizing: border-box;
+    }
+    .left-nav, .right-nav {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .center-title {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.8rem;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+    .center-title a {
+      color: inherit;
+      text-decoration: none;
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: white;
+      cursor: pointer;
+    }
+    .icon {
+      width: 24px;
+      height: 24px;
+    }
+    .insta-icon {
+      width: 16px;
+      height: 16px;
+    }
+    /* ----------- HERO ----------- */
+    .hero {
+      background-image: url('./487311528_1695956707981679_6857312795974471995_n.jpg');
+      background-size: cover;
+      background-position: center bottom;
+      filter: grayscale(100%);
+      border-radius: 20px;
+      margin: 0 auto 20px auto;
+      max-width: 1024px;
+      aspect-ratio: 1024 / 350;
+      position: relative;
+    }
+    .hero-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 3rem;
+      text-align: center;
+    }
+    /* ----------- SECTION ÉQUIPE ----------- */
+    .team-section {
+      background: white;
+      padding: 2rem;
+      border-radius: 20px;
+      margin: 20px auto;
+      text-align: center;
+      box-sizing: border-box;
+    }
+    .team-section h2 {
+      margin-bottom: 1rem;
+    }
+    .team-section p {
+      margin-bottom: 2rem;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+    .team-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+    .team-card {
+      background: #f7f7f7;
+      border-radius: 12px;
+      padding: 1rem;
+      width: calc(33.333% - 1rem);
+      box-sizing: border-box;
+    }
+    .team-card img {
+      width: 100%;
+      border-radius: 12px;
+      object-fit: cover;
+      height: auto;
+    }
+    .team-card h3 {
+      margin: 0.5rem 0 0.3rem;
+      font-size: 1.2rem;
+    }
+    .team-card p {
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+    /* ----------- FOOTER ----------- */
+    .footer {
+      background-color: #e5e5e5;
+      color: black;
+      padding: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      border-radius: 20px;
+      max-width: 1024px;
+      margin: 3rem auto 0;
+      box-sizing: border-box;
+      flex-wrap: wrap;
+    }
+    .footer .left-footer {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-left: 1rem;
+    }
+    .footer .left-footer img {
+      width: 24px;
+      height: 24px;
+    }
+    .footer .right-footer {
+      display: flex;
+      gap: 1.5rem;
+      margin-left: auto;
+      margin-right: 1rem;
+    }
+    .footer .right-footer a {
+      text-decoration: none;
+      font-weight: normal;
+      color: black;
+      font-size: 1rem;
+    }
+    /* ----------- MEDIA QUERIES ----------- */
+    @media (max-width: 768px) {
+      header {
+        padding: 0.5rem 1rem;
+      }
+      .center-title {
+        position: static !important;
+        transform: none !important;
+        font-size: 1.4rem !important;
+        text-align: center !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+      }
+      .left-nav a.logo {
+        display: none;
+      }
+      .menu-toggle {
+        display: block;
+      }
+      .left-nav nav {
+        display: none;
+        flex-direction: column;
+        gap: 1rem;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        padding: 1rem;
+        background-color: #000;
+        border-radius: 20px;
+        box-sizing: border-box;
+        z-index: 10;
+      }
+      .left-nav nav.open {
+        display: flex;
+      }
+      .team-grid {
+        flex-direction: column;
+      }
+      .team-card {
+        width: 100%;
+      }
+      .hero {
+        width: 100% !important;
+        max-width: none !important;
+        aspect-ratio: 2.93 !important;
+        margin: 0 auto 20px auto !important;
+        overflow: hidden !important;
+        background-size: cover !important;
+        background-position: center center !important;
+        border-radius: 20px !important;
+        position: relative !important;
+        filter: grayscale(100%) !important;
+      }
+      .hero-text {
+        font-size: 2rem !important;
+        text-align: center !important;
+        white-space: normal !important;
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        z-index: 2 !important;
+        width: 90% !important;
+        margin: 0 auto !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- HEADER -->
+    <header>
+      <div class="left-nav">
+        <a href="home.html" class="logo">
+          <img src="./moulin-coeur-blanc.png" class="icon" alt="Logo">
+        </a>
+        <button class="menu-toggle" aria-label="Ouvrir le menu">☰</button>
+        <nav>
+          <a href="#" style="font-weight: bold;">La Bande</a>
+          <a href="LeShop.html">Le Shop</a>
+        </nav>
+      </div>
+      <div class="center-title">
+        <a href="home.html">Old Mill Riders</a>
+      </div>
+      <div class="right-nav">
+        <a href="https://www.instagram.com/old_mill_riders/" target="_blank">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png" class="insta-icon" alt="Instagram">
+        </a>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-text">Rencontrez la Bande</div>
+    </div>
+
+    <!-- SECTION ÉQUIPE -->
+    <section class="team-section">
+      <h2>Notre Équipe</h2>
+      <p>
+        La bande Old Mill Riders, c’est avant tout un groupe de passionnés de moto réunis pour partager aventures, conseils et bons moments sur les routes.
+      </p>
+      <div class="team-grid">
+        <!-- Carte membre 1 -->
+        <div class="team-card">
+          <img src="./member1.jpg" alt="Membre 1">
+          <h3>Maxime</h3>
+          <p>Fondateur et pilote intrépide, toujours prêt à explorer de nouvelles routes.</p>
+        </div>
+        <!-- Carte membre 2 -->
+        <div class="team-card">
+          <img src="./member2.jpg" alt="Membre 2">
+          <h3>Julien</h3>
+          <p>Le mécano du groupe, expert pour régler tous les soucis techniques.</p>
+        </div>
+        <!-- Carte membre 3 -->
+        <div class="team-card">
+          <img src="./member3.jpg" alt="Membre 3">
+          <h3>Sophie</h3>
+          <p>Organisatrice des escapades, elle sait où trouver les meilleures aventures.</p>
+        </div>
+        <!-- Carte membre 4 -->
+        <div class="team-card">
+          <img src="./member4.jpg" alt="Membre 4">
+          <h3>Camille</h3>
+          <p>Notre stratège, toujours à l'affût des nouveautés du monde de la moto.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <div class="left-footer">
+        <a href="home.html" style="text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
+          <img src="./moulin-coeur-noir.png" alt="Logo">
+          <span>Old Mill Riders</span>
+        </a>
+      </div>
+      <div class="right-footer">
+        <a href="#" style="font-weight: bold;">La Bande</a>
+        <a href="LeShop.html">Le Shop</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script pour le menu burger -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const menuToggle = document.querySelector('.menu-toggle');
+      const navMenu = document.querySelector('header .left-nav nav');
+      menuToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('open');
+      });
+    });
+  </script>
+</body>
+</html>
