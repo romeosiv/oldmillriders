@@ -39,6 +39,10 @@
       align-items: center;
       gap: 1.5rem;
     }
+    .logo-icon {
+      width: 32px;
+      height: 32px;
+    }
     .center-title {
       position: absolute;
       left: 50%;
@@ -48,10 +52,31 @@
       white-space: nowrap;
     }
     .center-title a { color: inherit; text-decoration: none; }
-    nav { display: flex; align-items: center; gap: 1rem; }
-    nav a { color: white; text-decoration: none; font-size: 1rem; }
-    nav a.active { text-decoration: underline; }
-    .menu-toggle { display: none; }
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+    }
+    nav a.active {
+      text-decoration: underline;
+    }
+    .menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: white;
+      cursor: pointer;
+    }
+    .insta-icon {
+      width: 16px;
+      height: 16px;
+    }
 
     /* ----------- HERO ----------- */
     .hero {
@@ -66,18 +91,23 @@
       position: relative;
     }
     .hero-text {
-      position: absolute; top: 50%; left: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
       transform: translate(-50%, -50%);
-      color: white; font-size: 3rem; text-align: center;
+      color: white;
+      font-size: 3rem;
+      text-align: center;
     }
 
-    /* ----------- SECTION ÉQUIPE ----------- */
+    /* ----------- SECTION ÉQUIPE (carousel) ----------- */
     .team-section {
       background: white;
       padding: 2rem;
       border-radius: 20px;
       margin: 20px auto;
-      box-sizing: border-box;
+      position: relative;
+      overflow: hidden;
     }
     .team-section h2 {
       margin-bottom: 1rem;
@@ -89,20 +119,15 @@
       font-size: 1rem;
       line-height: 1.5;
     }
-
-    /* grille 2 colonnes */
-    .team-grid {
+    .team-carousel {
       display: flex;
-      flex-wrap: wrap;
-      gap: 2rem;
-      justify-content: center;
+      flex-wrap: nowrap;
+      transition: transform 0.3s ease;
     }
     .team-card {
-      background: #f7f7f7;
-      border-radius: 12px;
-      padding: 1rem;
+      flex: 0 0 100%;
       box-sizing: border-box;
-      width: calc(50% - 1rem);    /* deux cartes par ligne */
+      padding: 1rem;
       text-align: center;
     }
     .team-card img {
@@ -121,6 +146,24 @@
       line-height: 1.5;
       margin: 0.5rem 0;
     }
+    .carousel-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 2.5rem;
+      height: 2.5rem;
+      cursor: pointer;
+      font-size: 1.5rem;
+      line-height: 2.5rem;
+      text-align: center;
+      z-index: 10;
+    }
+    .carousel-arrow.prev { left: 1rem; }
+    .carousel-arrow.next { right: 1rem; }
 
     /* ----------- FOOTER ----------- */
     .footer {
@@ -142,11 +185,6 @@
       gap: 1rem;
       margin-left: 1rem;
     }
-    .footer .left-footer a,
-    .footer .left-footer a:visited {
-      color: black;
-      text-decoration: none;
-    }
     .footer .right-footer {
       display: flex;
       gap: 1.5rem;
@@ -161,26 +199,31 @@
 
     /* ---------- MEDIA QUERIES ---------- */
     @media (max-width: 768px) {
-      .team-card {
-        width: 100%;              /* une carte par ligne sur mobile */
-      }
-      /* … le reste des media queries tels quels … */
+      .menu-toggle { display: block; }
+      header nav { display: none; }
+      header nav.open { display: flex; flex-direction: column; background: #000; border-radius: 20px; padding: 1rem; right: 2rem; left: 2rem; }
+      .carousel-arrow { display: none; }
     }
   </style>
 </head>
 <body>
   <div class="container">
+
     <!-- HEADER -->
     <header>
       <div class="left-nav">
-        <a href="home.html" class="logo"><img src="./moulin-coeur-blanc.png" class="icon" alt="Logo"></a>
-        <button class="menu-toggle" aria-label="Menu">☰</button>
+        <a href="home.html" class="logo">
+          <img src="./moulin-coeur-blanc.png" class="logo-icon" alt="Logo">
+        </a>
+        <button class="menu-toggle" aria-label="Ouvrir le menu">☰</button>
         <nav>
           <a href="labande.html" class="active">La Bande</a>
           <a href="LeShop.html">Le Shop</a>
         </nav>
       </div>
-      <div class="center-title"><a href="home.html">Old Mill Riders</a></div>
+      <div class="center-title">
+        <a href="home.html">Old Mill Riders</a>
+      </div>
       <div class="right-nav">
         <a href="https://www.instagram.com/old_mill_riders/" target="_blank">
           <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png" class="insta-icon" alt="Instagram">
@@ -199,7 +242,13 @@
       <p class="intro">
         La bande Old Mill Riders, c’est avant tout un groupe de passionnés de moto réunis pour partager aventures, conseils et bons moments sur les routes.
       </p>
-      <div class="team-grid">
+
+      <!-- Flèches desktop -->
+      <button class="carousel-arrow prev">&#8249;</button>
+      <button class="carousel-arrow next">&#8250;</button>
+
+      <!-- Carousel swipeable -->
+      <div class="team-carousel" id="carousel">
         <div class="team-card">
           <img src="./IMG_7423.JPEG" alt="Roméo">
           <h3>Roméo</h3>
@@ -210,7 +259,7 @@
           <h3>Matthieu</h3>
           <p>Le mécano du groupe, expert pour régler tous les soucis techniques.</p>
         </div>
-        <!-- Ajoute d'autres .team-card ici si besoin -->
+        <!-- Duplique ce bloc pour chaque nouveau membre -->
       </div>
     </section>
 
@@ -218,7 +267,8 @@
     <div class="footer">
       <div class="left-footer">
         <a href="home.html" style="display:flex;align-items:center;gap:0.5rem;">
-          <img src="./moulin-coeur-noir.png" alt="Logo"><span>Old Mill Riders</span>
+          <img src="./moulin-coeur-noir.png" class="logo-icon" alt="Logo">
+          <span>Old Mill Riders</span>
         </a>
       </div>
       <div class="right-footer">
@@ -226,15 +276,42 @@
         <a href="LeShop.html">Le Shop</a>
       </div>
     </div>
+
   </div>
 
-  <!-- Script menu burger -->
+  <!-- Script carousel & swipe -->
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const toggle = document.querySelector('.menu-toggle');
-      const nav = document.querySelector('nav');
-      toggle.addEventListener('click', () => nav.classList.toggle('open'));
-    });
+    (function() {
+      const carousel = document.getElementById('carousel');
+      const prevBtn = document.querySelector('.carousel-arrow.prev');
+      const nextBtn = document.querySelector('.carousel-arrow.next');
+      const cards = carousel.children;
+      let index = 0;
+
+      function update() {
+        carousel.style.transform = `translateX(-${100 * index}%)`;
+      }
+
+      prevBtn.addEventListener('click', () => {
+        if (index > 0) index--;
+        update();
+      });
+      nextBtn.addEventListener('click', () => {
+        if (index < cards.length - 1) index++;
+        update();
+      });
+
+      // Swipe tactile
+      let startX = 0, deltaX = 0;
+      carousel.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+      carousel.addEventListener('touchmove', e => deltaX = e.touches[0].clientX - startX);
+      carousel.addEventListener('touchend', () => {
+        if (deltaX > 50 && index > 0) index--;
+        else if (deltaX < -50 && index < cards.length - 1) index++;
+        update();
+        deltaX = 0;
+      });
+    })();
   </script>
 </body>
 </html>
