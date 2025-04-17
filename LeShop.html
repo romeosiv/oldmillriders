@@ -61,6 +61,9 @@
       text-decoration: none;
       font-size: 1rem;
     }
+    nav a.active {
+      text-decoration: underline;
+    }
     .menu-toggle {
       display: none;
       background: none;
@@ -76,11 +79,6 @@
     .insta-icon {
       width: 16px;
       height: 16px;
-    }
-
-    /* Lien actif souligné */
-    nav a.active {
-      text-decoration: underline;
     }
 
     /* ----------- Contenu Page T-shirt ----------- */
@@ -183,6 +181,11 @@
       width: 24px;
       height: 24px;
     }
+    .footer .left-footer a,
+    .footer .left-footer a:visited {
+      color: black;
+      text-decoration: none;
+    }
     .footer .right-footer {
       display: flex;
       gap: 1.5rem;
@@ -194,12 +197,6 @@
       font-weight: normal;
       color: black;
       font-size: 1rem;
-    }
-
-    /* Empêcher le lien visité de devenir violet */
-    .footer .left-footer a,
-    .footer .left-footer a:visited {
-      color: black;
     }
 
     /* ----------- Media Queries ----------- */
