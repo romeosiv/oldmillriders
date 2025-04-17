@@ -20,7 +20,7 @@
       padding: 0 1rem;
     }
 
-    /* ----------- HEADER ----------- */
+    /* ---------- HEADER (identique à home) ---------- */
     header {
       background-color: #000;
       color: white;
@@ -39,10 +39,6 @@
       align-items: center;
       gap: 1.5rem;
     }
-    .logo-icon {
-      width: 32px;
-      height: 32px;
-    }
     .center-title {
       position: absolute;
       left: 50%;
@@ -51,7 +47,11 @@
       font-weight: bold;
       white-space: nowrap;
     }
-    .center-title a { color: inherit; text-decoration: none; }
+    .center-title a,
+    .center-title a:visited {
+      color: inherit;
+      text-decoration: none;
+    }
     nav {
       display: flex;
       align-items: center;
@@ -62,6 +62,7 @@
       text-decoration: none;
       font-size: 1rem;
     }
+    /* souligner le lien actif */
     nav a.active {
       text-decoration: underline;
     }
@@ -73,12 +74,16 @@
       color: white;
       cursor: pointer;
     }
+    .icon {
+      width: 24px;
+      height: 24px;
+    }
     .insta-icon {
       width: 16px;
       height: 16px;
     }
 
-    /* ----------- HERO ----------- */
+    /* ---------- HERO (taille du texte = 3rem) ---------- */
     .hero {
       background-image: url('./claree.JPEG');
       background-size: cover;
@@ -108,14 +113,15 @@
       margin: 20px auto;
       position: relative;
       overflow: hidden;
+      box-sizing: border-box;
     }
     .team-section h2 {
-      margin-bottom: 1rem;
       text-align: center;
+      margin-bottom: 1rem;
     }
     .team-section p.intro {
-      margin-bottom: 2rem;
       text-align: center;
+      margin-bottom: 2rem;
       font-size: 1rem;
       line-height: 1.5;
     }
@@ -165,7 +171,7 @@
     .carousel-arrow.prev { left: 1rem; }
     .carousel-arrow.next { right: 1rem; }
 
-    /* ----------- FOOTER ----------- */
+    /* ---------- FOOTER (identique à home) ---------- */
     .footer {
       background-color: #e5e5e5;
       color: black;
@@ -185,6 +191,15 @@
       gap: 1rem;
       margin-left: 1rem;
     }
+    .footer .left-footer img {
+      width: 24px;
+      height: 24px;
+    }
+    .footer .left-footer a,
+    .footer .left-footer a:visited {
+      color: black;
+      text-decoration: none;
+    }
     .footer .right-footer {
       display: flex;
       gap: 1.5rem;
@@ -193,27 +208,51 @@
     }
     .footer .right-footer a {
       text-decoration: none;
+      font-weight: normal;
       color: black;
       font-size: 1rem;
     }
 
     /* ---------- MEDIA QUERIES ---------- */
     @media (max-width: 768px) {
+      /* menu burger comme sur home */
+      header { padding: 0.5rem 1rem; }
+      .center-title {
+        position: static !important;
+        transform: none !important;
+        font-size: 1.4rem !important;
+        text-align: center !important;
+        width: 100% !important;
+        margin: 0 auto !important;
+      }
+      .left-nav a.logo { display: none; }
       .menu-toggle { display: block; }
-      header nav { display: none; }
-      header nav.open { display: flex; flex-direction: column; background: #000; border-radius: 20px; padding: 1rem; right: 2rem; left: 2rem; }
+      nav {
+        display: none;
+        flex-direction: column;
+        gap: 1rem;
+        position: absolute;
+        top: 100%;
+        left: 0; right: 0;
+        padding: 1rem;
+        background-color: #000;
+        border-radius: 20px;
+        box-sizing: border-box;
+        z-index: 10;
+      }
+      nav.open { display: flex; }
+      /* pas de flèches sur mobile */
       .carousel-arrow { display: none; }
     }
   </style>
 </head>
 <body>
   <div class="container">
-
     <!-- HEADER -->
     <header>
       <div class="left-nav">
         <a href="home.html" class="logo">
-          <img src="./moulin-coeur-blanc.png" class="logo-icon" alt="Logo">
+          <img src="./moulin-coeur-blanc.png" class="icon" alt="Logo">
         </a>
         <button class="menu-toggle" aria-label="Ouvrir le menu">☰</button>
         <nav>
@@ -243,11 +282,9 @@
         La bande Old Mill Riders, c’est avant tout un groupe de passionnés de moto réunis pour partager aventures, conseils et bons moments sur les routes.
       </p>
 
-      <!-- Flèches desktop -->
       <button class="carousel-arrow prev">&#8249;</button>
       <button class="carousel-arrow next">&#8250;</button>
 
-      <!-- Carousel swipeable -->
       <div class="team-carousel" id="carousel">
         <div class="team-card">
           <img src="./IMG_7423.JPEG" alt="Roméo">
@@ -259,15 +296,15 @@
           <h3>Matthieu</h3>
           <p>Le mécano du groupe, expert pour régler tous les soucis techniques.</p>
         </div>
-        <!-- Duplique ce bloc pour chaque nouveau membre -->
+        <!-- Ajoute ici d'autres .team-card si besoin -->
       </div>
     </section>
 
     <!-- FOOTER -->
     <div class="footer">
       <div class="left-footer">
-        <a href="home.html" style="display:flex;align-items:center;gap:0.5rem;">
-          <img src="./moulin-coeur-noir.png" class="logo-icon" alt="Logo">
+        <a href="home.html" style="display: flex; align-items: center; gap: 0.5rem;">
+          <img src="./moulin-coeur-noir.png" alt="Logo">
           <span>Old Mill Riders</span>
         </a>
       </div>
@@ -276,12 +313,19 @@
         <a href="LeShop.html">Le Shop</a>
       </div>
     </div>
-
   </div>
 
-  <!-- Script carousel & swipe -->
+  <!-- Script carousel & menu burger -->
   <script>
-    (function() {
+    document.addEventListener('DOMContentLoaded', function() {
+      // menu burger
+      const menuToggle = document.querySelector('.menu-toggle');
+      const navMenu = document.querySelector('nav');
+      menuToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('open');
+      });
+
+      // carousel swipe & flèches
       const carousel = document.getElementById('carousel');
       const prevBtn = document.querySelector('.carousel-arrow.prev');
       const nextBtn = document.querySelector('.carousel-arrow.next');
@@ -291,7 +335,6 @@
       function update() {
         carousel.style.transform = `translateX(-${100 * index}%)`;
       }
-
       prevBtn.addEventListener('click', () => {
         if (index > 0) index--;
         update();
@@ -300,8 +343,7 @@
         if (index < cards.length - 1) index++;
         update();
       });
-
-      // Swipe tactile
+      // swipe tactile
       let startX = 0, deltaX = 0;
       carousel.addEventListener('touchstart', e => startX = e.touches[0].clientX);
       carousel.addEventListener('touchmove', e => deltaX = e.touches[0].clientX - startX);
@@ -311,7 +353,7 @@
         update();
         deltaX = 0;
       });
-    })();
+    });
   </script>
 </body>
 </html>
