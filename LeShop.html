@@ -19,6 +19,7 @@
       margin: 0 auto;
       padding: 0 1rem;
     }
+
     /* ----------- Header ----------- */
     header {
       background-color: #000;
@@ -76,6 +77,12 @@
       width: 16px;
       height: 16px;
     }
+
+    /* Lien actif souligné */
+    nav a.active {
+      text-decoration: underline;
+    }
+
     /* ----------- Contenu Page T-shirt ----------- */
     .product-section {
       display: flex;
@@ -151,7 +158,8 @@
       box-shadow: 0 4px 20px rgba(0,0,0,0.1);
       padding: 2rem;
     }
-    /* ----------- Footer ----------- */
+
+    /* ----------- FOOTER ----------- */
     .footer {
       background-color: #e5e5e5;
       color: black;
@@ -187,14 +195,13 @@
       color: black;
       font-size: 1rem;
     }
-    /* Règles pour le lien Old Mill Riders (état normal, visité, survolé, actif) */
-    .home-link,
-    .home-link:visited,
-    .home-link:hover,
-    .home-link:active {
-      text-decoration: none;
-      color: #000;
+
+    /* Empêcher le lien visité de devenir violet */
+    .footer .left-footer a,
+    .footer .left-footer a:visited {
+      color: black;
     }
+
     /* ----------- Media Queries ----------- */
     @media (max-width: 768px) {
       header {
@@ -256,7 +263,7 @@
         <button class="menu-toggle" aria-label="Ouvrir le menu">☰</button>
         <nav>
           <a href="labande.html">La Bande</a>
-          <a href="LeShop.html">Le Shop</a>
+          <a href="LeShop.html" class="active">Le Shop</a>
         </nav>
       </div>
       <div class="center-title">
@@ -308,13 +315,13 @@
     <!-- FOOTER -->
     <div class="footer">
       <div class="left-footer">
-        <a href="home.html" class="home-link" style="display: flex; align-items: center; gap: 0.5rem;">
+        <a href="home.html" style="display: flex; align-items: center; gap: 0.5rem;">
           <img src="./moulin-coeur-noir.png" alt="Logo">
           <span>Old Mill Riders</span>
         </a>
       </div>
       <div class="right-footer">
-        <a href="labande.html">La Bande </a>
+        <a href="labande.html">La Bande</a>
         <a href="LeShop.html">Le Shop</a>
       </div>
     </div>
