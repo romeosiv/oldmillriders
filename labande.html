@@ -83,7 +83,7 @@
       height: 16px;
     }
 
-    /* ---------- HERO (taille du texte = 3rem) ---------- */
+    /* ---------- HERO (desktop = 3rem) ---------- */
     .hero {
       background-image: url('./claree.JPEG');
       background-size: cover;
@@ -105,7 +105,7 @@
       text-align: center;
     }
 
-    /* ----------- SECTION ÉQUIPE (carousel) ----------- */
+    /* ----------- SECTION ÉQUIPE (carousel) ---------- */
     .team-section {
       background: white;
       padding: 2rem;
@@ -208,7 +208,6 @@
     }
     .footer .right-footer a {
       text-decoration: none;
-      font-weight: normal;
       color: black;
       font-size: 1rem;
     }
@@ -241,6 +240,33 @@
         z-index: 10;
       }
       nav.open { display: flex; }
+
+      /* Hero mobile = 2rem texte + mêmes réglages que home */
+      .hero {
+        width: 100% !important;
+        max-width: none !important;
+        aspect-ratio: 2.93 !important;
+        margin: 0 auto 20px !important;
+        overflow: hidden !important;
+        background-size: cover !important;
+        background-position: center center !important;
+        border-radius: 20px !important;
+        position: relative !important;
+        filter: grayscale(100%) !important;
+      }
+      .hero-text {
+        font-size: 2rem !important;
+        text-align: center !important;
+        white-space: normal !important;
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        z-index: 2 !important;
+        width: 90% !important;
+        margin: 0 auto !important;
+      }
+
       /* pas de flèches sur mobile */
       .carousel-arrow { display: none; }
     }
