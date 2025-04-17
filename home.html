@@ -29,7 +29,7 @@
       align-items: center;
       justify-content: space-between;
       position: relative;
-      margin: 20px auto; /* 20px de marge en haut et en bas */
+      margin: 20px auto;
       max-width: 1024px;
       box-sizing: border-box;
     }
@@ -46,8 +46,8 @@
       font-weight: bold;
       white-space: nowrap;
     }
-    /* Le titre central est cliquable */
-    .center-title a {
+    .center-title a,
+    .center-title a:visited {
       color: inherit;
       text-decoration: none;
     }
@@ -79,18 +79,17 @@
     }
 
     /* ---------- HERO ---------- */
-.hero {
-  background-image: url('./487311528_1695956707981679_6857312795974471995_n.jpg');
-  background-size: cover;
-  background-position: center bottom;
-  filter: grayscale(100%);
-  border-radius: 20px;
-  margin: 0 auto 20px auto;
-  max-width: 1024px;
-  /* Supprime la hauteur fixe et ajoute l'aspect-ratio pour conserver le même rapport */
-  aspect-ratio: 1024 / 350;
-}
-
+    .hero {
+      background-image: url('./487311528_1695956707981679_6857312795974471995_n.jpg');
+      background-size: cover;
+      background-position: center bottom;
+      filter: grayscale(100%);
+      border-radius: 20px;
+      margin: 0 auto 20px;
+      max-width: 1024px;
+      aspect-ratio: 1024 / 350;
+      position: relative;
+    }
     .hero-text {
       position: absolute;
       top: 50%;
@@ -108,7 +107,7 @@
       padding: 2rem;
       border-radius: 20px;
       max-width: 1024px;
-      margin: 20px auto; /* Même espace que le hero */
+      margin: 20px auto;
       text-align: center;
       box-sizing: border-box;
     }
@@ -117,9 +116,9 @@
     .section {
       background: white;
       padding: 2rem;
-      border-radius: 20px; /* Blocs arrondis */
+      border-radius: 20px;
       text-align: center;
-      margin: 20px auto; /* Espace au-dessus et en-dessous identique */
+      margin: 20px auto;
       max-width: 1024px;
       box-sizing: border-box;
     }
@@ -132,7 +131,6 @@
       gap: 1rem;
       flex-wrap: wrap;
     }
-    /* Chaque carte ne contient désormais QUE l'image */
     .product-card {
       background: transparent;
       border: none;
@@ -147,7 +145,6 @@
       object-fit: cover;
       display: block;
     }
-    /* Bouton unique et centré */
     .preorder-single {
       background-color: white;
       color: black;
@@ -189,6 +186,11 @@
     .footer .left-footer img {
       width: 24px;
       height: 24px;
+    }
+    .footer .left-footer a,
+    .footer .left-footer a:visited {
+      color: black;
+      text-decoration: none;
     }
     .footer .right-footer {
       display: flex;
@@ -239,7 +241,6 @@
       .left-nav nav.open {
         display: flex;
       }
-      /* Sur mobile, la grille des produits passe en colonne */
       .products-grid {
         flex-direction: column;
         align-items: center;
@@ -247,46 +248,31 @@
       .product-card {
         width: 100%;
       }
-  .hero {
-    /* Occupe toute la largeur de l'écran, comme le header */
-    width: 100% !important;
-    /* Pas de max-width ici pour éviter tout débordement */
-    max-width: none !important;
-
-    /* Conserve un ratio proche de la version PC (≈ 2.93) */
-    aspect-ratio: 2.93 !important;
-
-    /* Gère l'espacement bas */
-    margin: 0 auto 20px auto !important;
-
-    /* Empêche tout débordement latéral ou vertical */
-    overflow: hidden !important;
-
-    /* Laissons background-size: cover pour respecter l'image */
-    background-size: cover !important;
-    background-position: center center !important;
-    border-radius: 20px !important;
-    position: relative !important; /* Assure que le hero-text se positionne correctement */
-    filter: grayscale(100%) !important;
-  }
-
-  .hero-text {
-    /* Ajuste la taille si besoin pour qu’il ne déborde pas */
-    font-size: 2rem !important;
-    text-align: center !important;
-    white-space: normal !important;
-
-    /* Maintien du centrage vertical */
-    position: absolute !important;
-    top: 50% !important;
-    left: 50% !important;
-    transform: translate(-50%, -50%) !important;
-
-    z-index: 2 !important;
-    width: 90% !important;    /* Pour éviter que le texte touche les bords */
-    margin: 0 auto !important;
-  }
-        }
+      .hero {
+        width: 100% !important;
+        max-width: none !important;
+        aspect-ratio: 2.93 !important;
+        margin: 0 auto 20px !important;
+        overflow: hidden !important;
+        background-size: cover !important;
+        background-position: center center !important;
+        border-radius: 20px !important;
+        position: relative !important;
+        filter: grayscale(100%) !important;
+      }
+      .hero-text {
+        font-size: 2rem !important;
+        text-align: center !important;
+        white-space: normal !important;
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        z-index: 2 !important;
+        width: 90% !important;
+        margin: 0 auto !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -338,26 +324,25 @@
           <img src="./5W9A4687 (1).jpg" alt="T-shirt oversize gris">
         </div>
       </div>
-     <a href="LeShop.html" style="text-decoration: none;">
-  <button class="preorder-single">Pré-commander</button>
-</a>
-
+      <a href="LeShop.html" style="text-decoration: none;">
+        <button class="preorder-single">Pré-commander</button>
+      </a>
     </section>
 
     <!-- FOOTER -->
-<div class="footer">
-  <div class="left-footer">
-    <a href="home.html" style="text-decoration: none; display: flex; align-items: center; gap: 0.5rem;">
-      <img src="./moulin-coeur-noir.png" alt="Logo">
-      <span>Old Mill Riders</span>
-    </a>
+    <div class="footer">
+      <div class="left-footer">
+        <a href="home.html" style="display: flex; align-items: center; gap: 0.5rem;">
+          <img src="./moulin-coeur-noir.png" alt="Logo">
+          <span>Old Mill Riders</span>
+        </a>
+      </div>
+      <div class="right-footer">
+        <a href="labande.html">La Bande</a>
+        <a href="LeShop.html">Le Shop</a>
+      </div>
+    </div>
   </div>
-  <div class="right-footer">
-    <a href="labande.html">La Bande</a>
-    <a href="LeShop.html">Le Shop</a>
-  </div>
-</div>
-
 
   <!-- Script burger -->
   <script>
