@@ -5,7 +5,7 @@
   <title>La Bande - Old Mill Riders</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="./moulin-coeur-noir.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet" />
   <style>
     /* ----------- Base & Réglages ----------- */
     body {
@@ -19,6 +19,7 @@
       margin: 0 auto;
       padding: 0 1rem;
     }
+
     /* ----------- HEADER (identique home) ----------- */
     header {
       background-color: #000;
@@ -102,7 +103,8 @@
       margin: 0 0 0.5rem; font-size: 1.4rem;
     }
     .team-card p.desc {
-      font-family: 'Patrick Hand', cursive;
+      /* repasse à Space Grotesk comme le reste */
+      font-family: 'Space Grotesk', sans-serif;
       font-size: 1rem; line-height: 1.6;
       margin: 0.5rem 0;
     }
@@ -136,12 +138,14 @@
 
     /* ----------- MEDIA QUERIES ---------- */
     @media (max-width: 768px) {
-      /* header / burger comme home */
       header { padding: 0.5rem 1rem; }
       .center-title {
-        position: static !important; transform: none !important;
-        font-size: 1.4rem !important; text-align: center !important;
-        width: 100% !important; margin: 0 auto !important;
+        position: static !important;
+        transform: none !important;
+        font-size: 1.4rem !important;
+        text-align: center !important;
+        width: 100% !important;
+        margin: 0 auto !important;
       }
       .left-nav a.logo { display: none; }
       .menu-toggle { display: block; }
@@ -152,12 +156,11 @@
         box-sizing: border-box; z-index: 10;
       }
       nav.open { display: flex; }
-      /* hero texte mobile = 2rem */
       .hero-text {
-        font-size: 2rem !important; text-align: center !important;
+        font-size: 2rem !important;
+        text-align: center !important;
         white-space: normal !important;
       }
-      /* équipe en colonne sur mobile */
       .team-card {
         flex-direction: column; align-items: center; gap: 1rem;
       }
@@ -228,15 +231,15 @@
           <div class="content">
             <h3>Matthieu</h3>
             <p class="desc">
-              Matthieu est motard depuis quelques années. Mais l’aventure des deux‑roues a vraiment commencé à 15 ans,  
-              une frontale vissée sur la tête, couché dans la grange familiale à tenter de remettre en route une vieille  
+              Matthieu est motard depuis quelques années. Mais l’aventure des deux‑roues a vraiment commencé à 15 ans,<br>
+              une frontale vissée sur la tête, couché dans la grange familiale à tenter de remettre en route une vieille<br>
               Vespa PK de 1987. Depuis ce jour‑là, la passion ne l’a jamais quitté.<br><br>
-              Actuellement, il a trois motos dans le garage : une Royal Enfield Interceptor 650 pour le plaisir  
-              des virées entre copains, une Yamaha Ténéré XT 600 Z pour bricoler et s’évader loin de l’asphalte,  
-              et une fidèle Honda 125 XLS pour les balades tranquilles dans les chemins. Chacune a son caractère,  
+              Actuellement, il a trois motos dans le garage : une Royal Enfield Interceptor 650 pour le plaisir<br>
+              des virées entre copains, une Yamaha Ténéré XT 600 Z pour bricoler et s’évader loin de l’asphalte,<br>
+              et une fidèle Honda 125 XLS pour les balades tranquilles dans les chemins. Chacune a son caractère,<br>
               son histoire, et sa place dans son quotidien de motard. Et la Vespa ? Toujours là, fidèle au poste !<br><br>
-              Ce qui lui plaît dans la moto, ce n’est pas la recherche de vitesse ou le rugissement du moteur,  
-              mais plutôt les routes sinueuses à perte de vue. C’est ce mode de vie à part, cette sensation  
+              Ce qui lui plaît dans la moto, ce n’est pas la recherche de vitesse ou le rugissement du moteur,<br>
+              mais plutôt les routes sinueuses à perte de vue. C’est ce mode de vie à part, cette sensation<br>
               de liberté totale, et surtout, la camaraderie entre passionnés.<br><br>
               C’est cet esprit‑là que l’on veut insuffler en créant Old Mill Riders.
             </p>
