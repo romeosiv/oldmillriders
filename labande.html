@@ -5,9 +5,9 @@
   <title>La Bande - Old Mill Riders</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/png" href="./moulin-coeur-noir.png" />
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Patrick+Hand&display=swap" rel="stylesheet" />
   <style>
-    /* ----------- Base & Réglages généraux ----------- */
+    /* ----------- Base & Réglages ----------- */
     body {
       font-family: 'Space Grotesk', sans-serif;
       background-color: #e5e5e5;
@@ -19,8 +19,7 @@
       margin: 0 auto;
       padding: 0 1rem;
     }
-
-    /* ---------- HEADER (identique à home) ---------- */
+    /* ----------- HEADER (identique home) ----------- */
     header {
       background-color: #000;
       color: white;
@@ -40,247 +39,147 @@
       gap: 1.5rem;
     }
     .center-title {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 1.8rem;
-      font-weight: bold;
-      white-space: nowrap;
+      position: absolute; left: 50%; transform: translateX(-50%);
+      font-size: 1.8rem; font-weight: bold; white-space: nowrap;
     }
-    .center-title a,
-    .center-title a:visited {
-      color: inherit;
-      text-decoration: none;
+    .center-title a, .center-title a:visited {
+      color: inherit; text-decoration: none;
     }
     nav {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
+      display: flex; align-items: center; gap: 1rem;
     }
     nav a {
-      color: white;
-      text-decoration: none;
-      font-size: 1rem;
+      color: white; text-decoration: none; font-size: 1rem;
     }
-    /* souligner le lien actif */
-    nav a.active {
-      text-decoration: underline;
-    }
+    nav a.active { text-decoration: underline; }
     .menu-toggle {
-      display: none;
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      color: white;
-      cursor: pointer;
+      display: none; background: none; border: none;
+      font-size: 1.5rem; color: white; cursor: pointer;
     }
-    .icon {
-      width: 24px;
-      height: 24px;
-    }
-    .insta-icon {
-      width: 16px;
-      height: 16px;
-    }
+    .icon { width: 24px; height: 24px; }
+    .insta-icon { width: 16px; height: 16px; }
 
-    /* ---------- HERO (desktop = 3rem) ---------- */
+    /* ----------- HERO (texte 3rem desktop) ----------- */
     .hero {
       background-image: url('./claree.JPEG');
-      background-size: cover;
-      background-position: center bottom;
-      filter: grayscale(100%);
-      border-radius: 20px;
-      margin: 0 auto 20px;
-      max-width: 1024px;
-      aspect-ratio: 1024 / 350;
-      position: relative;
+      background-size: cover; background-position: center bottom;
+      filter: grayscale(100%); border-radius: 20px;
+      margin: 0 auto 20px; max-width: 1024px;
+      aspect-ratio: 1024/350; position: relative;
     }
     .hero-text {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: white;
-      font-size: 3rem;
-      text-align: center;
+      position: absolute; top:50%; left:50%;
+      transform: translate(-50%,-50%);
+      color: white; font-size: 3rem; text-align: center;
     }
 
-    /* ----------- SECTION ÉQUIPE (carousel) ---------- */
+    /* ----------- ÉQUIPE (cartes côte-à-côte) ----------- */
     .team-section {
-      background: white;
-      padding: 2rem;
-      border-radius: 20px;
-      margin: 20px auto;
-      position: relative;
-      overflow: hidden;
-      box-sizing: border-box;
+      background: white; padding: 2rem; border-radius: 20px;
+      margin: 20px auto; box-sizing: border-box;
     }
     .team-section h2 {
-      text-align: center;
-      margin-bottom: 1rem;
+      text-align: center; margin-bottom: 1rem;
     }
     .team-section p.intro {
-      text-align: center;
-      margin-bottom: 2rem;
-      font-size: 1rem;
-      line-height: 1.5;
+      text-align: center; margin-bottom: 2rem;
+      font-size: 1rem; line-height: 1.5;
     }
-    .team-carousel {
-      display: flex;
-      flex-wrap: nowrap;
-      transition: transform 0.3s ease;
+    .team-grid {
+      display: flex; flex-direction: column; gap: 2rem;
     }
     .team-card {
-      flex: 0 0 100%;
-      box-sizing: border-box;
-      padding: 1rem;
-      text-align: center;
+      display: flex; align-items: flex-start; gap: 2rem;
     }
     .team-card img {
-      width: 100%;
-      height: auto;
-      border-radius: 12px;
-      object-fit: cover;
-      margin-bottom: 1rem;
+      width: 40%; max-width: 300px;
+      border-radius: 12px; object-fit: cover;
+    }
+    .team-card .content {
+      flex: 1;
     }
     .team-card h3 {
-      margin: 0.5rem 0 0.3rem;
-      font-size: 1.4rem;
+      margin: 0 0 0.5rem; font-size: 1.4rem;
     }
-    .team-card p {
-      font-size: 1rem;
-      line-height: 1.5;
+    .team-card p.desc {
+      font-family: 'Patrick Hand', cursive;
+      font-size: 1rem; line-height: 1.6;
       margin: 0.5rem 0;
     }
-    .carousel-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(0,0,0,0.5);
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 2.5rem;
-      height: 2.5rem;
-      cursor: pointer;
-      font-size: 1.5rem;
-      line-height: 2.5rem;
-      text-align: center;
-      z-index: 10;
-    }
-    .carousel-arrow.prev { left: 1rem; }
-    .carousel-arrow.next { right: 1rem; }
 
-    /* ---------- FOOTER (identique à home) ---------- */
+    /* ----------- FOOTER (identique home) ----------- */
     .footer {
-      background-color: #e5e5e5;
-      color: black;
-      padding: 20px 0;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      border-radius: 20px;
-      max-width: 1024px;
-      margin: 3rem auto 0;
-      box-sizing: border-box;
-      flex-wrap: wrap;
+      background-color: #e5e5e5; color: black;
+      padding: 20px 0; display: flex; align-items: center;
+      justify-content: flex-start; border-radius: 20px;
+      max-width: 1024px; margin: 3rem auto 0;
+      box-sizing: border-box; flex-wrap: wrap;
     }
     .footer .left-footer {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
+      display: flex; align-items: center; gap: 1rem;
       margin-left: 1rem;
     }
     .footer .left-footer img {
-      width: 24px;
-      height: 24px;
+      width: 24px; height: 24px;
     }
     .footer .left-footer a,
     .footer .left-footer a:visited {
-      color: black;
-      text-decoration: none;
+      color: black; text-decoration: none;
     }
     .footer .right-footer {
-      display: flex;
-      gap: 1.5rem;
-      margin-left: auto;
-      margin-right: 1rem;
+      display: flex; gap: 1.5rem;
+      margin-left: auto; margin-right: 1rem;
     }
     .footer .right-footer a {
-      text-decoration: none;
-      color: black;
-      font-size: 1rem;
+      text-decoration: none; color: black; font-size: 1rem;
     }
 
-    /* ---------- MEDIA QUERIES ---------- */
+    /* ----------- MEDIA QUERIES ---------- */
     @media (max-width: 768px) {
-      /* menu burger comme sur home */
+      /* header / burger comme home */
       header { padding: 0.5rem 1rem; }
       .center-title {
-        position: static !important;
-        transform: none !important;
-        font-size: 1.4rem !important;
-        text-align: center !important;
-        width: 100% !important;
-        margin: 0 auto !important;
+        position: static !important; transform: none !important;
+        font-size: 1.4rem !important; text-align: center !important;
+        width: 100% !important; margin: 0 auto !important;
       }
       .left-nav a.logo { display: none; }
       .menu-toggle { display: block; }
       nav {
-        display: none;
-        flex-direction: column;
-        gap: 1rem;
-        position: absolute;
-        top: 100%;
-        left: 0; right: 0;
-        padding: 1rem;
-        background-color: #000;
-        border-radius: 20px;
-        box-sizing: border-box;
-        z-index: 10;
+        display: none; flex-direction: column; gap: 1rem;
+        position: absolute; top:100%; left:0; right:0;
+        padding: 1rem; background: #000; border-radius: 20px;
+        box-sizing: border-box; z-index: 10;
       }
       nav.open { display: flex; }
-
-      /* Hero mobile = 2rem texte + mêmes réglages que home */
-      .hero {
-        width: 100% !important;
-        max-width: none !important;
-        aspect-ratio: 2.93 !important;
-        margin: 0 auto 20px !important;
-        overflow: hidden !important;
-        background-size: cover !important;
-        background-position: center center !important;
-        border-radius: 20px !important;
-        position: relative !important;
-        filter: grayscale(100%) !important;
-      }
+      /* hero texte mobile = 2rem */
       .hero-text {
-        font-size: 2rem !important;
-        text-align: center !important;
+        font-size: 2rem !important; text-align: center !important;
         white-space: normal !important;
-        position: absolute !important;
-        top: 50% !important;
-        left: 50% !important;
-        transform: translate(-50%, -50%) !important;
-        z-index: 2 !important;
-        width: 90% !important;
-        margin: 0 auto !important;
       }
-
-      /* pas de flèches sur mobile */
-      .carousel-arrow { display: none; }
+      /* équipe en colonne sur mobile */
+      .team-card {
+        flex-direction: column; align-items: center; gap: 1rem;
+      }
+      .team-card img {
+        width: 100%; max-width: none;
+      }
+      .team-card .content {
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
+
     <!-- HEADER -->
     <header>
       <div class="left-nav">
         <a href="home.html" class="logo">
           <img src="./moulin-coeur-blanc.png" class="icon" alt="Logo">
         </a>
-        <button class="menu-toggle" aria-label="Ouvrir le menu">☰</button>
+        <button class="menu-toggle" aria-label="Menu">☰</button>
         <nav>
           <a href="labande.html" class="active">La Bande</a>
           <a href="LeShop.html">Le Shop</a>
@@ -291,7 +190,8 @@
       </div>
       <div class="right-nav">
         <a href="https://www.instagram.com/old_mill_riders/" target="_blank">
-          <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png" class="insta-icon" alt="Instagram">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png"
+               class="insta-icon" alt="Instagram">
         </a>
       </div>
     </header>
@@ -305,24 +205,44 @@
     <section class="team-section">
       <h2>La Bande</h2>
       <p class="intro">
-        La bande Old Mill Riders, c’est avant tout un groupe de passionnés de moto réunis pour partager aventures, conseils et bons moments sur les routes.
+        La bande Old Mill Riders, c’est avant tout un groupe de passionnés de moto réunis pour partager aventures,
+        conseils et bons moments sur les routes.
       </p>
+      <div class="team-grid">
 
-      <button class="carousel-arrow prev">&#8249;</button>
-      <button class="carousel-arrow next">&#8250;</button>
-
-      <div class="team-carousel" id="carousel">
+        <!-- Roméo -->
         <div class="team-card">
           <img src="./IMG_7423.JPEG" alt="Roméo">
-          <h3>Roméo</h3>
-          <p>Fondateur et pilote intrépide, toujours prêt à explorer de nouvelles routes.</p>
+          <div class="content">
+            <h3>Roméo</h3>
+            <p class="desc">
+              Roméo est le fondateur et pilote intrépide du groupe. Toujours curieux de découvrir de nouvelles routes,
+              il organise nos balades et guide la troupe avec enthousiasme et bienveillance.
+            </p>
+          </div>
         </div>
+
+        <!-- Matthieu -->
         <div class="team-card">
           <img src="./matthieu.jpg" alt="Matthieu">
-          <h3>Matthieu</h3>
-          <p>Le mécano du groupe, expert pour régler tous les soucis techniques.</p>
+          <div class="content">
+            <h3>Matthieu</h3>
+            <p class="desc">
+              Matthieu est motard depuis quelques années. Mais l’aventure des deux‑roues a vraiment commencé à 15 ans,  
+              une frontale vissée sur la tête, couché dans la grange familiale à tenter de remettre en route une vieille  
+              Vespa PK de 1987. Depuis ce jour‑là, la passion ne l’a jamais quitté.<br><br>
+              Actuellement, il a trois motos dans le garage : une Royal Enfield Interceptor 650 pour le plaisir  
+              des virées entre copains, une Yamaha Ténéré XT 600 Z pour bricoler et s’évader loin de l’asphalte,  
+              et une fidèle Honda 125 XLS pour les balades tranquilles dans les chemins. Chacune a son caractère,  
+              son histoire, et sa place dans son quotidien de motard. Et la Vespa ? Toujours là, fidèle au poste !<br><br>
+              Ce qui lui plaît dans la moto, ce n’est pas la recherche de vitesse ou le rugissement du moteur,  
+              mais plutôt les routes sinueuses à perte de vue. C’est ce mode de vie à part, cette sensation  
+              de liberté totale, et surtout, la camaraderie entre passionnés.<br><br>
+              C’est cet esprit‑là que l’on veut insuffler en créant Old Mill Riders.
+            </p>
+          </div>
         </div>
-        <!-- Ajoute ici d'autres .team-card si besoin -->
+
       </div>
     </section>
 
@@ -341,44 +261,12 @@
     </div>
   </div>
 
-  <!-- Script carousel & menu burger -->
+  <!-- Script menu burger -->
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // menu burger
-      const menuToggle = document.querySelector('.menu-toggle');
-      const navMenu = document.querySelector('nav');
-      menuToggle.addEventListener('click', () => {
-        navMenu.classList.toggle('open');
-      });
-
-      // carousel swipe & flèches
-      const carousel = document.getElementById('carousel');
-      const prevBtn = document.querySelector('.carousel-arrow.prev');
-      const nextBtn = document.querySelector('.carousel-arrow.next');
-      const cards = carousel.children;
-      let index = 0;
-
-      function update() {
-        carousel.style.transform = `translateX(-${100 * index}%)`;
-      }
-      prevBtn.addEventListener('click', () => {
-        if (index > 0) index--;
-        update();
-      });
-      nextBtn.addEventListener('click', () => {
-        if (index < cards.length - 1) index++;
-        update();
-      });
-      // swipe tactile
-      let startX = 0, deltaX = 0;
-      carousel.addEventListener('touchstart', e => startX = e.touches[0].clientX);
-      carousel.addEventListener('touchmove', e => deltaX = e.touches[0].clientX - startX);
-      carousel.addEventListener('touchend', () => {
-        if (deltaX > 50 && index > 0) index--;
-        else if (deltaX < -50 && index < cards.length - 1) index++;
-        update();
-        deltaX = 0;
-      });
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggle = document.querySelector('.menu-toggle');
+      const nav = document.querySelector('nav');
+      toggle.addEventListener('click', () => nav.classList.toggle('open'));
     });
   </script>
 </body>
