@@ -88,26 +88,33 @@
       color: white;
       cursor: pointer;
     }
-    .icon {
-      width: 24px;
-      height: 24px;
-    }
-    .insta-icon {
-      width: 16px;
-      height: 16px;
-    }
+    .icon { width: 24px; height: 24px; }
+    .insta-icon { width: 16px; height: 16px; }
 
     /* ---------- HERO ---------- */
     .hero {
-      background-image: url('./487311528_1695956707981679_6857312795974471995_n.jpg');
+      /* desktop par défaut */
+      background-image: image-set(
+        url('./hero-desktop.jpg') 1x,
+        url('./hero-desktop@2x.jpg') 2x
+      );
       background-size: cover;
-      background-position: center bottom;
+      background-position: center center;
       filter: grayscale(100%);
       border-radius: 20px;
       margin: 0 auto 20px;
       max-width: 1024px;
       aspect-ratio: 1024 / 350;
       position: relative;
+    }
+    @media (max-width: 768px) {
+      .hero {
+        /* mobile sous 768px */
+        background-image: image-set(
+          url('./hero-mobile.jpg') 1x,
+          url('./hero-mobile@2x.jpg') 2x
+        );
+      }
     }
     .hero-text {
       position: absolute;
