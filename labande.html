@@ -20,7 +20,7 @@
       padding: 0 1rem;
     }
 
-    /* ----------- HEADER (identique home) ----------- */
+    /* ---------- HEADER (identique home) ---------- */
     header {
       background-color: #000;
       color: white;
@@ -46,13 +46,34 @@
     .center-title a, .center-title a:visited {
       color: inherit; text-decoration: none;
     }
+
+    /* Nav links underline on hover */
     nav {
       display: flex; align-items: center; gap: 1rem;
     }
     nav a {
-      color: white; text-decoration: none; font-size: 1rem;
+      position: relative;
+      color: white;
+      text-decoration: none;
+      font-size: 1rem;
+      padding-bottom: 4px;
     }
-    nav a.active { text-decoration: underline; }
+    /* pseudo-élément pour l’underline */
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0; bottom: 0;
+      width: 0;
+      height: 2px;
+      background: white;
+      transition: width 0.3s ease;
+    }
+    /* au hover (et actif) on étend l’underline */
+    nav a:hover::after,
+    nav a.active::after {
+      width: 100%;
+    }
+
     .menu-toggle {
       display: none; background: none; border: none;
       font-size: 1.5rem; color: white; cursor: pointer;
@@ -60,7 +81,7 @@
     .icon { width: 24px; height: 24px; }
     .insta-icon { width: 16px; height: 16px; }
 
-    /* ----------- HERO (texte 3rem desktop) ----------- */
+    /* ---------- HERO (texte 3rem desktop) ---------- */
     .hero {
       background-image: url('./claree.JPEG');
       background-size: cover; background-position: center bottom;
@@ -103,7 +124,6 @@
       margin: 0 0 0.5rem; font-size: 1.4rem;
     }
     .team-card p.desc {
-      /* repasse à Space Grotesk comme le reste */
       font-family: 'Space Grotesk', sans-serif;
       font-size: 1rem; line-height: 1.6;
       margin: 0.5rem 0;
@@ -124,8 +144,7 @@
     .footer .left-footer img {
       width: 24px; height: 24px;
     }
-    .footer .left-footer a,
-    .footer .left-footer a:visited {
+    .footer .left-footer a, .footer .left-footer a:visited {
       color: black; text-decoration: none;
     }
     .footer .right-footer {
@@ -140,12 +159,9 @@
     @media (max-width: 768px) {
       header { padding: 0.5rem 1rem; }
       .center-title {
-        position: static !important;
-        transform: none !important;
-        font-size: 1.4rem !important;
-        text-align: center !important;
-        width: 100% !important;
-        margin: 0 auto !important;
+        position: static !important; transform: none !important;
+        font-size: 1.4rem !important; text-align: center !important;
+        width: 100% !important; margin: 0 auto !important;
       }
       .left-nav a.logo { display: none; }
       .menu-toggle { display: block; }
@@ -157,8 +173,7 @@
       }
       nav.open { display: flex; }
       .hero-text {
-        font-size: 2rem !important;
-        text-align: center !important;
+        font-size: 2rem !important; text-align: center !important;
         white-space: normal !important;
       }
       .team-card {
