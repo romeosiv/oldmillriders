@@ -56,19 +56,17 @@
       color: white;
       text-decoration: none;
       font-size: 1rem;
-      padding-bottom: 2px;
+      padding-bottom: 0; /* plus de padding-bottom */
     }
-    /* pseudo-élément pour l’underline */
     nav a::after {
       content: "";
       position: absolute;
-      left: 0; bottom: 0;
+      left: 0; bottom: -2px; /* collé sous le texte */
       width: 0;
-      height: 1px;
+      height: 1px;           /* trait fin */
       background: white;
       transition: width 0.3s ease;
     }
-    /* au hover (et actif) on étend l’underline */
     nav a:hover::after,
     nav a.active::after {
       width: 100%;
@@ -129,7 +127,7 @@
       margin: 0.5rem 0;
     }
 
-    /* ----------- FOOTER (identique home) ----------- */
+    /* ----------- FOOTER (identique home) ---------- */
     .footer {
       background-color: #e5e5e5; color: black;
       padding: 20px 0; display: flex; align-items: center;
