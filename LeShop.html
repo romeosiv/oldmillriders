@@ -20,7 +20,7 @@
       padding: 0 1rem;
     }
 
-    /* ----------- Header ----------- */
+    /* ----------- Header ---------- */
     header {
       background-color: #000;
       color: white;
@@ -51,19 +51,35 @@
       color: inherit;
       text-decoration: none;
     }
+
+    /* Nav links underline on hover */
     nav {
       display: flex;
       align-items: center;
       gap: 1rem;
     }
     nav a {
+      position: relative;
       color: white;
       text-decoration: none;
       font-size: 1rem;
+      padding-bottom: 0;
     }
-    nav a.active {
-      text-decoration: underline;
+    nav a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      width: 0;
+      height: 1px;
+      background: white;
+      transition: width 0.3s ease;
     }
+    nav a:hover::after,
+    nav a.active::after {
+      width: 100%;
+    }
+
     .menu-toggle {
       display: none;
       background: none;
@@ -81,7 +97,7 @@
       height: 16px;
     }
 
-    /* ----------- Contenu Page T-shirt ----------- */
+    /* ----------- Contenu Page T-shirt ---------- */
     .product-section {
       display: flex;
       flex-direction: row;
@@ -157,7 +173,7 @@
       padding: 2rem;
     }
 
-    /* ----------- FOOTER ----------- */
+    /* ----------- FOOTER ---------- */
     .footer {
       background-color: #e5e5e5;
       color: black;
@@ -266,7 +282,7 @@
       <div class="center-title">
         <a href="home.html">Old Mill Riders</a>
       </div>
-      <div class="right-nav">
+      <div class="right-nav">  
         <a href="https://www.instagram.com/old_mill_riders/" target="_blank">
           <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png" class="insta-icon" alt="Instagram">
         </a>
@@ -293,7 +309,7 @@
           Le premier T-Shirt Old Mill Riders réalisé en collaboration avec Cindy, graphiste lyonnaise à Cin&quanon !<br>
           Disponible en noir, bordeaux ou vert sapin.<br>
           Tee-shirt épais en coton 100% biologique à manches courtes et col rond. Grammage 215g/m2.<br>
-          Imprimé en France. <br>
+          Imprimé en France.
         </div>
         <div class="sizes">
           Tailles disponibles : XS, S, M, L, XL, 2XL
