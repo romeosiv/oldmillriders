@@ -139,7 +139,8 @@
       font-size: 2rem;
       font-weight: bold;
       margin: 20px auto;
-      max-width: 400px;
+      max-width: 1024px;
+      box-sizing: border-box;
     }
 
     /* ---------- SECTION PRODUITS ---------- */
@@ -279,17 +280,10 @@
       .left-nav a.logo { display: none; }
       .menu-toggle { display: block; }
       nav {
-        display: none;
-        flex-direction: column;
-        gap: 1rem;
-        position: absolute;
-        top: 100%;
-        left: 0; right: 0;
-        padding: 1rem;
-        background-color: #000;
-        border-radius: 20px;
-        box-sizing: border-box;
-        z-index: 10;
+        display: none; flex-direction: column; gap: 1rem;
+        position: absolute; top:100%; left:0; right:0;
+        padding:1rem; background:#000; border-radius:20px;
+        box-sizing:border-box; z-index:10;
       }
       nav.open { display: flex; }
       .product-section {
@@ -325,8 +319,7 @@
       </div>
       <div class="right-nav">
         <a href="https://www.instagram.com/old_mill_riders/" target="_blank">
-          <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png"
-               class="insta-icon" alt="Instagram">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png" class="insta-icon" alt="Instagram">
         </a>
       </div>
     </header>
@@ -340,7 +333,6 @@
     <div class="title-block">T‑shirt</div>
 
     <!-- SECTION PRODUITS -->
-    <h1 style="text-align:center; margin:0;">Old Mill Riders</h1>
     <div class="product-section">
       <div class="image-block">
         <img id="main-image" src="./5W9A4780-HDR.jpg" class="carousel-main" alt="T-shirt Old Mill">
@@ -396,7 +388,7 @@
       const nav   = document.querySelector('nav');
       toggle.addEventListener('click', () => nav.classList.toggle('open'));
     });
-    // Carousel
+    // Carousel thumbnails
     function showImage(src, el) {
       document.getElementById('main-image').src = src;
       document.querySelectorAll('.thumbnails img')
