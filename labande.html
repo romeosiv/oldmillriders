@@ -39,25 +39,23 @@
       align-items: center;
       gap: 1.5rem;
     }
-        .right-nav a {
-    display: flex;
-    align-items: center;
-    }
-    .insta-icon {
-    display: block;       /* pour que vertical-align fonctionne */
-    vertical-align: middle;
-    }
     .center-title {
-      position: absolute; left: 50%; transform: translateX(-50%);
-      font-size: 1.8rem; font-weight: bold; white-space: nowrap;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.8rem;
+      font-weight: bold;
+      white-space: nowrap;
     }
-    .center-title a, .center-title a:visited {
-      color: inherit; text-decoration: none;
+    .center-title a,
+    .center-title a:visited {
+      color: inherit;
+      text-decoration: none;
     }
-
-    /* Nav links underline on hover */
     nav {
-      display: flex; align-items: center; gap: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
     }
     nav a {
       position: relative;
@@ -68,8 +66,10 @@
     nav a::after {
       content: "";
       position: absolute;
-      left: 0; bottom: -2px;
-      width: 0; height: 1px;
+      left: 0;
+      bottom: -2px;
+      width: 0;
+      height: 1px;
       background: white;
       transition: width 0.3s ease;
     }
@@ -77,20 +77,29 @@
     nav a.active::after {
       width: 100%;
     }
-
     .menu-toggle {
-      display: none; background: none; border: none;
-      font-size: 1.5rem; color: white; cursor: pointer;
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      color: white;
+      cursor: pointer;
     }
     .icon { width: 24px; height: 24px; }
-    .insta-icon { width: 16px; height: 16px; }
+    .insta-icon {
+      width: 16px;
+      height: 16px;
+      display: block;
+      vertical-align: middle;
+    }
+    .right-nav a {
+      display: flex;
+      align-items: center;
+    }
 
     /* ---------- HERO ---------- */
     .hero {
-      background-image: image-set(
-        url('./claree-desktop.jpg') 1x,
-        url('./claree-desktop@2x.jpg') 2x
-      );
+      background-image: url('./claree-desktop.jpg');
       background-size: cover;
       background-position: center bottom;
       filter: grayscale(100%);
@@ -102,106 +111,158 @@
     }
     @media (max-width: 768px) {
       .hero {
-        background-image: image-set(
-          url('./claree-mobile.jpg') 1x,
-          url('./claree-mobile@2x.jpg') 2x
-        );
+        background-image: url('./claree-mobile.jpg');
       }
     }
     .hero-text {
-      position: absolute; top: 50%; left: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
       transform: translate(-50%, -50%);
-      color: white; font-size: 3rem; text-align: center;
+      color: white;
+      font-size: 3rem;
+      text-align: center;
     }
 
-    /* ----------- ÉQUIPE (cartes côte-à-côte) ----------- */
+    /* ---------- ABOUT BLOCK NOIR ---------- */
+    .about-block--dark {
+      background-color: #000;
+      color: #fff;
+      padding: 2rem;
+      border-radius: 20px;
+      max-width: 1024px;
+      margin: 20px auto;
+      text-align: center;
+      box-sizing: border-box;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    /* ---------- SECTION ÉQUIPE ---------- */
     .team-section {
-      background: white; padding: 2rem; border-radius: 20px;
-      margin: 20px auto; box-sizing: border-box;
+      background: white;
+      padding: 2rem;
+      border-radius: 20px;
+      margin: 20px auto;
+      box-sizing: border-box;
     }
     .team-section h2 {
-      text-align: center; margin-bottom: 1rem;
-    }
-    .team-section p.intro {
-      text-align: center; margin-bottom: 2rem;
-      font-size: 1rem; line-height: 1.5;
+      text-align: center;
+      margin-bottom: 1rem;
     }
     .team-grid {
-      display: flex; flex-direction: column; gap: 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      justify-content: center;
     }
     .team-card {
-      display: flex; align-items: flex-start; gap: 2rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 2rem;
+      width: calc(50% - 1rem);
+      box-sizing: border-box;
     }
     .team-card img {
-      width: 40%; max-width: 300px;
-      border-radius: 12px; object-fit: cover;
+      width: 40%;
+      max-width: 300px;
+      border-radius: 12px;
+      object-fit: cover;
     }
     .team-card .content {
       flex: 1;
     }
     .team-card h3 {
-      margin: 0 0 0.5rem; font-size: 1.4rem;
+      margin: 0 0 0.5rem;
+      font-size: 1.4rem;
     }
     .team-card p.desc {
-      font-family: 'Space Grotesk', sans-serif;
-      font-size: 1rem; line-height: 1.6;
+      font-size: 1rem;
+      line-height: 1.6;
       margin: 0.5rem 0;
     }
 
-    /* ----------- FOOTER (identique home) ---------- */
+    /* ---------- FOOTER (identique home) ---------- */
     .footer {
-      background-color: #e5e5e5; color: black;
-      padding: 20px 0; display: flex; align-items: center;
-      justify-content: flex-start; border-radius: 20px;
-      max-width: 1024px; margin: 3rem auto 0;
-      box-sizing: border-box; flex-wrap: wrap;
+      background-color: #e5e5e5;
+      color: black;
+      padding: 20px 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      border-radius: 20px;
+      max-width: 1024px;
+      margin: 3rem auto 0;
+      box-sizing: border-box;
+      flex-wrap: wrap;
     }
     .footer .left-footer {
-      display: flex; align-items: center; gap: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
       margin-left: 1rem;
     }
     .footer .left-footer img {
-      width: 24px; height: 24px;
+      width: 24px;
+      height: 24px;
     }
-    .footer .left-footer a, .footer .left-footer a:visited {
-      color: black; text-decoration: none;
+    .footer .left-footer a,
+    .footer .left-footer a:visited {
+      color: black;
+      text-decoration: none;
     }
     .footer .right-footer {
-      display: flex; gap: 1.5rem;
-      margin-left: auto; margin-right: 1rem;
+      display: flex;
+      gap: 1.5rem;
+      margin-left: auto;
+      margin-right: 1rem;
     }
     .footer .right-footer a {
-      text-decoration: none; color: black; font-size: 1rem;
+      text-decoration: none;
+      color: black;
+      font-size: 1rem;
     }
 
-    /* ----------- MEDIA QUERIES ---------- */
+    /* ---------- MEDIA QUERIES ---------- */
     @media (max-width: 768px) {
       header { padding: 0.5rem 1rem; }
       .center-title {
-        position: static !important; transform: none !important;
-        font-size: 1.4rem !important; text-align: center !important;
-        width: 100% !important; margin: 0 auto !important;
+        position: static !important;
+        transform: none !important;
+        font-size: 1.4rem !important;
+        text-align: center !important;
+        width: 100% !important;
+        margin: 0 auto !important;
       }
       .left-nav a.logo { display: none; }
       .menu-toggle { display: block; }
       nav {
-        display: none; flex-direction: column; gap: 1rem;
-        position: absolute; top:100%; left:0; right:0;
-        padding: 1rem; background: #000; border-radius: 20px;
-        box-sizing: border-box; z-index: 10;
+        display: none;
+        flex-direction: column;
+        gap: 1rem;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        padding: 1rem;
+        background-color: #000;
+        border-radius: 20px;
+        box-sizing: border-box;
+        z-index: 10;
       }
       nav.open { display: flex; }
-
       .hero-text {
-        font-size: 2rem !important; text-align: center !important;
-        white-space: normal !important;
+        font-size: 2rem !important;
       }
-
       .team-card {
-        flex-direction: column; align-items: center; gap: 1rem;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        width: 100%;
       }
       .team-card img {
-        width: 100%; max-width: none;
+        width: 100%;
+        max-width: none;
       }
       .team-card .content {
         width: 100%;
@@ -229,7 +290,8 @@
       </div>
       <div class="right-nav">
         <a href="https://www.instagram.com/old_mill_riders/" target="_blank">
-          <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png" class="insta-icon" alt="Instagram">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png"
+               class="insta-icon" alt="Instagram">
         </a>
       </div>
     </header>
@@ -239,69 +301,71 @@
       <div class="hero-text">Rencontrez la Bande</div>
     </div>
 
+    <!-- SECTION NOIRE (nouvelle) -->
+    <div class="about-block--dark">
+      La bande Old Mill Riders, c’est avant tout un groupe de passionnés de moto réunis pour partager aventures,<br>
+      conseils et bons moments sur les routes.
+    </div>
+
     <!-- SECTION ÉQUIPE -->
     <section class="team-section">
       <h2>La Bande</h2>
-      <p class="intro">
-        La bande Old Mill Riders, c’est avant tout un groupe de passionnés de moto réunis pour partager aventures,
-        conseils et bons moments sur les routes.
-      </p>
       <div class="team-grid">
-
         <!-- Roméo -->
         <div class="team-card">
-          <img src="./romeo.JPEG" alt="Roméo">
+          <img src="./IMG_7423.JPEG" alt="Roméo">
           <div class="content">
             <h3>Roméo</h3>
             <p class="desc">
-            La moto il est tombé dedans le jour où son père avait décidé de s'y remettre a la fin des années 2010 il rachète une xj6 diversion de 94 couleur cerise qu'il a toujours, increvable.<br><br>
-            Roméo se décide à passer le permis et achète un sv650s de 2008, cerise lui aussi.. Il faisait plus de bruit qu'il n'avançait avec son pot gp mais les premières sensations sont là, les premiers voyages aussi.<br><br> 
-            D'abord la Corse, puis la Bretagne. Suivront les motos et les voyages, honda cb1100 et la route des grandes alpes ; Triumph street triple et la dordogne. La tente, quelques affaires, des routes et des rencontres.
-            Une rencontre lors d'une sortie moto organisé par notre Bar préféré le Kargo Kulte et une rencontre marquante avec Matthieu il y a quelques années.<br><br>
-            Ca y est, l'aventure était lancé, Old mill riders était né.
+              Roméo est le fondateur et pilote intrépide du groupe. Toujours curieux de découvrir de nouvelles routes,
+              il organise nos balades et guide la troupe avec enthousiasme et bienveillance.
             </p>
           </div>
         </div>
-
         <!-- Matthieu -->
         <div class="team-card">
           <img src="./matthieu.jpg" alt="Matthieu">
           <div class="content">
             <h3>Matthieu</h3>
             <p class="desc">
-              Matthieu est motard depuis quelques années. Mais l’aventure des deux‑roues a vraiment commencé à 15 ans, une frontale vissée sur la tête, couché dans la grange familiale à tenter de remettre en route une vieille<br>
+              Matthieu est motard depuis quelques années. Mais l’aventure des deux‑roues a vraiment commencé à 15 ans,
+              une frontale vissée sur la tête, couché dans la grange familiale à tenter de remettre en route une vieille
               Vespa PK de 1987. Depuis ce jour‑là, la passion ne l’a jamais quitté.<br><br>
-              Actuellement, il a trois motos dans le garage : une Royal Enfield Interceptor 650 pour le plaisir des virées entre copains, une Yamaha Ténéré XT 600 Z pour bricoler et s’évader loin de l’asphalte,<br>
-              et une fidèle Honda 125 XLS pour les balades tranquilles dans les chemins. Chacune a son caractère, son histoire, et sa place dans son quotidien de motard. Et la Vespa ? Toujours là, fidèle au poste !<br><br>
-              Ce qui lui plaît dans la moto, ce n’est pas la recherche de vitesse ou le rugissement du moteur, mais plutôt les routes sinueuses à perte de vue. C’est ce mode de vie à part, cette sensation de liberté totale, et surtout, la camaraderie entre passionnés.<br><br>
+              Actuellement, il a trois motos dans le garage : une Royal Enfield Interceptor 650 pour le plaisir
+              des virées entre copains, une Yamaha Ténéré XT 600 Z pour bricoler et s’évader loin de l’asphalte,
+              et une fidèle Honda 125 XLS pour les balades tranquilles dans les chemins. Chacune a son caractère,
+              son histoire, et sa place dans son quotidien de motard. Et la Vespa ? Toujours là, fidèle au poste !<br><br>
+              Ce qui lui plaît dans la moto, ce n’est pas la recherche de vitesse ou le rugissement du moteur,
+              mais plutôt les routes sinueuses à perte de vue. C’est ce mode de vie à part, cette sensation
+              de liberté totale, et surtout, la camaraderie entre passionnés.<br><br>
               C’est cet esprit‑là que l’on veut insuffler en créant Old Mill Riders.
             </p>
           </div>
         </div>
-
       </div>
     </section>
 
     <!-- FOOTER -->
     <div class="footer">
       <div class="left-footer">
-        <a href="home.html" style="display: flex; align-items: center; gap: 0.5rem;">
+        <a href="home.html" style="display:flex;align-items:center;gap:0.5rem;">
           <img src="./moulin-coeur-noir.png" alt="Logo">
-          <span>Old Mill Riders</span>
+          <span>Old Mill Riders</span>
         </a>
       </div>
       <div class="right-footer">
-        <a href="labande.html">La Bande</a>
-        <a href="LeShop.html">Le Shop</a>
+        <a href="labande.html">La Bande</a>
+        <a href="LeShop.html">Le Shop</a>
       </div>
     </div>
+
   </div>
 
-  <!-- Script menu burger -->
   <script>
+    // Menu burger
     document.addEventListener('DOMContentLoaded', () => {
       const toggle = document.querySelector('.menu-toggle');
-      const nav = document.querySelector('nav');
+      const nav   = document.querySelector('nav');
       toggle.addEventListener('click', () => nav.classList.toggle('open'));
     });
   </script>
