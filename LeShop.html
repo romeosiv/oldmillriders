@@ -129,18 +129,25 @@
       text-align: center;
     }
 
-    /* ---------- TITRE “T‑shirt” ENCADRÉ ---------- */
-    .title-block {
+    /* ---------- BLOC PHILOSOPHIE (comme "about-block" sur home) ---------- */
+    .about-block {
       background-color: #000;
       color: white;
+      padding: 2rem;
       border-radius: 20px;
-      padding: 1rem 2rem;
+      margin: 20px auto;
       text-align: center;
+      box-sizing: border-box;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+
+    /* ---------- SECTION TITRE (hors cadre) ---------- */
+    .plain-title {
       font-size: 2rem;
       font-weight: bold;
-      margin: 20px auto;
-      max-width: 1024px;
-      box-sizing: border-box;
+      text-align: center;
+      margin: 20px 0 1rem;
     }
 
     /* ---------- SECTION PRODUITS ---------- */
@@ -148,7 +155,7 @@
       display: flex;
       flex-wrap: wrap;
       gap: 2rem;
-      margin-top: 2rem;
+      margin-top: 1rem;
       background: white;
       padding: 2rem;
       border-radius: 20px;
@@ -286,16 +293,12 @@
         box-sizing:border-box; z-index:10;
       }
       nav.open { display: flex; }
-      .product-section {
-        flex-direction: column;
-      }
+      .about-block { font-size: 0.9rem; }
+      .hero-text { font-size: 2rem !important; }
+      .plain-title { font-size: 1.5rem; }
+      .product-section { flex-direction: column; }
       .image-block,
-      .info-block {
-        width: 100%;
-      }
-      .hero-text {
-        font-size: 2rem !important;
-      }
+      .info-block { width: 100%; }
     }
   </style>
 </head>
@@ -319,7 +322,8 @@
       </div>
       <div class="right-nav">
         <a href="https://www.instagram.com/old_mill_riders/" target="_blank">
-          <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png" class="insta-icon" alt="Instagram">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png"
+               class="insta-icon" alt="Instagram">
         </a>
       </div>
     </header>
@@ -329,8 +333,16 @@
       <div class="hero-text">Portez l’aventure</div>
     </div>
 
-    <!-- TITRE ENCADRÉ -->
-    <div class="title-block">T‑shirt</div>
+    <!-- BLOC PHILOSOPHIE -->
+    <div class="about-block">
+      Chez Old Mill Riders, chaque virage est l’opportunité de redécouvrir la route et soi-même.  
+      Nous croyons que la moto n’est pas qu’un engin mécanique, mais un vecteur de liberté, de partage et  
+      d’émotions intenses. Qu’il pleuve ou qu’il fasse grand soleil, c’est l’esprit de camaraderie et  
+      l’amour de l’instant présent qui nous guident. Bienvenue dans notre aventure à deux-roues !
+    </div>
+
+    <!-- TITRE “T-shirt” HORS CADRE NOIR -->
+    <div class="plain-title">T‑shirt</div>
 
     <!-- SECTION PRODUITS -->
     <div class="product-section">
