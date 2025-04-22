@@ -20,7 +20,7 @@
       padding: 0 1rem;
     }
 
-    /* ----------- Header ---------- */
+    /* ----------- HEADER ---------- */
     header {
       background-color: #000;
       color: white;
@@ -47,7 +47,8 @@
       font-weight: bold;
       white-space: nowrap;
     }
-    .center-title a {
+    .center-title a,
+    .center-title a:visited {
       color: inherit;
       text-decoration: none;
     }
@@ -63,7 +64,6 @@
       color: white;
       text-decoration: none;
       font-size: 1rem;
-      padding-bottom: 0;
     }
     nav a::after {
       content: "";
@@ -88,13 +88,40 @@
       color: white;
       cursor: pointer;
     }
-    .icon {
-      width: 24px;
-      height: 24px;
+    .icon { width: 24px; height: 24px; }
+    .insta-icon { width: 16px; height: 16px; }
+
+    /* ----------- HERO (référence Home/Bande) ---------- */
+    .hero {
+      background-image: image-set(
+        url('./claree-desktop.jpg') 1x,
+        url('./claree-desktop@2x.jpg') 2x
+      );
+      background-size: cover;
+      background-position: center bottom;
+      filter: grayscale(100%);
+      border-radius: 20px;
+      margin: 0 auto 20px;
+      max-width: 1024px;
+      aspect-ratio: 1024/350;
+      position: relative;
     }
-    .insta-icon {
-      width: 16px;
-      height: 16px;
+    @media (max-width: 768px) {
+      .hero {
+        background-image: image-set(
+          url('./claree-mobile.jpg') 1x,
+          url('./claree-mobile@2x.jpg') 2x
+        );
+      }
+    }
+    .hero-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 3rem;
+      text-align: center;
     }
 
     /* ----------- Contenu Page T-shirt ---------- */
@@ -215,7 +242,7 @@
       font-size: 1rem;
     }
 
-    /* ----------- Media Queries ----------- */
+    /* ----------- Media Queries ---------- */
     @media (max-width: 768px) {
       header {
         padding: 0.5rem 1rem;
@@ -262,6 +289,18 @@
         width: 100%;
         flex: 1 1 auto;
       }
+      .hero-text {
+        font-size: 2rem !important;
+        text-align: center !important;
+        white-space: normal !important;
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        z-index: 2 !important;
+        width: 90% !important;
+        margin: 0 auto !important;
+      }
     }
   </style>
 </head>
@@ -282,16 +321,20 @@
       <div class="center-title">
         <a href="home.html">Old Mill Riders</a>
       </div>
-      <div class="right-nav">  
+      <div class="right-nav">
         <a href="https://www.instagram.com/old_mill_riders/" target="_blank">
           <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png" class="insta-icon" alt="Instagram">
         </a>
       </div>
     </header>
 
-    <h1 style="text-align: center; margin-top: 2rem;">T-shirt Old Mill Riders</h1>
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-text">Rencontrez la Bande</div>
+    </div>
 
-    <!-- Section Produits -->
+    <!-- SECTION PRODUITS -->
+    <h1 style="text-align: center; margin-top: 2rem;">T-shirt Old Mill Riders</h1>
     <div class="product-section">
       <div class="image-block">
         <img id="main-image" src="5W9A4780-HDR.jpg" class="carousel-main" alt="T-shirt Old Mill" />
