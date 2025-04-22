@@ -129,7 +129,7 @@
       text-align: center;
     }
 
-    /* ---------- BLOC PHILOSOPHIE (noir) ---------- */
+    /* ---------- BLOC PHILOSOPHIE (comme "about-block" sur home) ---------- */
     .about-block {
       background-color: #000;
       color: white;
@@ -142,13 +142,12 @@
       line-height: 1.5;
     }
 
-    /* ---------- TITRE "T-shirt" DANS CADRE BLANC ---------- */
-    .product-title {
+    /* ---------- SECTION TITRE (hors cadre) ---------- */
+    .plain-title {
       font-size: 2rem;
       font-weight: bold;
       text-align: center;
-      margin-bottom: 1rem;
-      color: #000;
+      margin: 20px 0 1rem;
     }
 
     /* ---------- SECTION PRODUITS ---------- */
@@ -296,7 +295,7 @@
       nav.open { display: flex; }
       .about-block { font-size: 0.9rem; }
       .hero-text { font-size: 2rem !important; }
-      .product-title { font-size: 1.5rem; }
+      .plain-title { font-size: 1.5rem; }
       .product-section { flex-direction: column; }
       .image-block,
       .info-block { width: 100%; }
@@ -342,9 +341,11 @@
       l’amour de l’instant présent qui nous guident. Bienvenue dans notre aventure à deux-roues !
     </div>
 
-    <!-- SECTION PRODUITS AVEC "T‑shirt" DANS LE CADRE BLANC -->
+    <!-- TITRE “T-shirt” HORS CADRE NOIR -->
+    <div class="plain-title">T‑shirt</div>
+
+    <!-- SECTION PRODUITS -->
     <div class="product-section">
-      <h2 class="product-title">T‑shirt</h2>
       <div class="image-block">
         <img id="main-image" src="./5W9A4780-HDR.jpg" class="carousel-main" alt="T-shirt Old Mill">
         <div class="thumbnails">
