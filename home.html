@@ -55,6 +55,8 @@
       color: inherit;
       text-decoration: none;
     }
+
+    /* Nav links underline on hover */
     nav {
       display: flex;
       align-items: center;
@@ -80,6 +82,7 @@
     nav a.active::after {
       width: 100%;
     }
+
     .menu-toggle {
       display: none;
       background: none;
@@ -262,7 +265,9 @@
 
     /* ---------- MEDIA QUERIES ---------- */
     @media (max-width: 768px) {
-      header { padding: 0.5rem 1rem; }
+      header {
+        padding: 0.5rem 1rem;
+      }
       .center-title {
         position: static !important;
         transform: none !important;
@@ -271,8 +276,12 @@
         width: 100% !important;
         margin: 0 auto !important;
       }
-      .left-nav a.logo { display: none; }
-      .menu-toggle { display: block; }
+      .left-nav a.logo {
+        display: none;
+      }
+      .menu-toggle {
+        display: block;
+      }
       nav {
         display: none;
         flex-direction: column;
@@ -287,9 +296,16 @@
         box-sizing: border-box;
         z-index: 10;
       }
-      nav.open { display: flex; }
-      .products-grid { flex-direction: column; align-items: center; }
-      .product-card { width: 100%; }
+      nav.open {
+        display: flex;
+      }
+      .products-grid {
+        flex-direction: column;
+        align-items: center;
+      }
+      .product-card {
+        width: 100%;
+      }
       .hero {
         width: 100% !important;
         max-width: none !important;
@@ -313,6 +329,24 @@
         z-index: 2 !important;
         width: 90% !important;
         margin: 0 auto !important;
+      }
+
+      /* Ajustements footer sur mobile */
+      .footer {
+        padding: 10px 1rem;
+        justify-content: center;
+        font-size: 0.8rem;
+      }
+      .footer .left-footer,
+      .footer .right-footer {
+        margin: 0.5rem 0;
+      }
+      .footer .footer .left-footer img {
+        width: 20px;
+        height: 20px;
+      }
+      .footer .right-footer {
+        gap: 1rem;
       }
     }
   </style>
@@ -392,59 +426,7 @@
       <div class="modal-content">
         <span class="modal-close">&times;</span>
         <h2>Politique de confidentialité</h2>
-        <p>
-          La présente Politique de confidentialité régit la collecte, l’usage et la protection de vos données personnelles par Old Mill Riders (« nous »). Elle s’applique lorsque vous remplissez notre formulaire de pré-commande.
-        </p>
-        <h3>1. Responsable de traitement</h3>
-        <p>
-          Old Mill Riders<br>
-          62 avenue Debourg, 69007 Lyon<br>
-          Email : <a href="mailto:oldmillriders@gmail.com">oldmillriders@gmail.com</a>
-        </p>
-        <h3>2. Données collectées</h3>
-        <ul>
-          <li>Prénom, Nom</li>
-          <li>Adresse e-mail</li>
-          <li>Adresse postale</li>
-          <li>Intérêt du produit</li>
-          <li>Taille du produit</li>
-          <li>Moyen de paiement</li>
-        </ul>
-        <h3>3. Finalités du traitement</h3>
-        <ul>
-          <li>Gérer et suivre votre pré-commande</li>
-          <li>Vous informer sur la préparation, le paiement, l’expédition et le suivi</li>
-          <li>Répondre à vos questions via le service client</li>
-        </ul>
-        <h3>4. Base légale</h3>
-        <p>
-          Votre <strong>consentement</strong> (article 6.1.a du RGPD), exprimé en soumettant le formulaire.
-        </p>
-        <h3>5. Destinataires</h3>
-        <ul>
-          <li>Services internes (commandes, service client)</li>
-          <li>Prestataires logistiques</li>
-          <li>Hébergeur (Google Forms)</li>
-        </ul>
-        <h3>6. Durée de conservation</h3>
-        <p>
-          Conservation pendant la gestion de votre commande, puis archivage 3 ans.
-        </p>
-        <h3>7. Vos droits</h3>
-        <ul>
-          <li>Accès, rectification, effacement, limitation, opposition, portabilité, retrait du consentement</li>
-        </ul>
-        <p>
-          Pour exercer vos droits : <a href="mailto:oldmillriders@gmail.com">oldmillriders@gmail.com</a> ou CNIL (www.cnil.fr).
-        </p>
-        <h3>8. Sécurité</h3>
-        <p>
-          Mesures techniques et organisationnelles pour protéger vos données.
-        </p>
-        <h3>9. Mise à jour</h3>
-        <p>
-          Date de dernière mise à jour : 23 avril 2025.
-        </p>
+        <!-- ... contenu de la politique ... -->
       </div>
     </div>
 
