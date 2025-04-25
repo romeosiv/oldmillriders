@@ -79,12 +79,8 @@
       width: 100%; height: auto; display: block;
     }
     .rv-card-body { padding: 1rem; }
-    .rv-card-title {
-      margin: 0 0 .5rem; font-size: 1.1rem;
-    }
-    .rv-card-text {
-      margin: 0 0 1rem; font-size: .9rem; color: #444;
-    }
+    .rv-card-title { margin: 0 0 .5rem; font-size: 1.1rem; }
+    .rv-card-text { margin: 0 0 1rem; font-size: .9rem; color: #444; }
     .rv-card-meta {
       display: flex; gap: 1rem; margin-bottom: 1rem;
     }
@@ -136,6 +132,13 @@
       margin-bottom: 1rem;
     }
 
+    /* ---------- SOULIGNER CARD DANS LA MODAL ---------- */
+    /* Désactive l’effet scale sur la card dupliquée */
+    #trip-modal .rv-card:hover {
+      transform: none !important;
+      cursor: default;
+    }
+
     /* ---------- GALERIE ---------- */
     .trip-gallery-modal {
       margin-top: 1.5rem;
@@ -156,13 +159,40 @@
       box-shadow: 0 1px 4px rgba(0,0,0,0.2);
     }
 
-    /* ---------- LIGHTBOX IMAGE ---------- */
+    /* ---------- LIGHTBOX CARROUSEL ---------- */
+    .image-lightbox {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
     .image-modal-img {
       max-width: 90vw;
       max-height: 80vh;
       display: block;
       margin: 0 auto;
+      border: 8px solid white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
       border-radius: 8px;
+    }
+    .lightbox-prev,
+    .lightbox-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.8);
+      border: none;
+      font-size: 2rem;
+      padding: 0.2rem 0.6rem;
+      cursor: pointer;
+      border-radius: 4px;
+      user-select: none;
+    }
+    .lightbox-prev { left: 1rem; }
+    .lightbox-next { right: 1rem; }
+    .lightbox-prev:hover,
+    .lightbox-next:hover {
+      background: white;
     }
 
     /* ---------- FOOTER ---------- */
@@ -252,8 +282,7 @@
       </div>
       <div class="right-nav">
         <a href="https://www.instagram.com/old_mill_riders/" target="_blank">
-          <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png"
-               class="insta-icon" alt="Instagram">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png" class="insta-icon" alt="Instagram">
         </a>
       </div>
     </header>
@@ -263,8 +292,8 @@
       <div class="rv-card-header">
         <span class="rv-card-id">01</span>
         <div class="rv-card-badges">
-          <img src="foret.png">
-          <img src="montagne.png">
+          <img src="icons/ascendant.svg" alt="Altitude ↑" title="Altitude max ↑">
+          <img src="icons/tent.svg"       alt="Bivouacs" title="Bivouacs">
         </div>
       </div>
       <div class="rv-card-media">
@@ -315,8 +344,8 @@
           <div class="rv-card-header">
             <span class="rv-card-id">01</span>
             <div class="rv-card-badges">
-          <img src="foret.png">
-          <img src="montagne.png">
+              <img src="icons/ascendant.svg" alt="Altitude ↑" title="Altitude max ↑">
+              <img src="icons/tent.svg"       alt="Bivouacs" title="Bivouacs">
             </div>
           </div>
           <div class="rv-card-body">
@@ -374,9 +403,11 @@
 
     <!-- LIGHTBOX MODAL IMAGE -->
     <div id="image-modal" class="modal">
-      <div class="modal-content">
-        <span class="modal-close">&times;</span>
+      <div class="modal-content image-lightbox">
+        <button class="lightbox-prev" aria-label="Image précédente">‹</button>
         <img id="image-modal-img" class="image-modal-img" src="" alt="Aperçu">
+        <button class="lightbox-next" aria-label="Image suivante">›</button>
+        <span class="modal-close">&times;</span>
       </div>
     </div>
 
@@ -396,7 +427,7 @@
       </div>
     </div>
 
-    <!-- MODALS Politique & Mentions -->
+    <!-- MODALS Politique & Mentions légales -->
     <div id="privacy-modal" class="modal">
       <div class="modal-content">
         <span class="modal-close">&times;</span>
@@ -419,17 +450,27 @@
     document.addEventListener('DOMContentLoaded', () => {
       // Menu burger
       document.querySelector('.menu-toggle')
-        .addEventListener('click', () => document.querySelector('header nav').classList.toggle('open'));
+        .addEventListener('click', () =>
+          document.querySelector('header nav').classList.toggle('open')
+        );
 
       // Modals politique & mentions
       document.getElementById('privacy-policy-link')
-        .addEventListener('click', e => { e.preventDefault(); document.getElementById('privacy-modal').style.display = 'flex'; });
+        .addEventListener('click', e => {
+          e.preventDefault();
+          document.getElementById('privacy-modal').style.display = 'flex';
+        });
       document.getElementById('legal-mentions-link')
-        .addEventListener('click', e => { e.preventDefault(); document.getElementById('legal-modal').style.display = 'flex'; });
+        .addEventListener('click', e => {
+          e.preventDefault();
+          document.getElementById('legal-modal').style.display = 'flex';
+        });
 
       // Fermer tous les modals
       document.querySelectorAll('.modal-close').forEach(btn =>
-        btn.addEventListener('click', () => btn.closest('.modal').style.display = 'none')
+        btn.addEventListener('click', () =>
+          btn.closest('.modal').style.display = 'none'
+        )
       );
       window.addEventListener('click', e => {
         if (e.target.classList.contains('modal')) {
@@ -459,17 +500,32 @@
       }
     });
 
-    // Galerie / lightbox
-    const thumbs       = document.querySelectorAll('.gallery-thumbs img');
-    const imageModal   = document.getElementById('image-modal');
-    const imageModalImg= document.getElementById('image-modal-img');
-    const imgCloseBtn  = imageModal.querySelector('.modal-close');
+    // Galerie / Lightbox carrousel
+    const thumbs        = Array.from(document.querySelectorAll('.gallery-thumbs img'));
+    const imageModal    = document.getElementById('image-modal');
+    const imageModalImg = document.getElementById('image-modal-img');
+    const prevBtn       = document.querySelector('.lightbox-prev');
+    const nextBtn       = document.querySelector('.lightbox-next');
 
-    thumbs.forEach(img => {
+    let currentImgIndex = 0;
+
+    thumbs.forEach((img, idx) => {
       img.addEventListener('click', () => {
+        currentImgIndex = idx;
         imageModalImg.src = img.src;
         imageModal.style.display = 'flex';
       });
+    });
+
+    prevBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      currentImgIndex = (currentImgIndex - 1 + thumbs.length) % thumbs.length;
+      imageModalImg.src = thumbs[currentImgIndex].src;
+    });
+    nextBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      currentImgIndex = (currentImgIndex + 1) % thumbs.length;
+      imageModalImg.src = thumbs[currentImgIndex].src;
     });
   </script>
 </body>
