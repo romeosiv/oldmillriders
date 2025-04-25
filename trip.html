@@ -87,15 +87,7 @@
     .icon { width: 28px; height: 28px; }
     .insta-icon { width: 16px; display: block; }
 
-    /* ====== CARTE ====== */
-    #map {
-      height: 400px;
-      border-radius: 20px;
-      margin: 2rem auto;
-      max-width: 1024px;
-    }
-
-    /* ====== TRIP CARD « RV » ====== */
+    /* ====== TRIP CARD ====== */
     .rv-card {
       background: #fff;
       border-radius: 12px;
@@ -103,6 +95,11 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
       max-width: 360px;
       margin: 2rem auto;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+    .rv-card:hover {
+      transform: scale(1.02);
     }
     .rv-card-header {
       display: flex;
@@ -182,6 +179,41 @@
       font-size: .9rem;
     }
 
+    /* ====== MODAL ====== */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      padding: 1rem;
+      box-sizing: border-box;
+      z-index: 1000;
+    }
+    .modal-content {
+      background: white;
+      border-radius: 12px;
+      max-width: 600px;
+      width: 100%;
+      padding: 1.5rem;
+      position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal-close {
+      position: absolute;
+      top: .5rem; right: 1rem;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    #map-modal {
+      height: 300px;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+    }
+
     /* ====== FOOTER ====== */
     .footer {
       background-color: #e5e5e5;
@@ -224,36 +256,6 @@
       cursor: pointer;
     }
 
-    /* ====== MODAL ====== */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      background: rgba(0,0,0,0.5);
-      justify-content: center;
-      align-items: center;
-      padding: 1rem;
-      box-sizing: border-box;
-      z-index: 1000;
-    }
-    .modal-content {
-      background: white;
-      border-radius: 10px;
-      max-width: 600px;
-      width: 100%;
-      padding: 1.5rem;
-      position: relative;
-      max-height: 80vh;
-      overflow-y: auto;
-    }
-    .modal-close {
-      position: absolute;
-      top: .5rem; right: 1rem;
-      font-size: 1.5rem;
-      cursor: pointer;
-    }
-
     /* ====== RESPONSIVE ====== */
     @media (max-width: 768px) {
       header { padding: .5rem 1rem; }
@@ -280,6 +282,7 @@
         z-index: 10;
       }
       nav.open { display: flex; }
+      .rv-card { margin: 1rem auto; }
       .footer {
         flex-direction: column;
         align-items: center;
@@ -309,7 +312,7 @@
 <body>
   <div class="container">
 
-    <!-- HEADER -->
+    <!-- HEADER identique -->
     <header>
       <div class="left-nav">
         <a href="home.html" class="logo">
@@ -333,11 +336,8 @@
       </div>
     </header>
 
-    <!-- CARTE LEAFLET -->
-    <div id="map"></div>
-
-    <!-- TRIP CARD EXEMPLAIRE -->
-    <article class="rv-card">
+    <!-- SEULE la trip-card visible -->
+    <article class="rv-card" id="trip-01">
       <div class="rv-card-header">
         <span class="rv-card-id">01</span>
         <div class="rv-card-badges">
@@ -380,7 +380,7 @@
       </div>
     </article>
 
-    <!-- FOOTER -->
+    <!-- FOOTER identique -->
     <div class="footer">
       <div class="left-footer">
         <a href="home.html" style="display: flex; align-items: center; gap: 0.5rem;">
@@ -396,58 +396,97 @@
       </div>
     </div>
 
-    <!-- MODAL Politique de confidentialité -->
+    <!-- MODAL qui s'ouvre au clic sur .rv-card -->
+    <div id="trip-modal" class="modal">
+      <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <!-- carte GPX -->
+        <div id="map-modal"></div>
+        <!-- même contenu que la carte réduite -->
+        <h3>Balade en Chartreuse</h3>
+        <p>Une virée de 3 jours…</p>
+        <a href="https://example.com/trace-chartreuse.gpx" target="_blank">Télécharger GPX</a>
+      </div>
+    </div>
+
+    <!-- MODALS Politique & Mentions (identiques à home.html) -->
     <div id="privacy-modal" class="modal">
       <div class="modal-content">
         <span class="modal-close">&times;</span>
         <h2>Politique de confidentialité</h2>
-        <p>La présente Politique de confidentialité régit la collecte, l’usage et la protection de vos données personnelles par Old Mill Riders (« nous »). Elle s’applique lorsque vous remplissez notre formulaire de pré-commande.</p>
-        <!-- … contenu identique à home.html … -->
+        <!-- … contenu … -->
       </div>
     </div>
-
-    <!-- MODAL Mentions légales -->
     <div id="legal-modal" class="modal">
       <div class="modal-content">
         <span class="modal-close">&times;</span>
         <h2>Mentions légales</h2>
-        <ul>
-          <li><strong>Éditeur :</strong> Old Mill Riders – Lyon</li>
-          <li><strong>Identité :</strong> Roméo SIVER, 62 avenue Debourg, 69007 Lyon, France</li>
-          <li><strong>Directeur de la publication :</strong> Roméo Siver – <a href="mailto:team@oldmillriders.fr">team@oldmillriders.fr</a></li>
-          <li><strong>Hébergeur :</strong> OVH – 2 rue Kellermann, 59100 Roubaix</li>
-        </ul>
+        <!-- … contenu … -->
       </div>
     </div>
 
   </div>
 
-  <!-- SCRIPTS -->
+  <!-- SCRIPTS Leaflet + GPX plugin -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.5.0/gpx.min.js"></script>
   <script>
-    // INITIALISATION CARTE
-    const map = L.map('map').setView([45.5, 5.8], 6);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; OpenStreetMap contributors'
-    }).addTo(map);
+    // OUVRIR LE MODAL ET INITIALISER LA CARTE GPX
+    const card = document.getElementById('trip-01');
+    const modal = document.getElementById('trip-modal');
+    const closeBtns = document.querySelectorAll('.modal-close');
+    let mapInited = false;
 
-    // MENU BURGER
-    document.addEventListener('DOMContentLoaded', () => {
-      const menuToggle = document.querySelector('.menu-toggle');
-      const navMenu    = document.querySelector('header .left-nav nav');
-      menuToggle.addEventListener('click', () => navMenu.classList.toggle('open'));
+    card.addEventListener('click', () => {
+      modal.style.display = 'flex';
+      if (!mapInited) {
+        // init carte dans #map-modal
+        const map = L.map('map-modal').setView([45.3639, 5.83], 10);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; OSM contributors'
+        }).addTo(map);
+        // charger trace GPX
+        new L.GPX('https://example.com/trace-chartreuse.gpx', {
+          async: true,
+          marker_options: { startIconUrl: null, endIconUrl: null }
+        }).on('loaded', e => {
+          map.fitBounds(e.target.getBounds());
+        }).addTo(map);
+        mapInited = true;
+      }
     });
 
-    // MODALS Politique & Mentions
-    const privacyLink = document.getElementById('privacy-policy-link');
-    const legalLink   = document.getElementById('legal-mentions-link');
-    const privacyModal = document.getElementById('privacy-modal');
-    const legalModal   = document.getElementById('legal-modal');
-    const closeButtons = document.querySelectorAll('.modal-close');
-    privacyLink.addEventListener('click', e => { e.preventDefault(); privacyModal.style.display = 'flex'; });
-    legalLink.addEventListener('click',   e => { e.preventDefault(); legalModal.style.display   = 'flex'; });
-    closeButtons.forEach(btn => btn.addEventListener('click', () => btn.closest('.modal').style.display = 'none'));
-    window.addEventListener('click', e => { if(e.target.classList.contains('modal')) e.target.style.display = 'none'; });
+    closeBtns.forEach(btn =>
+      btn.addEventListener('click', () => {
+        btn.closest('.modal').style.display = 'none';
+      })
+    );
+    window.addEventListener('click', e => {
+      if (e.target.classList.contains('modal')) {
+        e.target.style.display = 'none';
+      }
+    });
+
+    // MENU BURGER + POLITIQUE & MENTIONS
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuToggle = document.querySelector('.menu-toggle'),
+            navMenu    = document.querySelector('header nav'),
+            privacyLink = document.getElementById('privacy-policy-link'),
+            legalLink   = document.getElementById('legal-mentions-link'),
+            privacyModal = document.getElementById('privacy-modal'),
+            legalModal   = document.getElementById('legal-modal');
+
+      menuToggle.addEventListener('click', () => navMenu.classList.toggle('open'));
+
+      privacyLink.addEventListener('click', e => {
+        e.preventDefault();
+        privacyModal.style.display = 'flex';
+      });
+      legalLink.addEventListener('click', e => {
+        e.preventDefault();
+        legalModal.style.display = 'flex';
+      });
+    });
   </script>
 </body>
 </html>
