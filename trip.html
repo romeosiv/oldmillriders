@@ -94,12 +94,19 @@
       grid-template-columns: repeat(2, auto);
       gap: .75rem 1.5rem;
     }
-    .rv-card-stats .stat {
-      text-align: center; font-size: .85rem;
-    }
-    .rv-card-stats .stat strong {
-      display: block; font-size: .95rem;
-    }
+.rv-card-stats .stat small {
+  display: block;
+  font-size: 0.75rem;
+  color: #666;
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.rv-card-stats .stat strong {
+  font-size: 0.95rem;
+  color: #000;
+}
     .rv-card-map img {
       width: 80px; height: 80px;
       border-radius: 6px; object-fit: cover;
@@ -257,24 +264,28 @@
           Une virée de 3 jours au cœur du massif de la Chartreuse, entre forêts humides, cols étroits et nuits sous tente.
         </p>
         <div class="rv-card-meta">
-          <div class="rv-card-stats">
-            <div class="stat">
-              <strong>350 km</strong><br><small>Distance</small>
-            </div>
-            <div class="stat">
-              <strong>+2500 m</strong><br><small>Dénivelé↑</small>
-            </div>
-            <div class="stat">
-              <strong>3 jours</strong><br><small>Durée</small>
-            </div>
-            <div class="stat">
-              <strong>Intermédiaire</strong><br><small>Niveau</small>
-            </div>
-          </div>
-          <div class="rv-card-map">
-            <img src="maps/chartreuse-thumb.png" alt="Aperçu carte">
-          </div>
-        </div>
+  <div class="rv-card-stats">
+    <div class="stat">
+      <small>Distance</small><br>
+      <strong>350 km</strong>
+    </div>
+    <div class="stat">
+      <small>Altitude max</small><br>
+      <strong>2 100 m</strong>
+    </div>
+    <div class="stat">
+      <small>Durée</small><br>
+      <strong>3 jours</strong>
+    </div>
+    <div class="stat">
+      <small>Niveau</small><br>
+      <strong>Intermédiaire</strong>
+    </div>
+  </div>
+  <div class="rv-card-map">
+    <img src="maps/chartreuse-thumb.png" alt="Aperçu carte">
+  </div>
+</div>
         <div class="rv-card-footer">
           <a href="https://example.com/trace-chartreuse.gpx" class="rv-card-link" target="_blank">Télécharger GPX</a>
           <img class="rv-card-qr" src="qr-chartreuse.png" alt="QR code vers la page">
