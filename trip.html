@@ -210,7 +210,27 @@
       .footer .left-footer img {
         width: 20px; height: 20px;
       }
-    }
+    .trip-gallery-modal {
+  margin-top: 1.5rem;
+}
+.trip-gallery-modal h4 {
+  margin: 0 0 .5rem;
+  font-size: 1rem;
+  font-weight: bold;
+}
+.gallery-thumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.gallery-thumbs img {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
   </style>
 </head>
 <body>
@@ -331,6 +351,30 @@
             </div>
           </div>
         </div>
+        <div class="trip-gallery-modal">
+  <h4>Galerie</h4>
+  <div class="gallery-thumbs">
+    <img src="IMG_9380.JPEG" alt="Photo 1">
+    <img src="IMG_9384.JPEG" alt="Photo 2">
+    <img src="IMG_9385.JPEG" alt="Photo 3">
+    <img src="IMG_9387.JPEG" alt="Photo 4">
+    <img src="IMG_9392.JPEG" alt="Photo 5">
+    <img src="IMG_9393.JPEG" alt="Photo 6">
+    <img src="IMG_9416.JPEG" alt="Photo 7">
+    <img src="IMG_9423.JPEG" alt="Photo 8">
+    <img src="IMG_9425.JPEG" alt="Photo 9">
+    <img src="IMG_7860.JPEG" alt="Photo 10">
+    <img src="IMG_9375.JPEG" alt="Photo 11">
+  </div>
+</div>
+
+<!-- Modal pour agrandir l'image -->
+<div id="image-modal" class="modal">
+  <div class="modal-content">
+    <span class="modal-close">&times;</span>
+    <img id="image-modal-img" src="" alt="Aperçu" style="width:100%; border-radius:8px;">
+  </div>
+</div>
       </div>
     </div>
 
@@ -417,6 +461,26 @@
         mapInit = true;
       }
     });
+    // Lightbox pour agrandir les vignettes
+const thumbs       = document.querySelectorAll('.gallery-thumbs img');
+const imageModal   = document.getElementById('image-modal');
+const imageModalImg= document.getElementById('image-modal-img');
+const imgCloseBtn  = imageModal.querySelector('.modal-close');
+
+// Au clic sur une vignette, ouvrir la modal et afficher la grande image
+thumbs.forEach(img => {
+  img.addEventListener('click', () => {
+    imageModalImg.src = img.src;
+    imageModal.style.display = 'flex';
+  });
+});
+
+// Fermer la preview au clic sur la croix ou en cliquant hors de l'image
+imgCloseBtn.addEventListener('click', () => imageModal.style.display = 'none');
+imageModal.addEventListener('click', e => {
+  if (e.target === imageModal) imageModal.style.display = 'none';
+});
+
   </script>
 </body>
 </html>
