@@ -87,23 +87,7 @@
       margin: 2rem auto;
       max-width: 1024px;
     }
-    .gallery {
-      max-width: 1024px;
-      margin: 0 auto 2rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1rem;
-      padding: 1rem;
-      display: none;
-    }
-    .gallery img {
-      width: 100%;
-      border-radius: 12px;
-      object-fit: cover;
-    }
-    .gallery.active {
-      display: grid;
-    }
+
     .footer {
       background-color: #e5e5e5;
       color: black;
@@ -144,10 +128,52 @@
       font-size: 1rem;
       cursor: pointer;
     }
+
+    /* ----------- MODALE TRIP ----------- */
+    .modal-trip {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal-content-trip {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 12px;
+      max-width: 800px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      position: relative;
+    }
+    .close-modal {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+    .gallery-modal {
+      margin-top: 1rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+    }
+    .gallery-modal img {
+      width: 100%;
+      border-radius: 10px;
+      object-fit: cover;
+    }
   </style>
 </head>
 <body>
   <div class="container">
+    <!-- HEADER -->
     <header>
       <div class="left-nav">
         <a href="home.html" class="logo">
@@ -169,22 +195,35 @@
       </div>
     </header>
 
+    <!-- MAP -->
     <div id="map"></div>
 
-    <div id="chartreuse-gallery" class="gallery">
-      <img src="IMG_9375.JPEG" alt="Chartreuse">
-      <img src="IMG_9380.JPEG" alt="Chartreuse">
-      <img src="IMG_9384.JPEG" alt="Chartreuse">
-      <img src="IMG_9385.JPEG" alt="Chartreuse">
-      <img src="IMG_9387.JPEG" alt="Chartreuse">
-      <img src="IMG_9392.JPEG" alt="Chartreuse">
-      <img src="IMG_9393.JPEG" alt="Chartreuse">
-      <img src="IMG_9416.JPEG" alt="Chartreuse">
-      <img src="IMG_9423.JPEG" alt="Chartreuse">
-      <img src="IMG_9425.JPEG" alt="Chartreuse">
-      <img src="IMG_7860.JPEG" alt="Chartreuse">
+    <!-- MODALE TRIP CHARTREUSE -->
+    <div id="chartreuse-modal" class="modal-trip">
+      <div class="modal-content-trip">
+        <span class="close-modal">&times;</span>
+        <h2>Balade en Chartreuse</h2>
+        <p>Une virée de 3 jours au cœur du massif de la Chartreuse, entre forêts humides, routes sinueuses et bivouacs sauvages.</p>
+        <p><strong>Durée :</strong> 3 jours</p>
+        <p><a href="https://example.com/trace-chartreuse.gpx" target="_blank">📍 Voir la trace GPX</a></p>
+        <p><a href="https://instagram.com/old_mill_riders" target="_blank">📷 Voir la publication Instagram</a></p>
+        <div class="gallery-modal">
+          <img src="IMG_9375.JPEG" alt="">
+          <img src="IMG_9380.JPEG" alt="">
+          <img src="IMG_9384.JPEG" alt="">
+          <img src="IMG_9385.JPEG" alt="">
+          <img src="IMG_9387.JPEG" alt="">
+          <img src="IMG_9392.JPEG" alt="">
+          <img src="IMG_9393.JPEG" alt="">
+          <img src="IMG_9416.JPEG" alt="">
+          <img src="IMG_9423.JPEG" alt="">
+          <img src="IMG_9425.JPEG" alt="">
+          <img src="IMG_7860.JPEG" alt="">
+        </div>
+      </div>
     </div>
 
+    <!-- FOOTER -->
     <div class="footer">
       <div class="left-footer">
         <a href="home.html" style="display:flex;align-items:center;gap:0.5rem;">
@@ -195,12 +234,13 @@
       <div class="right-footer">
         <a href="labande.html">La Bande</a>
         <a href="LeShop.html">Le Shop</a>
-        <a href="#" id="privacy-policy-link">Politique de confidentialité</a>
-        <a href="#" id="legal-mentions-link">Mentions légales</a>
+        <a href="#">Politique de confidentialité</a>
+        <a href="#">Mentions légales</a>
       </div>
     </div>
   </div>
 
+  <!-- LEAFLET + JS -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script>
     const map = L.map('map').setView([45.5, 5.8], 6);
@@ -209,10 +249,22 @@
       attribution: '&copy; OpenStreetMap contributors'
     }).addTo(map);
 
-    const marker = L.marker([45.3639, 5.83]).addTo(map);
-    marker.bindPopup("Chartreuse");
-    marker.on('click', () => {
-      document.getElementById('chartreuse-gallery').classList.add('active');
+    const markerChartreuse = L.marker([45.3639, 5.83]).addTo(map);
+    markerChartreuse.bindPopup("Chartreuse");
+    markerChartreuse.on('click', () => {
+      document.getElementById('chartreuse-modal').style.display = 'flex';
+    });
+
+    // Fermer la modale
+    document.querySelector('.close-modal').addEventListener('click', () => {
+      document.getElementById('chartreuse-modal').style.display = 'none';
+    });
+
+    // Fermer en cliquant à l’extérieur
+    window.addEventListener('click', (e) => {
+      if (e.target.classList.contains('modal-trip')) {
+        e.target.style.display = 'none';
+      }
     });
   </script>
 </body>
