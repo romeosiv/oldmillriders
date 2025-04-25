@@ -20,7 +20,7 @@
       padding: 0 1rem;
     }
 
-    /* HEADER */
+    /* ---------- HEADER ---------- */
     header {
       background: #000; color: #fff;
       border-radius: 20px;
@@ -54,7 +54,7 @@
     .icon { width: 28px; height: 28px; }
     .insta-icon { width: 16px; display: block; }
 
-    /* TRIP CARD */
+    /* ---------- TRIP CARD ---------- */
     .rv-card {
       background: #fff;
       border-radius: 12px;
@@ -66,7 +66,6 @@
       transition: transform 0.15s ease;
     }
     .rv-card:hover { transform: scale(1.02); }
-
     .rv-card-header {
       display: flex; justify-content: space-between;
       padding: .5rem 1rem; background: #f5f5f5;
@@ -74,13 +73,11 @@
     }
     .rv-card-id { font-weight: bold; font-size: 1.25rem; }
     .rv-card-badges img {
-      width: 24px; margin-left: .5rem;
+      width: 24px; height: 24px; margin-left: .5rem;
     }
-
     .rv-card-media img {
       width: 100%; height: auto; display: block;
     }
-
     .rv-card-body { padding: 1rem; }
     .rv-card-title {
       margin: 0 0 .5rem; font-size: 1.1rem;
@@ -88,29 +85,21 @@
     .rv-card-text {
       margin: 0 0 1rem; font-size: .9rem; color: #444;
     }
-
     .rv-card-meta {
       display: flex; gap: 1rem; margin-bottom: 1rem;
     }
     .rv-card-stats {
-      display: grid;
-      grid-template-columns: repeat(2, auto);
+      display: grid; grid-template-columns: repeat(2, auto);
       gap: .75rem 1.5rem;
     }
     .rv-card-stats .stat small {
-      display: block;
-      font-size: 0.75rem;
-      color: #666;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 0.25rem;
+      display: block; font-size: .75rem; color: #666;
+      text-transform: uppercase; letter-spacing: .5px;
+      margin-bottom: .25rem;
     }
     .rv-card-stats .stat strong {
-      font-size: .95rem;
-      color: #000;
-      display: block;
+      display: block; font-size: .95rem; color: #000;
     }
-
     .rv-card-footer {
       display: flex; align-items: center; justify-content: space-between;
       padding: 0 1rem 1rem;
@@ -121,7 +110,7 @@
     .rv-card-link:hover { text-decoration: underline; }
     .rv-card-rating { font-size: .9rem; }
 
-    /* MODAL */
+    /* ---------- MODAL ---------- */
     .modal {
       display: none;
       position: fixed; top: 0; left: 0;
@@ -147,7 +136,36 @@
       margin-bottom: 1rem;
     }
 
-    /* FOOTER */
+    /* ---------- GALERIE ---------- */
+    .trip-gallery-modal {
+      margin-top: 1.5rem;
+    }
+    .trip-gallery-modal h4 {
+      margin: 0 0 .5rem;
+      font-size: 1rem;
+      font-weight: bold;
+    }
+    .gallery-thumbs {
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .gallery-thumbs img {
+      width: 70px; height: 70px;
+      object-fit: cover;
+      border-radius: 6px;
+      cursor: pointer;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+
+    /* ---------- LIGHTBOX IMAGE ---------- */
+    .image-modal-img {
+      max-width: 90vw;
+      max-height: 80vh;
+      display: block;
+      margin: 0 auto;
+      border-radius: 8px;
+    }
+
+    /* ---------- FOOTER ---------- */
     .footer {
       background: #e5e5e5; color: #000;
       padding: 20px 0;
@@ -175,7 +193,7 @@
       color: #000; font-size: 1rem; cursor: pointer;
     }
 
-    /* RESPONSIVE */
+    /* ---------- RESPONSIVE ---------- */
     @media (max-width: 768px) {
       header { padding: .5rem 1rem; }
       .center-title {
@@ -210,27 +228,7 @@
       .footer .left-footer img {
         width: 20px; height: 20px;
       }
-    .trip-gallery-modal {
-  margin-top: 1.5rem;
-}
-.trip-gallery-modal h4 {
-  margin: 0 0 .5rem;
-  font-size: 1rem;
-  font-weight: bold;
-}
-.gallery-thumbs {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.gallery-thumbs img {
-  width: 80px;
-  height: 80px;
-  object-fit: cover;
-  border-radius: 8px;
-  cursor: pointer;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
-}
+    }
   </style>
 </head>
 <body>
@@ -265,8 +263,8 @@
       <div class="rv-card-header">
         <span class="rv-card-id">01</span>
         <div class="rv-card-badges">
-          <img src="montagne.png">
           <img src="foret.png">
+          <img src="montagne.png">
         </div>
       </div>
       <div class="rv-card-media">
@@ -308,16 +306,17 @@
     <div id="trip-modal" class="modal">
       <div class="modal-content">
         <span class="modal-close">&times;</span>
+
         <!-- CARTE GPX INTERACTIVE -->
         <div id="map-modal"></div>
 
-        <!-- DUPLICATION DE LA CARD SANS THUMBNAIL NI QR -->
-        <div class="rv-card" style="box-shadow:none;max-width:none;margin:0;">
+        <!-- DUPLICATION DE LA CARD -->
+        <div class="rv-card" style="box-shadow:none; max-width:none; margin:0;">
           <div class="rv-card-header">
             <span class="rv-card-id">01</span>
             <div class="rv-card-badges">
-              <img src="icons/ascendant.svg" alt="Altitude" title="Altitude ↑">
-              <img src="icons/tent.svg"       alt="Bivouacs" title="Bivouacs">
+          <img src="foret.png">
+          <img src="montagne.png">
             </div>
           </div>
           <div class="rv-card-body">
@@ -351,30 +350,33 @@
             </div>
           </div>
         </div>
-        <div class="trip-gallery-modal">
-  <h4>Galerie</h4>
-  <div class="gallery-thumbs">
-    <img src="IMG_9380.JPEG" alt="Photo 1">
-    <img src="IMG_9384.JPEG" alt="Photo 2">
-    <img src="IMG_9385.JPEG" alt="Photo 3">
-    <img src="IMG_9387.JPEG" alt="Photo 4">
-    <img src="IMG_9392.JPEG" alt="Photo 5">
-    <img src="IMG_9393.JPEG" alt="Photo 6">
-    <img src="IMG_9416.JPEG" alt="Photo 7">
-    <img src="IMG_9423.JPEG" alt="Photo 8">
-    <img src="IMG_9425.JPEG" alt="Photo 9">
-    <img src="IMG_7860.JPEG" alt="Photo 10">
-    <img src="IMG_9375.JPEG" alt="Photo 11">
-  </div>
-</div>
 
-<!-- Modal pour agrandir l'image -->
-<div id="image-modal" class="modal">
-  <div class="modal-content">
-    <span class="modal-close">&times;</span>
-    <img id="image-modal-img" src="" alt="Aperçu" style="width:100%; border-radius:8px;">
-  </div>
-</div>
+        <!-- GALERIE DE VIGNETTES -->
+        <div class="trip-gallery-modal">
+          <h4>Galerie</h4>
+          <div class="gallery-thumbs">
+            <img src="IMG_9380.JPEG" alt="Photo 1">
+            <img src="IMG_9384.JPEG" alt="Photo 2">
+            <img src="IMG_9385.JPEG" alt="Photo 3">
+            <img src="IMG_9387.JPEG" alt="Photo 4">
+            <img src="IMG_9392.JPEG" alt="Photo 5">
+            <img src="IMG_9393.JPEG" alt="Photo 6">
+            <img src="IMG_9416.JPEG" alt="Photo 7">
+            <img src="IMG_9423.JPEG" alt="Photo 8">
+            <img src="IMG_9425.JPEG" alt="Photo 9">
+            <img src="IMG_7860.JPEG" alt="Photo 10">
+            <img src="IMG_9375.JPEG" alt="Photo 11">
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- LIGHTBOX MODAL IMAGE -->
+    <div id="image-modal" class="modal">
+      <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <img id="image-modal-img" class="image-modal-img" src="" alt="Aperçu">
       </div>
     </div>
 
@@ -394,54 +396,49 @@
       </div>
     </div>
 
-    <!-- MODAL Politique de confidentialité -->
+    <!-- MODALS Politique & Mentions -->
     <div id="privacy-modal" class="modal">
       <div class="modal-content">
         <span class="modal-close">&times;</span>
-        <!-- ... contenu complet de la politique ... -->
+        <!-- Contenu complet de la politique -->
       </div>
     </div>
-    <!-- MODAL Mentions légales -->
     <div id="legal-modal" class="modal">
       <div class="modal-content">
         <span class="modal-close">&times;</span>
-        <!-- ... contenu complet des mentions légales ... -->
+        <!-- Contenu complet des mentions légales -->
       </div>
     </div>
 
   </div>
 
-  <!-- SCRIPTS Leaflet + GPX + interactions -->
+  <!-- SCRIPTS Leaflet, GPX & interactions -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.5.0/gpx.min.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // menu burger
-      const menuToggle = document.querySelector('.menu-toggle');
-      const navMenu    = document.querySelector('header nav');
-      menuToggle.addEventListener('click', () => navMenu.classList.toggle('open'));
+      // Menu burger
+      document.querySelector('.menu-toggle')
+        .addEventListener('click', () => document.querySelector('header nav').classList.toggle('open'));
 
-      // modals politique & mentions
-      document.getElementById('privacy-policy-link').addEventListener('click', e => {
-        e.preventDefault();
-        document.getElementById('privacy-modal').style.display = 'flex';
-      });
-      document.getElementById('legal-mentions-link').addEventListener('click', e => {
-        e.preventDefault();
-        document.getElementById('legal-modal').style.display = 'flex';
-      });
+      // Modals politique & mentions
+      document.getElementById('privacy-policy-link')
+        .addEventListener('click', e => { e.preventDefault(); document.getElementById('privacy-modal').style.display = 'flex'; });
+      document.getElementById('legal-mentions-link')
+        .addEventListener('click', e => { e.preventDefault(); document.getElementById('legal-modal').style.display = 'flex'; });
 
-      // fermer modals
+      // Fermer tous les modals
       document.querySelectorAll('.modal-close').forEach(btn =>
         btn.addEventListener('click', () => btn.closest('.modal').style.display = 'none')
       );
       window.addEventListener('click', e => {
-        if (e.target.classList.contains('modal'))
+        if (e.target.classList.contains('modal')) {
           e.target.style.display = 'none';
+        }
       });
     });
 
-    // clic sur la trip-card principale
+    // Initialisation de la carte GPX au clic sur la card
     const card      = document.getElementById('trip-01');
     const tripModal = document.getElementById('trip-modal');
     let mapInit     = false;
@@ -461,26 +458,19 @@
         mapInit = true;
       }
     });
-    // Lightbox pour agrandir les vignettes
-const thumbs       = document.querySelectorAll('.gallery-thumbs img');
-const imageModal   = document.getElementById('image-modal');
-const imageModalImg= document.getElementById('image-modal-img');
-const imgCloseBtn  = imageModal.querySelector('.modal-close');
 
-// Au clic sur une vignette, ouvrir la modal et afficher la grande image
-thumbs.forEach(img => {
-  img.addEventListener('click', () => {
-    imageModalImg.src = img.src;
-    imageModal.style.display = 'flex';
-  });
-});
+    // Galerie / lightbox
+    const thumbs       = document.querySelectorAll('.gallery-thumbs img');
+    const imageModal   = document.getElementById('image-modal');
+    const imageModalImg= document.getElementById('image-modal-img');
+    const imgCloseBtn  = imageModal.querySelector('.modal-close');
 
-// Fermer la preview au clic sur la croix ou en cliquant hors de l'image
-imgCloseBtn.addEventListener('click', () => imageModal.style.display = 'none');
-imageModal.addEventListener('click', e => {
-  if (e.target === imageModal) imageModal.style.display = 'none';
-});
-
+    thumbs.forEach(img => {
+      img.addEventListener('click', () => {
+        imageModalImg.src = img.src;
+        imageModal.style.display = 'flex';
+      });
+    });
   </script>
 </body>
 </html>
