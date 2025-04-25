@@ -35,29 +35,50 @@
       box-sizing: border-box;
     }
     .left-nav, .right-nav { display: flex; align-items: center; gap: 1.5rem; }
-    .center-title { position: absolute; left: 50%; transform: translateX(-50%); font-size: 1.8rem; font-weight: bold; white-space: nowrap; }
+    .center-title {
+      position: absolute; left: 50%; transform: translateX(-50%);
+      font-size: 1.8rem; font-weight: bold; white-space: nowrap;
+    }
     .center-title a, .center-title a:visited { color: inherit; text-decoration: none; }
     nav { display: flex; align-items: center; gap: 1rem; }
-    nav a { position: relative; color: #fff; text-decoration: none; font-size: 1rem; }
-    nav a::after { content: ""; position: absolute; left: 0; bottom: -2px; width: 0; height: 1px; background: #fff; transition: width 0.3s ease; }
+    nav a {
+      position: relative; color: #fff; text-decoration: none; font-size: 1rem;
+    }
+    nav a::after {
+      content: ""; position: absolute; left: 0; bottom: -2px;
+      width: 0; height: 1px; background: #fff;
+      transition: width 0.3s ease;
+    }
     nav a:hover::after, nav a.active::after { width: 100%; }
-    .menu-toggle { display: none; background: none; border: none; font-size: 1.5rem; color: #fff; cursor: pointer; }
+    .menu-toggle {
+      display: none; background: none; border: none;
+      font-size: 1.5rem; color: #fff; cursor: pointer;
+    }
     .icon { width: 28px; height: 28px; }
     .insta-icon { width: 16px; display: block; }
 
     /* ---------- TRIP CARD ---------- */
     .rv-card {
       background: #fff; border-radius: 12px; overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1); max-width: 360px;
-      margin: 2rem auto; cursor: pointer; transition: transform 0.15s ease;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      max-width: 360px; margin: 2rem auto;
+      cursor: pointer; transition: transform 0.15s ease;
     }
     .rv-card:hover { transform: scale(1.02); }
     .rv-card-header {
-      display: flex; justify-content: space-between; padding: .5rem 1rem;
-      background: #f5f5f5; align-items: center;
+      display: flex; justify-content: space-between;
+      padding: .5rem 1rem; background: #f5f5f5; align-items: center;
     }
     .rv-card-id { font-weight: bold; font-size: 1.25rem; }
-    .rv-card-badges img { width: 24px; height: 24px; margin-left: .5rem; }
+    /* Badges */
+    .rv-card-badges img {
+      width: 24px; height: 24px; margin-left: .5rem;
+    }
+    /* Classe uniforme pour vos nouveaux badges */
+    .badge-icon {
+      width: 24px; height: 24px;
+      object-fit: contain; margin-left: .5rem;
+    }
     .rv-card-media img { width: 100%; display: block; }
     .rv-card-body { padding: 1rem; }
     .rv-card-title-row {
@@ -66,15 +87,18 @@
     }
     .rv-card-title { font-size: 1.1rem; margin: 0; }
     .rv-card-rating { font-size: .9rem; }
-
-    .rv-card-text { margin: 0 0 1rem; font-size: .9rem; color: #444; }
+    .rv-card-text {
+      margin: 0 0 1rem; font-size: .9rem; color: #444;
+    }
     .rv-card-meta { display: flex; gap: 1rem; margin-bottom: 1rem; }
     .rv-card-stats {
-      display: grid; grid-template-columns: repeat(2, auto); gap: .75rem 1.5rem;
+      display: grid; grid-template-columns: repeat(2, auto);
+      gap: .75rem 1.5rem;
     }
     .rv-card-stats .stat small {
       display: block; font-size: .75rem; color: #666;
-      text-transform: uppercase; letter-spacing: .5px; margin-bottom: .25rem;
+      text-transform: uppercase; letter-spacing: .5px;
+      margin-bottom: .25rem;
     }
     .rv-card-stats .stat strong {
       display: block; font-size: .95rem; color: #000;
@@ -96,21 +120,16 @@
       padding: 1rem; box-sizing: border-box; z-index: 1000;
     }
     .modal-content {
-      background: #fff; border-radius: 12px; max-width: 600px;
-      width: 100%; padding: 1.5rem; position: relative;
-      max-height: 90vh; overflow-y: auto;
+      background: #fff; border-radius: 12px;
+      max-width: 600px; width: 100%; padding: 1.5rem;
+      position: relative; max-height: 90vh; overflow-y: auto;
     }
-    #image-modal .modal-content {
-  background: transparent;  /* plus de fond blanc */
-  padding: 0;               /* plus de marge interne */
-  box-shadow: none;         /* si tu veux retirer l’ombre aussi */
-}
     .modal-close {
       position: absolute; top: .5rem; right: 1rem;
       font-size: 1.5rem; cursor: pointer;
     }
     #map-modal { height: 300px; border-radius: 12px; margin-bottom: 1rem; }
-    /* désactive le hover scale dans la modal */
+    /* Désactive scale sur la card dupliquée */
     #trip-modal .rv-card:hover {
       transform: none !important; cursor: default;
     }
@@ -136,10 +155,7 @@
     }
     .image-modal-img {
       max-width: 90vw; max-height: 80vh; display: block;
-      margin: 0 auto;
-      /* plus de contour blanc */
-      /* border: 8px solid white; */
-      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      margin: 0 auto; box-shadow: 0 2px 8px rgba(0,0,0,0.3);
       border-radius: 8px;
     }
     .lightbox-prev, .lightbox-next {
@@ -153,6 +169,15 @@
     .lightbox-next { right: 1rem; }
     .lightbox-prev:hover, .lightbox-next:hover {
       background: white;
+    }
+
+    /* Masque les flèches en mobile */
+    @media (max-width: 768px) {
+      .lightbox-prev,
+      .lightbox-next {
+        display: none;
+      }
+      /* autres règles mobile… */
     }
 
     /* ---------- FOOTER ---------- */
@@ -195,10 +220,10 @@
       nav.open { display:flex; }
       .rv-card { margin: 1rem auto; }
       .footer {
-        flex-direction: column; align-items: center;
-        padding: 10px 1rem;
+        flex-direction: column; align-items: center; padding: 10px 1rem;
       }
-      .footer .left-footer, .footer .right-footer {
+      .footer .left-footer,
+      .footer .right-footer {
         width: 100%; display: flex; justify-content: center;
         margin: .25rem 0;
       }
@@ -208,15 +233,10 @@
       .footer .right-footer a {
         font-size: .75rem; white-space: nowrap;
       }
-      .footer .left-footer img { width: 20px; height: 20px; }
+      .footer .left-footer img {
+        width: 20px; height: 20px;
+      }
     }
-    @media (max-width: 768px) {
-  .lightbox-prev,
-  .lightbox-next {
-    display: none;
-  }
-}
-
   </style>
 </head>
 <body>
@@ -250,8 +270,8 @@
       <div class="rv-card-header">
         <span class="rv-card-id">01</span>
         <div class="rv-card-badges">
-          <img src="icons/ascendant.svg" alt="Altitude ↑" title="Altitude max ↑">
-          <img src="icons/tent.svg" alt="Bivouacs" title="Bivouacs">
+          <img src="montage.png" alt="Montagne" class="badge-icon">
+          <img src="forest.png"  alt="Forêt"    class="badge-icon">
         </div>
       </div>
       <div class="rv-card-media">
@@ -295,17 +315,13 @@
     <div id="trip-modal" class="modal">
       <div class="modal-content">
         <span class="modal-close">&times;</span>
-
-        <!-- CARTE GPX INTERACTIVE -->
         <div id="map-modal"></div>
-
-        <!-- DUPLICATION DE LA CARD -->
         <div class="rv-card" style="box-shadow:none; max-width:none; margin:0;">
           <div class="rv-card-header">
             <span class="rv-card-id">01</span>
             <div class="rv-card-badges">
-              <img src="icons/ascendant.svg" alt="Altitude ↑" title="Altitude max ↑">
-              <img src="icons/tent.svg" alt="Bivouacs" title="Bivouacs">
+              <img src="montage.png" alt="Montagne" class="badge-icon">
+              <img src="forest.png"  alt="Forêt"    class="badge-icon">
             </div>
           </div>
           <div class="rv-card-body">
@@ -342,7 +358,6 @@
           </div>
         </div>
 
-        <!-- GALERIE DE VIGNETTES -->
         <div class="trip-gallery-modal">
           <h4>Galerie</h4>
           <div class="gallery-thumbs">
@@ -359,7 +374,6 @@
             <img src="IMG_9375.JPEG" alt="Photo 11">
           </div>
         </div>
-
       </div>
     </div>
 
@@ -391,42 +405,44 @@
 
     <!-- MODALS Politique & Mentions légales -->
     <div id="privacy-modal" class="modal">
-      <div class="modal-content"><span class="modal-close">&times;</span><!--…--></div>
+      <div class="modal-content"><span class="modal-close">&times;</span><!-- contenu… --></div>
     </div>
     <div id="legal-modal" class="modal">
-      <div class="modal-content"><span class="modal-close">&times;</span><!--…--></div>
+      <div class="modal-content"><span class="modal-close">&times;</span><!-- contenu… --></div>
     </div>
 
   </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      // burger
+      // menu burger
       document.querySelector('.menu-toggle')
         .addEventListener('click', () =>
           document.querySelector('header nav').classList.toggle('open')
         );
 
-      // modal politique / mentions
-      ['privacy','legal'].forEach(type => {
-        document.getElementById(type+'-policy-link')?.addEventListener('click', e => {
+      // modals politique & mentions
+      document.getElementById('privacy-policy-link')
+        .addEventListener('click', e => {
           e.preventDefault();
-          document.getElementById(type+'-modal').style.display = 'flex';
+          document.getElementById('privacy-modal').style.display = 'flex';
         });
-        document.getElementById(type+'-mentions-link')?.addEventListener('click', e => {
+      document.getElementById('legal-mentions-link')
+        .addEventListener('click', e => {
           e.preventDefault();
-          document.getElementById(type+'-modal').style.display = 'flex';
+          document.getElementById('legal-modal').style.display = 'flex';
         });
-      });
 
-      // tous les fermetures
+      // fermer tous les modals
       document.querySelectorAll('.modal-close').forEach(btn =>
         btn.addEventListener('click', () =>
           btn.closest('.modal').style.display = 'none'
         )
       );
       window.addEventListener('click', e => {
-        if (e.target.classList.contains('modal')) e.target.style.display = 'none';
+        if (e.target.classList.contains('modal')) {
+          e.target.style.display = 'none';
+        }
       });
     });
 
@@ -438,17 +454,18 @@
     card.addEventListener('click', () => {
       tripModal.style.display = 'flex';
       if (!mapInit) {
-        const map = L.map('map-modal').setView([45.3639,5.83],10);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-          attribution:'&copy; OpenStreetMap contributors'
+        const map = L.map('map-modal').setView([45.3639, 5.83], 10);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '&copy; OpenStreetMap contributors'
         }).addTo(map);
 
-        new L.GPX('roadbook-chartreusealpes.gpx',{
-          async:true,
-          marker_options:{ startIconUrl:null, endIconUrl:null },
-          polyline_options:{ color:'#0077cc', weight:4, opacity:0.8 }
-        }).on('loaded', e => map.fitBounds(e.target.getBounds()))
-          .addTo(map);
+        new L.GPX('roadbook-chartreusealpes.gpx', {
+          async: true,
+          marker_options: { startIconUrl: null, endIconUrl: null },
+          polyline_options: { color: '#0077cc', weight: 4, opacity: 0.8 }
+        })
+        .on('loaded', e => map.fitBounds(e.target.getBounds()))
+        .addTo(map);
 
         mapInit = true;
       }
@@ -469,7 +486,6 @@
         imageModal.style.display = 'flex';
       });
     });
-
     prevBtn.addEventListener('click', e => {
       e.stopPropagation();
       currentImgIndex = (currentImgIndex - 1 + thumbs.length) % thumbs.length;
@@ -480,17 +496,15 @@
       currentImgIndex = (currentImgIndex + 1) % thumbs.length;
       imageModalImg.src = thumbs[currentImgIndex].src;
     });
-
     // swipe tactile
     let startX = 0;
     imageModalImg.addEventListener('touchstart', e => {
       startX = e.changedTouches[0].screenX;
     });
     imageModalImg.addEventListener('touchend', e => {
-      const endX = e.changedTouches[0].screenX;
-      const diff = endX - startX;
+      const diff = e.changedTouches[0].screenX - startX;
       if (diff > 50) prevBtn.click();
-      else if (diff < -50) nextBtn.click();
+      if (diff < -50) nextBtn.click();
     });
   </script>
 </body>
