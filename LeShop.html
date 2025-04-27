@@ -232,7 +232,7 @@
       justify-content: flex-start;
       border-radius: 20px;
       max-width: 1024px;
-      margin: 3rem auto 0;
+     .margin: 3rem auto 0;
       box-sizing: border-box;
       flex-wrap: wrap;
     }
@@ -393,7 +393,32 @@
       d’émotions intenses. Bienvenue dans notre aventure à deux-roues !
     </div>
 
-    <!-- SECTION PRODUITS -->
+    <!-- SECTION PRODUITS –– T-SHIRT -->
+    <div class="product-section">
+      <div class="plain-title">T-shirt</div>
+      <div class="image-block">
+        <img id="main-image" src="./5W9A4780-HDR.jpg" class="carousel-main" alt="T-shirt Old Mill">
+        <div class="thumbnails">
+          <img src="./5W9A4780-HDR.jpg" class="active" onclick="showImage(this.src,this)" alt="thumb">
+          <img src="./5W9A4657.jpg" onclick="showImage(this.src,this)" alt="thumb">
+          <img src="./5W9A4687 (1).jpg" onclick="showImage(this.src,this)" alt="thumb">
+          <img src="./5W9A4759.jpg" onclick="showImage(this.src,this)" alt="thumb">
+        </div>
+      </div>
+      <div class="info-block">
+        <div class="description">
+          Le premier T-shirt Old Mill Riders réalisé en collaboration avec Cindy, graphiste lyonnaise !<br><br>
+          Tee-shirt épais en coton 100 % biologique, 215 g/m². Imprimé en France.
+        </div>
+        <div class="sizes">
+          30 €<br>
+          Tailles : XS, S, M, L, XL, 2XL
+        </div>
+        <button class="preorder-button" onclick="scrollToForm()">Pré-commander</button>
+      </div>
+    </div>
+
+    <!-- SECTION PRODUITS –– DUPLIQUÉE POUR NOUVEAU PRODUIT -->
     <div class="product-section">
       <div class="plain-title">T-shirt</div>
       <div class="image-block">
@@ -445,8 +470,6 @@
       <div class="modal-content">
         <span class="modal-close">&times;</span>
         <h2>Politique de confidentialité</h2>
-        <p>La présente Politique de confidentialité régit la collecte, l’usage et la protection de vos données personnelles par Old Mill Riders (« nous »). Elle s’applique lorsque vous remplissez notre formulaire de pré-commande.</p>
- <h2>Politique de confidentialité</h2>
         <p>La présente Politique de confidentialité régit la collecte, l’usage et la protection de vos données personnelles par Old Mill Riders (« nous »). Elle s’applique lorsque vous remplissez notre formulaire de pré-commande.</p>
         <h3>1. Responsable de traitement</h3>
         <p>
@@ -501,7 +524,7 @@
         <ul>
           <li><strong>Éditeur :</strong> Old Mill Riders – Lyon </li>
           <li><strong>Identité : </strong> Roméo SIVER, 62 avenue Debourg, 69007 Lyon, France</li>
-          <li><strong>Directeur de la publication :</strong> Roméo Siver <a href="mailto:team@oldmillriders.fr">team@oldmillrider.fr</a></li>
+          <li><strong>Directeur de la publication :</strong> Roméo Siver <a href="mailto:team@oldmillrider.fr">team@oldmillrider.fr</a></li>
           <li><strong>Hébergeur :</strong> OVH – 2 rue Kellermann, 59100 Roubaix </li>
         </ul>
       </div>
