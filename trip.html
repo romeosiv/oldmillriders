@@ -7,38 +7,267 @@
   <link rel="icon" type="image/png" href="./moulin-coeur-noir.png" />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <style>
-    body { font-family: 'Space Grotesk', sans-serif; background: #e5e5e5; margin: 0; color: #000; }
-    .container { max-width: 1024px; margin: 0 auto; padding: 0 1rem; }
 
-    /* Wrapper for three cards */
+  <!-- Leaflet + plugin GPX -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.5.0/gpx.min.js"></script>
+
+  <style>
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background: #e5e5e5;
+      margin: 0;
+      color: #000;
+    }
+    .container {
+      max-width: 1024px;
+      margin: 0 auto;
+      padding: 0 1rem;
+    }
+
+    /* ---------- HEADER ---------- */
+    header {
+      background: #000; color: #fff;
+      border-radius: 20px;
+      padding: 1rem 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      position: relative; margin: 20px auto; max-width: 1024px;
+      box-sizing: border-box;
+    }
+    .left-nav, .right-nav { display: flex; align-items: center; gap: 1.5rem; }
+    .center-title {
+      position: absolute; left: 50%; transform: translateX(-50%);
+      font-size: 1.8rem; font-weight: bold; white-space: nowrap;
+    }
+    .center-title a, .center-title a:visited { color: inherit; text-decoration: none; }
+    nav { display: flex; align-items: center; gap: 1rem; }
+    nav a {
+      position: relative; color: #fff; text-decoration: none; font-size: 1rem;
+    }
+    nav a::after {
+      content: ""; position: absolute; left: 0; bottom: -2px;
+      width: 0; height: 1px; background: #fff;
+      transition: width 0.3s ease;
+    }
+    nav a:hover::after, nav a.active::after { width: 100%; }
+    .menu-toggle {
+      display: none; background: none; border: none;
+      font-size: 1.5rem; color: #fff; cursor: pointer;
+    }
+    .icon { width: 28px; height: 28px; }
+    .insta-icon { width: 16px; display: block; }
+
+    /* ---------- TRIPS WRAPPER (3 cartes) ---------- */
     .rv-cards-wrapper {
       display: flex;
-      gap: 1rem;
-      justify-content: space-between;
+      gap: 1.5rem;
       flex-wrap: wrap;
+      justify-content: space-between;
       margin: 2rem 0;
     }
+
+    /* ---------- TRIP CARD ---------- */
     .rv-card {
-      background: #fff;
-      border-radius: 12px;
-      overflow: hidden;
+      background: #fff; border-radius: 12px; overflow: hidden;
       box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-      flex: 1 1 calc((100% - 2rem) / 3);
-      cursor: pointer;
-      transition: transform 0.15s ease;
+      width: calc(33.333% - 1rem);
+      cursor: pointer; transition: transform 0.15s ease;
+    }
+    .rv-card:hover { transform: scale(1.02); }
+    .rv-card-header {
+      display: flex; justify-content: space-between;
+      padding: .5rem 1rem; background: #f5f5f5; align-items: center;
+    }
+    .rv-card-id { font-weight: bold; font-size: 1.25rem; }
+    .badge-icon {
+      width: 24px; height: 24px;
+      object-fit: contain; margin-left: .5rem;
+    }
+    .rv-card-media img { width: 100%; display: block; }
+    .rv-card-body { padding: 1rem; }
+    .rv-card-title-row {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: .5rem;
+    }
+    .rv-card-title { font-size: 1.1rem; margin: 0; }
+    .rv-card-rating { font-size: .9rem; }
+    .rv-card-text {
+      margin: 0 0 1rem; font-size: .9rem; color: #444;
+    }
+    .rv-card-meta { display: flex; gap: 1rem; margin-bottom: 1rem; }
+    .rv-card-stats {
+      display: grid; grid-template-columns: repeat(2, auto);
+      gap: .75rem 1.5rem;
+    }
+    .rv-card-stats .stat small {
+      display: block; font-size: .75rem; color: #666;
+      text-transform: uppercase; letter-spacing: .5px;
+      margin-bottom: .25rem;
+    }
+    .rv-card-stats .stat strong {
+      display: block; font-size: .95rem; color: #000;
+    }
+    .rv-card-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 1rem 1rem;
+    }
+    .rv-card-link {
+      font-size: .85rem; text-decoration: none; color: #0077cc;
+    }
+    .rv-card-link:hover { text-decoration: underline; }
+
+    /* ---------- MODAL ---------- */
+    .modal {
+      display: none; position: fixed; top: 0; left: 0;
+      width: 100%; height: 100%; background: rgba(0,0,0,0.5);
+      justify-content: center; align-items: center;
+      padding: 1rem; box-sizing: border-box; z-index: 1000;
+    }
+    .modal-content {
+      background: #fff; border-radius: 12px;
+      max-width: 600px; width: 100%; padding: 1.5rem;
+      position: relative; max-height: 90vh; overflow-y: auto;
+    }
+    #image-modal .modal-content {
+      background: transparent;
+      padding: 0;
+      box-shadow: none;
+    }
+    .modal-close {
+      position: absolute; top: .5rem; right: 1rem;
+      font-size: 1.5rem; cursor: pointer;
+    }
+    #map-modal { height: 300px; border-radius: 12px; margin-bottom: 1rem; }
+
+    /* ---------- GALERIE ---------- */
+    .trip-gallery-modal { margin-top: 1.5rem; }
+    .trip-gallery-modal h4 {
+      margin: 0 0 .5rem; font-size: 1rem; font-weight: bold;
+    }
+    .gallery-thumbs {
+      display: flex; flex-wrap: wrap; gap: 8px;
+    }
+    .gallery-thumbs img {
+      width: 70px; height: 70px; object-fit: cover;
+      border-radius: 6px; cursor: pointer;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
     }
 
-    /* Autres styles inchangés... */
+    /* ---------- LIGHTBOX CARROUSEL ---------- */
+    .image-lightbox {
+      position: relative; display: flex;
+      align-items: center; justify-content: center;
+    }
+    .image-modal-img {
+      max-width: 90vw; max-height: 80vh; display: block;
+      margin: 0 auto; box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+      border-radius: 8px;
+    }
+    .lightbox-prev, .lightbox-next {
+      position: absolute; top: 50%;
+      transform: translateY(-50%);
+      background: rgba(255,255,255,0.8); border: none;
+      font-size: 2rem; padding: .2rem .6rem; cursor: pointer;
+      border-radius: 4px; user-select: none;
+    }
+    .lightbox-prev { left: 1rem; }
+    .lightbox-next { right: 1rem; }
+    .lightbox-prev:hover, .lightbox-next:hover {
+      background: white;
+    }
+    @media (max-width: 768px) {
+      .lightbox-prev, .lightbox-next { display: none; }
+    }
+
+    /* ---------- FOOTER ---------- */
+    .footer {
+      background: #e5e5e5; color: #000; padding: 20px 0;
+      display: flex; align-items: center; justify-content: flex-start;
+      border-radius: 20px; max-width: 1024px; margin: 3rem auto 0;
+      box-sizing: border-box; flex-wrap: wrap;
+    }
+    .footer .left-footer {
+      display: flex; align-items: center; gap: 1rem; margin-left: 1rem;
+    }
+    .footer .left-footer img { width: 28px; height: 28px; }
+    .footer .left-footer a, .footer .left-footer a:visited {
+      color: #000; text-decoration: none;
+    }
+    .footer .right-footer {
+      display: flex; gap: 1.5rem; margin-left: auto; margin-right: 1rem;
+    }
+    .footer .right-footer a {
+      text-decoration: none; font-weight: normal;
+      color: #000; font-size: 1rem; cursor: pointer;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 768px) {
+      header { padding: .5rem 1rem; }
+      .center-title {
+        position: static!important; transform: none!important;
+        font-size: 1.4rem!important; text-align: center!important;
+        width: 100%!important; margin: 0 auto!important;
+      }
+      .left-nav a.logo { display: none; }
+      .menu-toggle { display: block; }
+      nav {
+        display: none; flex-direction: column; gap: 1rem;
+        position: absolute; top:100%; left:0; right:0;
+        padding:1rem; background:#000; border-radius:20px; z-index:10;
+      }
+      nav.open { display:flex; }
+      .rv-card { width: 100%; margin: 1rem 0; }
+      .footer {
+        flex-direction: column; align-items: center; padding: 10px 1rem;
+      }
+      .footer .left-footer,
+      .footer .right-footer {
+        width: 100%; display: flex; justify-content: center;
+        margin: .25rem 0;
+      }
+      .footer .right-footer {
+        flex-wrap: wrap; gap: .5rem;
+      }
+      .footer .right-footer a {
+        font-size: .75rem; white-space: nowrap;
+      }
+      .footer .left-footer img {
+        width: 20px; height: 20px;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="container">
-    <!-- Trois cartes côte à côte -->
+
+    <!-- HEADER -->
+    <header>
+      <div class="left-nav">
+        <a href="home.html" class="logo">
+          <img src="./moulin-coeur-blanc.png" class="icon" alt="Logo">
+        </a>
+        <button class="menu-toggle" aria-label="Ouvrir le menu">☰</button>
+        <nav>
+          <a href="labande.html">La Bande</a>
+          <a href="LeShop.html">Le Shop</a>
+          <a href="trip.html" class="active">Trips</a>
+        </nav>
+      </div>
+      <div class="center-title">
+        <a href="home.html">Old Mill Riders</a>
+      </div>
+      <div class="right-nav">
+        <a href="https://www.instagram.com/old_mill_riders/" target="_blank">
+          <img src="https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png" class="insta-icon" alt="Instagram">
+        </a>
+      </div>
+    </header>
+
+    <!-- TROIS CARTES CÔTE À CÔTE -->
     <div class="rv-cards-wrapper">
-      <!-- Carte 1 -->
+      <!-- Carte 01 -->
       <article class="rv-card" id="trip-01">
-        <!-- Contenu identique à Balade en Chartreuse -->
         <div class="rv-card-header">
           <span class="rv-card-id">01</span>
           <div class="rv-card-badges">
@@ -54,13 +283,27 @@
             <h3 class="rv-card-title">Balade en Chartreuse</h3>
             <span class="rv-card-rating">★★★★☆</span>
           </div>
-          <p class="rv-card-text">Une virée de 3 jours au cœur du massif de la Chartreuse, entre forêts humides, cols étroits et nuits sous tente.</p>
+          <p class="rv-card-text">
+            Une virée de 3 jours au cœur du massif de la Chartreuse, entre forêts humides, cols étroits et nuits sous tente.
+          </p>
           <div class="rv-card-meta">
             <div class="rv-card-stats">
-              <div class="stat"><small>Distance</small><strong>350 km</strong></div>
-              <div class="stat"><small>Altitude max ↑</small><strong>2 100 m</strong></div>
-              <div class="stat"><small>Durée</small><strong>3 jours</strong></div>
-              <div class="stat"><small>Niveau</small><strong>Intermédiaire</strong></div>
+              <div class="stat">
+                <small>Distance</small>
+                <strong>350 km</strong>
+              </div>
+              <div class="stat">
+                <small>Altitude max ↑</small>
+                <strong>2 100 m</strong>
+              </div>
+              <div class="stat">
+                <small>Durée</small>
+                <strong>3 jours</strong>
+              </div>
+              <div class="stat">
+                <small>Niveau</small>
+                <strong>Intermédiaire</strong>
+              </div>
             </div>
           </div>
           <div class="rv-card-footer">
@@ -68,25 +311,99 @@
           </div>
         </div>
       </article>
-
-      <!-- Carte 2 -->
+      <!-- Carte 02 -->
       <article class="rv-card" id="trip-02">
-        <!-- Copie exacte de la carte 1 -->
-        <div class="rv-card-header"><span class="rv-card-id">02</span><div class="rv-card-badges"><img src="montage.png" alt="Montagne" class="badge-icon"><img src="forest.png" alt="Forêt" class="badge-icon"></div></div>
-        <div class="rv-card-media"><img src="IMG_9375.JPEG" alt="Balade en Chartreuse"></div>
-        <div class="rv-card-body"><div class="rv-card-title-row"><h3 class="rv-card-title">Balade en Chartreuse</h3><span class="rv-card-rating">★★★★☆</span></div><p class="rv-card-text">Une virée de 3 jours au cœur du massif de la Chartreuse, entre forêts humides, cols étroits et nuits sous tente.</p><div class="rv-card-meta"><div class="rv-card-stats"><div class="stat"><small>Distance</small><strong>350 km</strong></div><div class="stat"><small>Altitude max ↑</small><strong>2 100 m</strong></div><div class="stat"><small>Durée</small><strong>3 jours</strong></div><div class="stat"><small>Niveau</small><strong>Intermédiaire</strong></div></div></div><div class="rv-card-footer"><a href="roadbook-chartreusealpes.gpx" class="rv-card-link" target="_blank">Télécharger GPX</a></div></div>
+        <div class="rv-card-header">
+          <span class="rv-card-id">02</span>
+          <div class="rv-card-badges">
+            <img src="montage.png" alt="Montagne" class="badge-icon">
+            <img src="forest.png"  alt="Forêt"    class="badge-icon">
+          </div>
+        </div>
+        <div class="rv-card-media">
+          <img src="IMG_9375.JPEG" alt="Balade en Chartreuse">
+        </div>
+        <div class="rv-card-body">
+          <div class="rv-card-title-row">
+            <h3 class="rv-card-title">Balade en Chartreuse</h3>
+            <span class="rv-card-rating">★★★★☆</span>
+          </div>
+          <p class="rv-card-text">
+            Une virée de 3 jours au cœur du massif de la Chartreuse, entre forêts humides, cols étroits et nuits sous tente.
+          </p>
+          <div class="rv-card-meta">
+            <div class="rv-card-stats">
+              <div class="stat">
+                <small>Distance</small>
+                <strong>350 km</strong>
+              </div>
+              <div class="stat">
+                <small>Altitude max ↑</small>
+                <strong>2 100 m</strong>
+              </div>
+              <div class="stat">
+                <small>Durée</small>
+                <strong>3 jours</strong>
+              </div>
+              <div class="stat">
+                <small>Niveau</small>
+                <strong>Intermédiaire</strong>
+              </div>
+            </div>
+          </div>
+          <div class="rv-card-footer">
+            <a href="roadbook-chartreusealpes.gpx" class="rv-card-link" target="_blank">Télécharger GPX</a>
+          </div>
+        </div>
       </article>
-
-      <!-- Carte 3 -->
+      <!-- Carte 03 -->
       <article class="rv-card" id="trip-03">
-        <!-- Copie exacte de la carte 1 -->
-        <div class="rv-card-header"><span class="rv-card-id">03</span><div class="rv-card-badges"><img src="montage.png" alt="Montagne" class="badge-icon"><img src="forest.png" alt="Forêt" class="badge-icon"></div></div>
-        <div class="rv-card-media"><img src="IMG_9375.JPEG" alt="Balade en Chartreuse"></div>
-        <div class="rv-card-body"><div class="rv-card-title-row"><h3 class="rv-card-title">Balade en Chartreuse</h3><span class="rv-card-rating">★★★★☆</span></div><p class="rv-card-text">Une virée de 3 jours au cœur du massif de la Chartreuse, entre forêts humides, cols étroits et nuits sous tente.</p><div class="rv-card-meta"><div class="rv-card-stats"><div class="stat"><small>Distance</small><strong>350 km</strong></div><div class="stat"><small>Altitude max ↑</small><strong>2 100 m</strong></div><div class="stat"><small>Durée</small><strong>3 jours</strong></div><div class="stat"><small>Niveau</small><strong>Intermédiaire</strong></div></div></div><div class="rv-card-footer"><a href="roadbook-chartreusealpes.gpx" class="rv-card-link" target="_blank">Télécharger GPX</a></div></div>
+        <div class="rv-card-header">
+          <span class="rv-card-id">03</span>
+          <div class="rv-card-badges">
+            <img src="montage.png" alt="Montagne" class="badge-icon">
+            <img src="forest.png"  alt="Forêt"    class="badge-icon">
+          </div>
+        </div>
+        <div class="rv-card-media">
+          <img src="IMG_9375.JPEG" alt="Balade en Chartreuse">
+        </div>
+        <div class="rv-card-body">
+          <div class="rv-card-title-row">
+            <h3 class="rv-card-title">Balade en Chartreuse</h3>
+            <span class="rv-card-rating">★★★★☆</span>
+          </div>
+          <p class="rv-card-text">
+            Une virée de 3 jours au cœur du massif de la Chartreuse, entre forêts humides, cols étroits et nuits sous tente.
+          </p>
+          <div class="rv-card-meta">
+            <div class="rv-card-stats">
+              <div class="stat">
+                <small>Distance</small>
+                <strong>350 km</strong>
+              </div>
+              <div class="stat">
+                <small>Altitude max ↑</small>
+                <strong>2 100 m</strong>
+              </div>
+              <div class="stat">
+                <small>Durée</small>
+                <strong>3 jours</strong>
+              </div>
+              <div class="stat">
+                <small>Niveau</small>
+                <strong>Intermédiaire</strong>
+              </div>
+            </div>
+          </div>
+          <div class="rv-card-footer">
+            <a href="roadbook-chartreusealpes.gpx" class="rv-card-link" target="_blank">Télécharger GPX</a>
+          </div>
+        </div>
       </article>
     </div>
 
-        <!-- MODAL TRIP -->
+    <!-- MODAL TRIP -->
     <div id="trip-modal" class="modal">
       <div class="modal-content">
         <span class="modal-close">&times;</span>
@@ -109,22 +426,10 @@
             </p>
             <div class="rv-card-meta">
               <div class="rv-card-stats">
-                <div class="stat">
-                  <small>Distance</small>
-                  <strong>350 km</strong>
-                </div>
-                <div class="stat">
-                  <small>Altitude max ↑</small>
-                  <strong>2 100 m</strong>
-                </div>
-                <div class="stat">
-                  <small>Durée</small>
-                  <strong>3 jours</strong>
-                </div>
-                <div class="stat">
-                  <small>Niveau</small>
-                  <strong>Intermédiaire</strong>
-                </div>
+                <div class="stat"><small>Distance</small><strong>350 km</strong></div>
+                <div class="stat"><small>Altitude max ↑</small><strong>2 100 m</strong></div>
+                <div class="stat"><small>Durée</small><strong>3 jours</strong></div>
+                <div class="stat"><small>Niveau</small><strong>Intermédiaire</strong></div>
               </div>
             </div>
             <div class="rv-card-footer">
@@ -222,28 +527,30 @@
     });
 
     // carte + GPX
-    const card      = document.getElementById('trip-01');
+    const cards      = Array.from(document.querySelectorAll('[id^="trip-"]'));
     const tripModal = document.getElementById('trip-modal');
     let mapInit     = false;
 
-    card.addEventListener('click', () => {
-      tripModal.style.display = 'flex';
-      if (!mapInit) {
-        const map = L.map('map-modal').setView([45.3639, 5.83], 10);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: '&copy; OpenStreetMap contributors'
-        }).addTo(map);
+    cards.forEach(card => {
+      card.addEventListener('click', () => {
+        tripModal.style.display = 'flex';
+        if (!mapInit) {
+          const map = L.map('map-modal').setView([45.3639, 5.83], 10);
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+          }).addTo(map);
 
-        new L.GPX('roadbook-chartreusealpes.gpx', {
-          async: true,
-          marker_options: { startIconUrl: null, endIconUrl: null },
-          polyline_options: { color: '#0077cc', weight: 4, opacity: 0.8 }
-        })
-        .on('loaded', e => map.fitBounds(e.target.getBounds()))
-        .addTo(map);
+          new L.GPX('roadbook-chartreusealpes.gpx', {
+            async: true,
+            marker_options: { startIconUrl: null, endIconUrl: null },
+            polyline_options: { color: '#0077cc', weight: 4, opacity: 0.8 }
+          })
+          .on('loaded', e => map.fitBounds(e.target.getBounds()))
+          .addTo(map);
 
-        mapInit = true;
-      }
+          mapInit = true;
+        }
+      });
     });
 
     // galerie + lightbox carrousel + swipe
@@ -282,8 +589,5 @@
       if (diff < -50) nextBtn.click();
     });
   </script>
-</body>
-</html>
-  </div>
 </body>
 </html>
