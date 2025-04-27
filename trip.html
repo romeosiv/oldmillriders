@@ -56,11 +56,11 @@
     .icon { width: 28px; height: 28px; }
     .insta-icon { width: 16px; display: block; }
 
-    /* ---------- HERO (nouveau) ---------- */
+    /* ---------- HERO (avec background de la page Le Shop) ---------- */
     .hero {
       background-image: image-set(
-        url('./chartreuse-desktop.jpg') 1x,
-        url('./chartreuse-desktop@2x.jpg') 2x
+        url('./shop-desktop.jpg') 1x,
+        url('./shop-desktop@2x.jpg') 2x
       );
       background-size: cover;
       background-position: center center;
@@ -74,8 +74,8 @@
     @media (max-width: 768px) {
       .hero {
         background-image: image-set(
-          url('./chartreuse-mobile.jpg') 1x,
-          url('./chartreuse-mobile@2x.jpg') 2x
+          url('./shop-mobile.jpg') 1x,
+          url('./shop-mobile@2x.jpg') 2x
         );
       }
     }
@@ -89,7 +89,7 @@
       text-shadow: 0 0 8px rgba(0,0,0,0.7);
     }
 
-    /* ---------- ABOUT BLOCK (nouveau) ---------- */
+    /* ---------- ABOUT BLOCK (texte sous le header) ---------- */
     .about-block {
       background: #000; color: #fff;
       padding: 2rem;
@@ -169,15 +169,17 @@
       max-width: 600px; width: 100%; padding: 1.5rem;
       position: relative; max-height: 90vh; overflow-y: auto;
     }
-    /* étendre le contenu de la card en modal pour toute la largeur */
+    /* désactiver le hover/scale dans la modal */
+    #trip-modal .rv-card:hover {
+      transform: none !important;
+      cursor: default;
+    }
+
+    /* ---------- MAP & CARD FULL WIDTH ---------- */
+    #map-modal { height: 300px; border-radius: 12px; margin-bottom: 1rem; }
     #trip-modal .rv-card {
       width: 100%; max-width: 100%; margin: 0; box-shadow: none;
     }
-    .modal-close {
-      position: absolute; top: .5rem; right: 1rem;
-      font-size: 1.5rem; cursor: pointer;
-    }
-    #map-modal { height: 300px; border-radius: 12px; margin-bottom: 1rem; }
 
     /* ---------- GALERIE ---------- */
     .trip-gallery-modal { margin-top: 1.5rem; }
@@ -190,20 +192,29 @@
     .gallery-thumbs img {
       width: 70px; height: 70px; object-fit: cover;
       border-radius: 6px; cursor: pointer;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+      box-shadow: none;    /* plus de cadre blanc */
+      border: none;
     }
 
     /* ---------- LIGHTBOX CARROUSEL ---------- */
+    /* enlever le cadre blanc autour de la lightbox */
+    #image-modal .modal-content {
+      background: transparent;
+      padding: 0;
+      box-shadow: none;
+      max-width: 90vw;
+      max-height: 90vh;
+      overflow: hidden;
+    }
     .image-lightbox {
       position: relative; display: flex;
       align-items: center; justify-content: center;
     }
     .image-modal-img {
-      display: block;
-      max-width: 90vw; max-height: 80vh;
-      margin: 0 auto; box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-      border-radius: 8px;
+      max-width: 100%;
+      max-height: 100%;
       width: auto; height: auto;
+      border-radius: 0;    /* plus de bord arrondi */
     }
     .lightbox-prev, .lightbox-next {
       position: absolute; top: 50%;
@@ -259,6 +270,7 @@
       nav.open { display:flex; }
       .rv-card { width: 100%; margin: 1rem 0; }
       .hero-text { font-size: 2rem!important; }
+      .gallery-thumbs img { width: 60px; height: 60px; }
       .footer {
         flex-direction: column; align-items: center; padding: 10px 1rem;
       }
@@ -340,18 +352,10 @@
           </p>
           <div class="rv-card-meta">
             <div class="rv-card-stats">
-              <div class="stat">
-                <small>Distance</small><strong>350 km</strong>
-              </div>
-              <div class="stat">
-                <small>Altitude max ↑</small><strong>2 100 m</strong>
-              </div>
-              <div class="stat">
-                <small>Durée</small><strong>3 jours</strong>
-              </div>
-              <div class="stat">
-                <small>Niveau</small><strong>Intermédiaire</strong>
-              </div>
+              <div class="stat"><small>Distance</small><strong>350 km</strong></div>
+              <div class="stat"><small>Altitude max ↑</small><strong>2 100 m</strong></div>
+              <div class="stat"><small>Durée</small><strong>3 jours</strong></div>
+              <div class="stat"><small>Niveau</small><strong>Intermédiaire</strong></div>
             </div>
           </div>
           <div class="rv-card-footer">
@@ -381,18 +385,10 @@
           </p>
           <div class="rv-card-meta">
             <div class="rv-card-stats">
-              <div class="stat">
-                <small>Distance</small><strong>350 km</strong>
-              </div>
-              <div class="stat">
-                <small>Altitude max ↑</small><strong>2 100 m</strong>
-              </div>
-              <div class="stat">
-                <small>Durée</small><strong>3 jours</strong>
-              </div>
-              <div class="stat">
-                <small>Niveau</small><strong>Intermédiaire</strong>
-              </div>
+              <div class="stat"><small>Distance</small><strong>350 km</strong></div>
+              <div class="stat"><small>Altitude max ↑</small><strong>2 100 m</strong></div>
+              <div class="stat"><small>Durée</small><strong>3 jours</strong></div>
+              <div class="stat"><small>Niveau</small><strong>Intermédiaire</strong></div>
             </div>
           </div>
           <div class="rv-card-footer">
@@ -422,18 +418,10 @@
           </p>
           <div class="rv-card-meta">
             <div class="rv-card-stats">
-              <div class="stat">
-                <small>Distance</small><strong>350 km</strong>
-              </div>
-              <div class="stat">
-                <small>Altitude max ↑</small><strong>2 100 m</strong>
-              </div>
-              <div class="stat">
-                <small>Durée</small><strong>3 jours</strong>
-              </div>
-              <div class="stat">
-                <small>Niveau</small><strong>Intermédiaire</strong>
-              </div>
+              <div class="stat"><small>Distance</small><strong>350 km</strong></div>
+              <div class="stat"><small>Altitude max ↑</small><strong>2 100 m</strong></div>
+              <div class="stat"><small>Durée</small><strong>3 jours</strong></div>
+              <div class="stat"><small>Niveau</small><strong>Intermédiaire</strong></div>
             </div>
           </div>
           <div class="rv-card-footer">
@@ -541,7 +529,7 @@
           document.querySelector('header nav').classList.toggle('open')
         );
 
-      // ouverture du modal de la carte + carte GPX
+      // ouverture du modal + GPX
       let mapInit = false;
       document.querySelectorAll('.rv-card').forEach(card => {
         card.addEventListener('click', () => {
@@ -563,7 +551,7 @@
         });
       });
 
-      // galerie + lightbox carrousel + adaptation paysage
+      // galerie + lightbox + affichage entier pour paysage
       const thumbs        = Array.from(document.querySelectorAll('.gallery-thumbs img'));
       const imageModal    = document.getElementById('image-modal');
       const imageModalImg = document.getElementById('image-modal-img');
@@ -576,13 +564,12 @@
           currentImgIndex = idx;
           imageModalImg.src = img.src;
           imageModalImg.onload = () => {
-            // pour les paysages, max-width ; pour portrait, max-height
             if (imageModalImg.naturalWidth > imageModalImg.naturalHeight) {
-              imageModalImg.style.width  = '90vw';
+              imageModalImg.style.width  = '100%';
               imageModalImg.style.height = 'auto';
             } else {
               imageModalImg.style.width  = 'auto';
-              imageModalImg.style.height = '80vh';
+              imageModalImg.style.height = '100%';
             }
           };
           imageModal.style.display = 'flex';
@@ -599,7 +586,7 @@
         thumbs[currentImgIndex].click();
       });
 
-      // modals fermeture
+      // fermeture modals
       document.querySelectorAll('.modal-close').forEach(btn =>
         btn.addEventListener('click', () =>
           btn.closest('.modal').style.display = 'none'
