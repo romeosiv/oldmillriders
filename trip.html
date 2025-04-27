@@ -56,7 +56,7 @@
     .icon { width: 28px; height: 28px; }
     .insta-icon { width: 16px; display: block; }
 
-    /* ---------- HERO (avec background de la page Le Shop) ---------- */
+    /* ---------- HERO (avec background du Shop) ---------- */
     .hero {
       background-image: image-set(
         url('./shop-desktop.jpg') 1x,
@@ -89,7 +89,7 @@
       text-shadow: 0 0 8px rgba(0,0,0,0.7);
     }
 
-    /* ---------- ABOUT BLOCK (texte sous le header) ---------- */
+    /* ---------- ABOUT BLOCK ---------- */
     .about-block {
       background: #000; color: #fff;
       padding: 2rem;
@@ -169,13 +169,12 @@
       max-width: 600px; width: 100%; padding: 1.5rem;
       position: relative; max-height: 90vh; overflow-y: auto;
     }
-    /* désactiver le hover/scale dans la modal */
+    /* désactiver hover/scale dans la modal */
     #trip-modal .rv-card:hover {
       transform: none !important;
       cursor: default;
     }
-
-    /* ---------- MAP & CARD FULL WIDTH ---------- */
+    /* carte full width en modal */
     #map-modal { height: 300px; border-radius: 12px; margin-bottom: 1rem; }
     #trip-modal .rv-card {
       width: 100%; max-width: 100%; margin: 0; box-shadow: none;
@@ -197,7 +196,7 @@
     }
 
     /* ---------- LIGHTBOX CARROUSEL ---------- */
-    /* enlever le cadre blanc autour de la lightbox */
+    /* lightbox sans fond blanc */
     #image-modal .modal-content {
       background: transparent;
       padding: 0;
@@ -214,7 +213,8 @@
       max-width: 100%;
       max-height: 100%;
       width: auto; height: auto;
-      border-radius: 0;    /* plus de bord arrondi */
+      border-radius: 0;
+      object-fit: contain;
     }
     .lightbox-prev, .lightbox-next {
       position: absolute; top: 50%;
@@ -551,7 +551,7 @@
         });
       });
 
-      // galerie + lightbox + affichage entier pour paysage
+      // galerie + lightbox sans zoom forcé
       const thumbs        = Array.from(document.querySelectorAll('.gallery-thumbs img'));
       const imageModal    = document.getElementById('image-modal');
       const imageModalImg = document.getElementById('image-modal-img');
@@ -563,15 +563,7 @@
         img.addEventListener('click', () => {
           currentImgIndex = idx;
           imageModalImg.src = img.src;
-          imageModalImg.onload = () => {
-            if (imageModalImg.naturalWidth > imageModalImg.naturalHeight) {
-              imageModalImg.style.width  = '100%';
-              imageModalImg.style.height = 'auto';
-            } else {
-              imageModalImg.style.width  = 'auto';
-              imageModalImg.style.height = '100%';
-            }
-          };
+          // on laisse le CSS gérer la taille (max-width & max-height)
           imageModal.style.display = 'flex';
         });
       });
