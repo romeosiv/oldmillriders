@@ -7,12 +7,11 @@
   <link rel="icon" type="image/png" href="./moulin-coeur-noir.png" />
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
-  <!-- Leaflet + plugin GPX -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-gpx/1.5.0/gpx.min.js"></script>
 
   <style>
+    /* ---------- Reset & Base ---------- */
     body {
       font-family: 'Space Grotesk', sans-serif;
       background: #e5e5e5;
@@ -57,6 +56,51 @@
     .icon { width: 28px; height: 28px; }
     .insta-icon { width: 16px; display: block; }
 
+    /* ---------- HERO (nouveau) ---------- */
+    .hero {
+      background-image: image-set(
+        url('./chartreuse-desktop.jpg') 1x,
+        url('./chartreuse-desktop@2x.jpg') 2x
+      );
+      background-size: cover;
+      background-position: center center;
+      filter: grayscale(100%);
+      border-radius: 20px;
+      margin: 0 auto 20px;
+      max-width: 1024px;
+      aspect-ratio: 1024/350;
+      position: relative;
+    }
+    @media (max-width: 768px) {
+      .hero {
+        background-image: image-set(
+          url('./chartreuse-mobile.jpg') 1x,
+          url('./chartreuse-mobile@2x.jpg') 2x
+        );
+      }
+    }
+    .hero-text {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 2.5rem;
+      text-align: center;
+      text-shadow: 0 0 8px rgba(0,0,0,0.7);
+    }
+
+    /* ---------- ABOUT BLOCK (nouveau) ---------- */
+    .about-block {
+      background: #000; color: #fff;
+      padding: 2rem;
+      border-radius: 20px;
+      margin: 20px auto;
+      text-align: center;
+      font-size: 1rem;
+      line-height: 1.5;
+      box-sizing: border-box;
+    }
+
     /* ---------- TRIPS WRAPPER (3 cartes) ---------- */
     .rv-cards-wrapper {
       display: flex;
@@ -79,10 +123,7 @@
       padding: .5rem 1rem; background: #f5f5f5; align-items: center;
     }
     .rv-card-id { font-weight: bold; font-size: 1.25rem; }
-    .badge-icon {
-      width: 24px; height: 24px;
-      object-fit: contain; margin-left: .5rem;
-    }
+    .badge-icon { width: 24px; height: 24px; object-fit: contain; margin-left: .5rem; }
     .rv-card-media img { width: 100%; display: block; }
     .rv-card-body { padding: 1rem; }
     .rv-card-title-row {
@@ -116,7 +157,7 @@
     }
     .rv-card-link:hover { text-decoration: underline; }
 
-    /* ---------- MODAL ---------- */
+    /* ---------- MODAL TRIP ---------- */
     .modal {
       display: none; position: fixed; top: 0; left: 0;
       width: 100%; height: 100%; background: rgba(0,0,0,0.5);
@@ -128,10 +169,9 @@
       max-width: 600px; width: 100%; padding: 1.5rem;
       position: relative; max-height: 90vh; overflow-y: auto;
     }
-    #image-modal .modal-content {
-      background: transparent;
-      padding: 0;
-      box-shadow: none;
+    /* étendre le contenu de la card en modal pour toute la largeur */
+    #trip-modal .rv-card {
+      width: 100%; max-width: 100%; margin: 0; box-shadow: none;
     }
     .modal-close {
       position: absolute; top: .5rem; right: 1rem;
@@ -159,9 +199,11 @@
       align-items: center; justify-content: center;
     }
     .image-modal-img {
-      max-width: 90vw; max-height: 80vh; display: block;
+      display: block;
+      max-width: 90vw; max-height: 80vh;
       margin: 0 auto; box-shadow: 0 2px 8px rgba(0,0,0,0.3);
       border-radius: 8px;
+      width: auto; height: auto;
     }
     .lightbox-prev, .lightbox-next {
       position: absolute; top: 50%;
@@ -172,9 +214,7 @@
     }
     .lightbox-prev { left: 1rem; }
     .lightbox-next { right: 1rem; }
-    .lightbox-prev:hover, .lightbox-next:hover {
-      background: white;
-    }
+    .lightbox-prev:hover, .lightbox-next:hover { background: white; }
     @media (max-width: 768px) {
       .lightbox-prev, .lightbox-next { display: none; }
     }
@@ -218,6 +258,7 @@
       }
       nav.open { display:flex; }
       .rv-card { width: 100%; margin: 1rem 0; }
+      .hero-text { font-size: 2rem!important; }
       .footer {
         flex-direction: column; align-items: center; padding: 10px 1rem;
       }
@@ -247,7 +288,7 @@
         <a href="home.html" class="logo">
           <img src="./moulin-coeur-blanc.png" class="icon" alt="Logo">
         </a>
-        <button class="menu-toggle" aria-label="Ouvrir le menu">☰</button>
+        <button class="menu-toggle" aria-label="Menu">☰</button>
         <nav>
           <a href="labande.html">La Bande</a>
           <a href="LeShop.html">Le Shop</a>
@@ -263,6 +304,17 @@
         </a>
       </div>
     </header>
+
+    <!-- HERO -->
+    <div class="hero">
+      <div class="hero-text">Explorez la Chartreuse</div>
+    </div>
+
+    <!-- ABOUT BLOCK -->
+    <div class="about-block">
+      Plongez au cœur du massif de la Chartreuse pour une aventure inoubliable : forêts enveloppantes,<br>
+      cols sinueux et nuits sous la tente, tout l’esprit Old Mill Riders dans un même trip !
+    </div>
 
     <!-- TROIS CARTES CÔTE À CÔTE -->
     <div class="rv-cards-wrapper">
@@ -289,20 +341,16 @@
           <div class="rv-card-meta">
             <div class="rv-card-stats">
               <div class="stat">
-                <small>Distance</small>
-                <strong>350 km</strong>
+                <small>Distance</small><strong>350 km</strong>
               </div>
               <div class="stat">
-                <small>Altitude max ↑</small>
-                <strong>2 100 m</strong>
+                <small>Altitude max ↑</small><strong>2 100 m</strong>
               </div>
               <div class="stat">
-                <small>Durée</small>
-                <strong>3 jours</strong>
+                <small>Durée</small><strong>3 jours</strong>
               </div>
               <div class="stat">
-                <small>Niveau</small>
-                <strong>Intermédiaire</strong>
+                <small>Niveau</small><strong>Intermédiaire</strong>
               </div>
             </div>
           </div>
@@ -334,20 +382,16 @@
           <div class="rv-card-meta">
             <div class="rv-card-stats">
               <div class="stat">
-                <small>Distance</small>
-                <strong>350 km</strong>
+                <small>Distance</small><strong>350 km</strong>
               </div>
               <div class="stat">
-                <small>Altitude max ↑</small>
-                <strong>2 100 m</strong>
+                <small>Altitude max ↑</small><strong>2 100 m</strong>
               </div>
               <div class="stat">
-                <small>Durée</small>
-                <strong>3 jours</strong>
+                <small>Durée</small><strong>3 jours</strong>
               </div>
               <div class="stat">
-                <small>Niveau</small>
-                <strong>Intermédiaire</strong>
+                <small>Niveau</small><strong>Intermédiaire</strong>
               </div>
             </div>
           </div>
@@ -379,20 +423,16 @@
           <div class="rv-card-meta">
             <div class="rv-card-stats">
               <div class="stat">
-                <small>Distance</small>
-                <strong>350 km</strong>
+                <small>Distance</small><strong>350 km</strong>
               </div>
               <div class="stat">
-                <small>Altitude max ↑</small>
-                <strong>2 100 m</strong>
+                <small>Altitude max ↑</small><strong>2 100 m</strong>
               </div>
               <div class="stat">
-                <small>Durée</small>
-                <strong>3 jours</strong>
+                <small>Durée</small><strong>3 jours</strong>
               </div>
               <div class="stat">
-                <small>Niveau</small>
-                <strong>Intermédiaire</strong>
+                <small>Niveau</small><strong>Intermédiaire</strong>
               </div>
             </div>
           </div>
@@ -408,7 +448,7 @@
       <div class="modal-content">
         <span class="modal-close">&times;</span>
         <div id="map-modal"></div>
-        <div class="rv-card" style="box-shadow:none; max-width:none; margin:0;">
+        <div class="rv-card">
           <div class="rv-card-header">
             <span class="rv-card-id">01</span>
             <div class="rv-card-badges">
@@ -501,19 +541,65 @@
           document.querySelector('header nav').classList.toggle('open')
         );
 
-      // modals politique & mentions
-      document.getElementById('privacy-policy-link')
-        .addEventListener('click', e => {
-          e.preventDefault();
-          document.getElementById('privacy-modal').style.display = 'flex';
+      // ouverture du modal de la carte + carte GPX
+      let mapInit = false;
+      document.querySelectorAll('.rv-card').forEach(card => {
+        card.addEventListener('click', () => {
+          document.getElementById('trip-modal').style.display = 'flex';
+          if (!mapInit) {
+            const map = L.map('map-modal').setView([45.3639, 5.83], 10);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              attribution: '&copy; OpenStreetMap contributors'
+            }).addTo(map);
+            new L.GPX('roadbook-chartreusealpes.gpx', {
+              async: true,
+              marker_options: { startIconUrl: null, endIconUrl: null },
+              polyline_options: { color: '#0077cc', weight: 4, opacity: 0.8 }
+            })
+            .on('loaded', e => map.fitBounds(e.target.getBounds()))
+            .addTo(map);
+            mapInit = true;
+          }
         });
-      document.getElementById('legal-mentions-link')
-        .addEventListener('click', e => {
-          e.preventDefault();
-          document.getElementById('legal-modal').style.display = 'flex';
-        });
+      });
 
-      // fermer tous les modals
+      // galerie + lightbox carrousel + adaptation paysage
+      const thumbs        = Array.from(document.querySelectorAll('.gallery-thumbs img'));
+      const imageModal    = document.getElementById('image-modal');
+      const imageModalImg = document.getElementById('image-modal-img');
+      const prevBtn       = document.querySelector('.lightbox-prev');
+      const nextBtn       = document.querySelector('.lightbox-next');
+      let currentImgIndex = 0;
+
+      thumbs.forEach((img, idx) => {
+        img.addEventListener('click', () => {
+          currentImgIndex = idx;
+          imageModalImg.src = img.src;
+          imageModalImg.onload = () => {
+            // pour les paysages, max-width ; pour portrait, max-height
+            if (imageModalImg.naturalWidth > imageModalImg.naturalHeight) {
+              imageModalImg.style.width  = '90vw';
+              imageModalImg.style.height = 'auto';
+            } else {
+              imageModalImg.style.width  = 'auto';
+              imageModalImg.style.height = '80vh';
+            }
+          };
+          imageModal.style.display = 'flex';
+        });
+      });
+      prevBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        currentImgIndex = (currentImgIndex - 1 + thumbs.length) % thumbs.length;
+        thumbs[currentImgIndex].click();
+      });
+      nextBtn.addEventListener('click', e => {
+        e.stopPropagation();
+        currentImgIndex = (currentImgIndex + 1) % thumbs.length;
+        thumbs[currentImgIndex].click();
+      });
+
+      // modals fermeture
       document.querySelectorAll('.modal-close').forEach(btn =>
         btn.addEventListener('click', () =>
           btn.closest('.modal').style.display = 'none'
@@ -524,69 +610,6 @@
           e.target.style.display = 'none';
         }
       });
-    });
-
-    // carte + GPX
-    const cards      = Array.from(document.querySelectorAll('[id^="trip-"]'));
-    const tripModal = document.getElementById('trip-modal');
-    let mapInit     = false;
-
-    cards.forEach(card => {
-      card.addEventListener('click', () => {
-        tripModal.style.display = 'flex';
-        if (!mapInit) {
-          const map = L.map('map-modal').setView([45.3639, 5.83], 10);
-          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; OpenStreetMap contributors'
-          }).addTo(map);
-
-          new L.GPX('roadbook-chartreusealpes.gpx', {
-            async: true,
-            marker_options: { startIconUrl: null, endIconUrl: null },
-            polyline_options: { color: '#0077cc', weight: 4, opacity: 0.8 }
-          })
-          .on('loaded', e => map.fitBounds(e.target.getBounds()))
-          .addTo(map);
-
-          mapInit = true;
-        }
-      });
-    });
-
-    // galerie + lightbox carrousel + swipe
-    const thumbs        = Array.from(document.querySelectorAll('.gallery-thumbs img'));
-    const imageModal    = document.getElementById('image-modal');
-    const imageModalImg = document.getElementById('image-modal-img');
-    const prevBtn       = document.querySelector('.lightbox-prev');
-    const nextBtn       = document.querySelector('.lightbox-next');
-    let currentImgIndex = 0;
-
-    thumbs.forEach((img, idx) => {
-      img.addEventListener('click', () => {
-        currentImgIndex = idx;
-        imageModalImg.src = img.src;
-        imageModal.style.display = 'flex';
-      });
-    });
-    prevBtn.addEventListener('click', e => {
-      e.stopPropagation();
-      currentImgIndex = (currentImgIndex - 1 + thumbs.length) % thumbs.length;
-      imageModalImg.src = thumbs[currentImgIndex].src;
-    });
-    nextBtn.addEventListener('click', e => {
-      e.stopPropagation();
-      currentImgIndex = (currentImgIndex + 1) % thumbs.length;
-      imageModalImg.src = thumbs[currentImgIndex].src;
-    });
-    // swipe tactile
-    let startX = 0;
-    imageModalImg.addEventListener('touchstart', e => {
-      startX = e.changedTouches[0].screenX;
-    });
-    imageModalImg.addEventListener('touchend', e => {
-      const diff = e.changedTouches[0].screenX - startX;
-      if (diff > 50) prevBtn.click();
-      if (diff < -50) nextBtn.click();
     });
   </script>
 </body>
