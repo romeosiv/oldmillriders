@@ -196,25 +196,25 @@
     }
 
     /* ---------- LIGHTBOX CARROUSEL ---------- */
-    /* lightbox sans fond blanc */
+    /* lightbox sans fond blanc et taille automatique */
     #image-modal .modal-content {
       background: transparent;
       padding: 0;
       box-shadow: none;
-      max-width: 90vw;
-      max-height: 90vh;
-      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
     .image-lightbox {
       position: relative; display: flex;
       align-items: center; justify-content: center;
+      width: auto; height: auto;
     }
     .image-modal-img {
-      max-width: 100%;
-      max-height: 100%;
-      width: auto; height: auto;
-      border-radius: 0;
-      object-fit: contain;
+      max-width: 90vw;
+      max-height: 90vh;
+      width: auto;
+      height: auto;
     }
     .lightbox-prev, .lightbox-next {
       position: absolute; top: 50%;
@@ -393,7 +393,7 @@
           </div>
           <div class="rv-card-footer">
             <a href="roadbook-chartreusealpes.gpx" class="rv-card-link" target="_blank">Télécharger GPX</a>
-          </div>
+          </div>>
         </div>
       </article>
       <!-- Carte 03 -->
@@ -563,7 +563,6 @@
         img.addEventListener('click', () => {
           currentImgIndex = idx;
           imageModalImg.src = img.src;
-          // on laisse le CSS gérer la taille (max-width & max-height)
           imageModal.style.display = 'flex';
         });
       });
