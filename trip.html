@@ -170,6 +170,7 @@
       object-fit: cover;
       border-radius: 6px;
       cursor: pointer;
+      background-color: #000;
     }
 
     /* ---------- LIGHTBOX ---------- */
@@ -628,21 +629,17 @@ document.addEventListener('DOMContentLoaded', () => {
       card.dataset.images.split(',').forEach((src,i) => {
         const item = src.trim();
         if (item.startsWith('video:')) {
-        // VIDEO thumbnail (corrigé)
        const videoSrc = item.replace(/^video:/, '');
         const video    = document.createElement('video');
-          video.src          = videoSrc;
-         video.poster       = videoSrc.replace('.mp4', '.jpg'); // votre vignette .jpg
-         video.className    = 'thumb-video';
-         video.muted        = true;
-         video.playsInline  = true;
-         video.preload      = 'metadata';
-         video.controls     = false;
-         video.style.objectFit = 'cover';
-         video.style.cursor    = 'pointer';
-         video.oncontextmenu   = e => e.preventDefault();
-         thumbsContainer.appendChild(video);
-        } else {
+ video.poster      = videoSrc.replace(/\.mp4$/, 'auvergne.jpg');
+    video.src         = videoSrc;      // facultatif ici, juste pour l’aperçu
+    video.muted       = true;
+    video.playsInline = true;
+    video.preload     = 'metadata';
+    video.controls    = false;
+    video.className   = 'thumb-video';
+    thumbsContainer.appendChild(video);
+  } else {
           // IMAGE thumbnail
           const img = document.createElement('img');
           img.src = item;
@@ -663,6 +660,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const prevBtn     = bodyLightbox.querySelector('.lightbox-prev');
     const nextBtn     = bodyLightbox.querySelector('.lightbox-next');
     let idx = 0;
+     bodyLightbox.addEventListener('click', e => e.stopPropagation());
+      imageModal.addEventListener('click', () => {
+    closeModal(imageModal);
+  });
 
     thumbs.forEach((thumb, i) => {
       thumb.onclick = () => {
