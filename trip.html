@@ -598,13 +598,18 @@
             if (item.startsWith('video:')) {
               // VIDEO
               const video = document.createElement('video');
-              video.src        = item.replace(/^video:/, '');
-              video.controls   = true;
-              video.className  = 'thumb-video';
-              video.style.width  = '70px';
-              video.style.height = '70px';
-              thumbsContainer.appendChild(video);
-            } else {
+              video.src          = item.replace(/^video:/,'');
+              video.className    = 'thumb-video';
+              video.muted        = true;          // muet pour pouvoir autoplay si besoin
+              video.playsInline  = true;          // sur mobile
+              video.preload      = 'metadata';    // juste la tête du fichier
+              video.controls     = false;         // on enlève les contrôles natifs
+              video.style.objectFit = 'cover';
+              video.style.cursor    = 'pointer';
+              // désactive le menu contextuel natif
+              video.oncontextmenu = e => e.preventDefault();
+              thumbsContainer.appendChild(video)
+                          } else {
               // IMAGE
               const img = document.createElement('img');
               img.src = item;
@@ -618,30 +623,50 @@
       });
 
       // lightbox & swipe
-      function setupLightbox(){
-        const thumbs = Array.from(document.querySelectorAll('#trip-modal .gallery-thumbs img'));
-        const imageModal = document.getElementById('image-modal');
-        const imageModalImg = document.getElementById('image-modal-img');
-        const prevBtn = document.querySelector('.lightbox-prev');
-        const nextBtn = document.querySelector('.lightbox-next');
-        let idx = 0;
+     function setupLightbox() {
+  const thumbs = Array.from(document.querySelectorAll('#trip-modal .gallery-thumbs > *'));
+  const imageModal    = document.getElementById('image-modal');
+  const bodyLightbox  = imageModal.querySelector('.modal-content');
+  const prevBtn       = bodyLightbox.querySelector('.lightbox-prev');
+  const nextBtn       = bodyLightbox.querySelector('.lightbox-next');
+  let idx = 0;
 
-        thumbs.forEach((thumb,i) => {
-          thumb.onclick = () => {
-            idx = i;
-            imageModalImg.src = thumb.src;
-            imageModal.style.display = 'flex';
-          };
-        });
-        prevBtn.onclick = e => {
-          e.stopPropagation();
-          idx = (idx - 1 + thumbs.length) % thumbs.length;
-          thumbs[idx].click();
-        };
-        nextBtn.onclick = e => {
-          e.stopPropagation();
-          idx = (idx + 1) % thumbs.length;
-          thumbs[idx].click();
+  thumbs.forEach((thumb,i) => {
+    thumb.onclick = () => {
+      idx = i;
+      // on vide d'abord l'ancien contenu (<img> ou <video>)
+      const existing = bodyLightbox.querySelector('img, video');
+      if (existing) existing.remove();
+
+      if (thumb.tagName === 'IMG') {
+        // image
+        const img = document.createElement('img');
+        img.src = thumb.src;
+        img.className = 'image-modal-img';
+        bodyLightbox.insertBefore(img, prevBtn);
+      } else if (thumb.tagName === 'VIDEO') {
+        // vidéo
+        const vid = document.createElement('video');
+        vid.src        = thumb.src;
+        vid.controls   = true;
+        vid.autoplay   = true;
+        vid.className  = 'image-modal-img'; // même CSS pour max-width/max-height
+        bodyLightbox.insertBefore(vid, prevBtn);
+      }
+      imageModal.style.display = 'flex';
+    }
+  });
+
+  prevBtn.onclick = e => {
+    e.stopPropagation();
+    idx = (idx - 1 + thumbs.length) % thumbs.length;
+    thumbs[idx].click();
+  };
+  nextBtn.onclick = e => {
+    e.stopPropagation();
+    idx = (idx + 1) % thumbs.length;
+    thumbs[idx].click();
+  };
         };
         // swipe support on mobile
         let startX = 0;
