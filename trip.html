@@ -631,7 +631,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (item.startsWith('video:')) {
        const videoSrc = item.replace(/^video:/, '');
         const video    = document.createElement('video');
- video.poster      = videoSrc.replace(/\.mp4$/, 'auvergne.jpg');
+ video.poster      = videoSrc.replace(/\.mp4$/,'auvergne.jpg');
     video.src         = videoSrc;      // facultatif ici, juste pour l’aperçu
     video.muted       = true;
     video.playsInline = true;
