@@ -240,6 +240,18 @@
       .footer .right-footer a{font-size:.75rem;white-space:nowrap;}
       .footer .left-footer img{width:20px;height:20px;}
     }
+    /* ===== Limiter la taille de la vidéo dans la lightbox ===== */
+#image-modal .modal-content {
+  /* on empêche le contenu de déborder */
+  max-height: 80vh;
+  overflow: hidden;
+}
+#image-modal .image-modal-img {
+  /* s’assure que la vidéo/ l’image rentre dans 90% de la fenêtre */
+  max-width: 90vw;
+  max-height: 80vh;
+  object-fit: contain;
+}
   </style>
 </head>
 <body>
@@ -681,19 +693,24 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+  // nouvelle fonction de fermeture qui pause la vidéo si besoin
+  function closeModal(modal) {
+    const vid = modal.querySelector('video');
+    if (vid) vid.pause();
+    modal.style.display = 'none';
+  }
 
-  // fermer modals
-  document.querySelectorAll('.modal-close').forEach(btn => 
-    btn.addEventListener('click', () => 
-      btn.closest('.modal').style.display = 'none'
-    )
-  );
+  // handlers pour fermer toutes les modals
+  document.querySelectorAll('.modal-close').forEach(btn => {
+    btn.addEventListener('click', () =>
+      closeModal(btn.closest('.modal'))
+    );
+  });
   window.addEventListener('click', e => {
     if (e.target.classList.contains('modal')) {
-      e.target.style.display = 'none';
+      closeModal(e.target);
     }
   });
-
 });
 </script>
 </body>
