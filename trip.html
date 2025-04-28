@@ -164,13 +164,13 @@
       width:70px; height:70px; object-fit:cover;
       border-radius:6px; cursor:pointer; border:none; box-shadow:none;
     }
-.gallery-thumbs .thumb-video {
-  width: 70px;
-  height: 70px;
-  object-fit: cover;
-  border-radius: 6px;
-  cursor: pointer;
-}
+    .gallery-thumbs .thumb-video {
+      width: 70px;
+      height: 70px;
+      object-fit: cover;
+      border-radius: 6px;
+      cursor: pointer;
+    }
 
     /* ---------- LIGHTBOX ---------- */
     #image-modal .modal-content {
@@ -248,6 +248,10 @@
       .rv-cards-wrapper{margin:1rem 0;gap:.75rem;}
       .rv-card{width:100%;margin:.5rem 0;}
       .gallery-thumbs img{width:60px;height:60px;}
+      .gallery-thumbs .thumb-video {
+      width: 60px;
+      height: 60px;
+        }
       .lightbox-prev,.lightbox-next{display:none;}
       .footer{flex-direction:column;align-items:center;padding:10px 1rem;}
       .footer .left-footer,.footer .right-footer{
@@ -627,6 +631,10 @@ document.addEventListener('DOMContentLoaded', () => {
           // VIDEO thumbnail
           const video = document.createElement('video');
           video.src         = item.replace(/^video:/,'');
+          const video    = document.createElement('video');
+          video.src      = videoSrc;
+          // lui donner un poster (remplacez par le chemin vers votre vignette .jpg)
+          video.poster   = videoSrc.replace('.mp4','.jpg');
           video.className   = 'thumb-video';
           video.muted       = true;
           video.playsInline = true;
