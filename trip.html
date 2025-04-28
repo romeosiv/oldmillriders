@@ -191,6 +191,21 @@
     }
     .lightbox-prev { left:1rem; } .lightbox-next { right:1rem; }
     .lightbox-prev:hover,.lightbox-next:hover { background:#fff; }
+    
+    /* Empêche le conteneur lightbox de déborder de l'écran */
+#image-modal .modal-content {
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow: hidden;
+  padding: 0;
+}
+
+/* Redimensionne l'image/vidéo dans la lightbox pour qu'elle rentre toujours */
+#image-modal .image-modal-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
 
     /* ---------- FOOTER ---------- */
     .footer {
