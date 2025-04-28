@@ -135,42 +135,13 @@
     .rv-card-text {
       margin: 0 0 1rem; font-size: .9rem; color: #444;
     }
-    /* Afficher seulement 2 lignes dans les cartes */
+    /* Limiter à 2 lignes dans la carte */
     .rv-cards-wrapper .rv-card-text {
       display: -webkit-box;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;
       overflow: hidden;
     }
-    /* Pas de troncation dans le modal, pour afficher tout le texte */
-    #trip-modal .rv-card-text {
-      display: block;
-      overflow: visible;
-      -webkit-line-clamp: unset;
-      -webkit-box-orient: initial;
-    }
-
-    .rv-card-meta { display: flex; gap: 1rem; margin-bottom: 1rem; }
-    .rv-card-stats {
-      display: grid; grid-template-columns: repeat(2, auto);
-      gap: .75rem 1.5rem;
-    }
-    .rv-card-stats .stat small {
-      display: block; font-size: .75rem; color: #666;
-      text-transform: uppercase; letter-spacing: .5px;
-      margin-bottom: .25rem;
-    }
-    .rv-card-stats .stat strong {
-      display: block; font-size: .95rem; color: #000;
-    }
-    .rv-card-footer {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 1rem 1rem;
-    }
-    .rv-card-link {
-      font-size: .85rem; text-decoration: none; color: #0077cc;
-    }
-    .rv-card-link:hover { text-decoration: underline; }
 
     /* ---------- MODAL TRIP ---------- */
     .modal {
@@ -184,15 +155,22 @@
       max-width: 600px; width: 100%; padding: 1.5rem;
       position: relative; max-height: 90vh; overflow-y: auto;
     }
-    /* désactiver hover/scale dans la modal */
-    #trip-modal .rv-card:hover {
-      transform: none !important;
-      cursor: default;
+    /* Afficher tout le texte dans le modal */
+    #trip-modal .rv-card-text {
+      display: block;
+      overflow: visible;
+      -webkit-line-clamp: unset;
+      -webkit-box-orient: initial;
+    }
+    /* Cacher l’image de la carte dans le modal */
+    #trip-modal .rv-card-media {
+      display: none;
     }
     /* carte full width en modal */
     #map-modal { height: 300px; border-radius: 12px; margin-bottom: 1rem; }
-    #trip-modal .rv-card {
-      width: 100%; max-width: 100%; margin: 0; box-shadow: none;
+    #trip-modal-card .rv-card {
+      width: 100%; margin: 0; box-shadow: none; transform: none !important;
+      cursor: default;
     }
 
     /* ---------- GALERIE ---------- */
@@ -205,34 +183,29 @@
     }
     .gallery-thumbs img {
       width: 70px; height: 70px; object-fit: cover;
-      border-radius: 6px; cursor: pointer;
-      box-shadow: none; border: none;
+      border-radius: 6px; cursor: pointer; border: none;
+      box-shadow: none;
     }
 
     /* ---------- LIGHTBOX CARROUSEL ---------- */
     #image-modal .modal-content {
-      background: transparent;
-      padding: 0;
-      box-shadow: none;
+      background: transparent; padding: 0; box-shadow: none;
       display: flex; justify-content: center; align-items: center;
     }
     .image-lightbox {
       position: relative; display: flex;
       align-items: center; justify-content: center;
-      width: auto; height: auto;
     }
     .image-modal-img {
       max-width: 90vw; max-height: 90vh; width: auto; height: auto;
     }
     .lightbox-prev, .lightbox-next {
-      position: absolute; top: 50%;
-      transform: translateY(-50%);
+      position: absolute; top: 50%; transform: translateY(-50%);
       background: rgba(255,255,255,0.8); border: none;
       font-size: 2rem; padding: .2rem .6rem; cursor: pointer;
       border-radius: 4px; user-select: none;
     }
-    .lightbox-prev { left: 1rem; }
-    .lightbox-next { right: 1rem; }
+    .lightbox-prev { left: 1rem; } .lightbox-next { right: 1rem; }
     .lightbox-prev:hover, .lightbox-next:hover { background: white; }
 
     /* ---------- FOOTER ---------- */
@@ -513,10 +486,9 @@
           document.querySelector('header nav').classList.toggle('open')
         );
 
-      // ouverture du modal + GPX + clonage de la carte
+      // ouverture du modal + GPX + clonage de la carte sans image
       let mapInit = false;
-      const cards = document.querySelectorAll('.rv-cards-wrapper .rv-card');
-      cards.forEach(card => {
+      document.querySelectorAll('.rv-cards-wrapper .rv-card').forEach(card => {
         card.addEventListener('click', () => {
           // afficher le modal
           document.getElementById('trip-modal').style.display = 'flex';
@@ -527,9 +499,9 @@
           const clone = card.cloneNode(true);
           clone.removeAttribute('id');
           clone.style.width = '100%';
-          // retirer l’effet hover
-          clone.classList.remove('rv-card');
-          clone.classList.add('rv-card');
+          // supprimer l’image clônée
+          const media = clone.querySelector('.rv-card-media');
+          if (media) media.remove();
           container.appendChild(clone);
 
           // initialiser la map une seule fois
