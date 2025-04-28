@@ -164,6 +164,11 @@
       width:70px; height:70px; object-fit:cover;
       border-radius:6px; cursor:pointer; border:none; box-shadow:none;
     }
+        .gallery-thumbs .thumb-video {
+      object-fit: cover;
+      border-radius: 6px;
+      cursor: pointer;
+    }
 
     /* ---------- LIGHTBOX ---------- */
     #image-modal .modal-content {
@@ -383,7 +388,7 @@
         </div>
       </article>
 
-      <!-- Cartes 04 -->
+      <-- Cartes 04 -->
       <article class="rv-card"
                id="trip-04"
                data-gpx="j3-rdga-briancon-jausiers.gpx"
@@ -420,38 +425,39 @@
           </div>
         </div>
       </article>
+            <-- Cartes 05 -->
       <article class="rv-card"
                id="trip-05"
-               data-gpx="j2-rdga-beaufort-briancon.gpx"
-               data-images="j2rdga1.JPEG,j2rdga2.JPEG,j2rdga3.JPEG,j2rdga4.JPEG,j2rdga5.JPEG,j2rdga6.JPEG,j2rdga7.JPEG,j2rdga8.JPEG,j2rdga9.JPEG,j2rdga10.JPEG,j2rdga11.JPEG,j2rdga12.JPEG,j2rdga13.JPEG">
+               data-gpx="auvergnepddcantal.gpx"
+               data-images="auv1.JPEG,auv2.JPEG,auv3.JPEG,auv4.JPEG,auv5.JPEG,auv6.jpg,auv7.JPEG,auv8.jpg,auv9.jpg,auv10.jp,auvergne.mp4">
         <div class="rv-card-header">
           <span class="rv-card-id">05</span>
           <div class="rv-card-badges">
             <img src="montage.png" class="badge-icon" alt="Montagne">
-            <img src="forest.png" class="badge-icon" alt="Forêt">
           </div>
         </div>
         <div class="rv-card-media">
-          <img src="j2rdga8.JPEG" alt="RDGA Jour 2 – De Beaufort à Briançon">
+          <img src="auv2.JPEG" alt="Volcans d'Auvergne - Puy de dôme et Cantal">
         </div>
         <div class="rv-card-body">
           <div class="rv-card-title-row">
-            <h3 class="rv-card-title">RDGA Jour 2 – De Beaufort à Briançon</h3>
-            <span class="rv-card-rating">★★★★★</span>
+            <h3 class="rv-card-title">Volcans d'Auvergne - Puy de dôme et Cantal</h3>
+            <span class="rv-card-rating">★★★★</span>
           </div>
           <p class="rv-card-text">
-            Deuxième journée sur la Route des Grandes Alpes. On monte en altitude : lac de Roseland, col du Saint-Bernard, Iseran, Galibier, Lautaret… puis Briançon. Nuit dans la vallée de la Clarée et tartiflette en vieille-ville !
+            À l'occasion du ACES Experience, on a fait la boucle historique. Près de 300km entre Puy de dôme et le Cantal. Entre lac, volcans, et plaines immenses. Arretez vous pour déguster une bonne truffade à Murat ! Veillez à bien visser vos disques quand vous reprendrez la route (comprendra qui pourra !). Un arrêt de rigueur au Puy Mary pour ensuite redescendre sur Salers.
+            Ensuite on s'est un peu perdu sur le retour ! On vous epargne ça, vous trouverez ici la boucle complète.
           </p>
           <div class="rv-card-meta">
             <div class="rv-card-stats">
               <div class="stat"><small>Distance</small><strong>493 km</strong></div>
-              <div class="stat"><small>Altitude max ↑</small><strong>2 753 m</strong></div>
+              <div class="stat"><small>Altitude max ↑</small><strong>1 569 m</strong></div>
               <div class="stat"><small>Durée</small><strong>1 jour</strong></div>
               <div class="stat"><small>Niveau</small><strong>Confirmé</strong></div>
             </div>
           </div>
           <div class="rv-card-footer">
-            <a href="j2-rdga-beaufort-briancon.gpx" class="rv-card-link" target="_blank">Télécharger GPX</a>
+            <a href="auvergnepddcantal.gpx" class="rv-card-link" target="_blank">Télécharger GPX</a>
           </div>
         </div>
       </article>
@@ -588,10 +594,23 @@
           const thumbsContainer = document.querySelector('#trip-modal .gallery-thumbs');
           thumbsContainer.innerHTML = '';
           card.dataset.images.split(',').forEach((src,i) => {
-            const img = document.createElement('img');
-            img.src = src.trim();
-            img.alt = `Photo ${i+1}`;
-            thumbsContainer.appendChild(img);
+            const item = src.trim();
+            if (item.startsWith('video:')) {
+              // VIDEO
+              const video = document.createElement('video');
+              video.src        = item.replace(/^video:/, '');
+              video.controls   = true;
+              video.className  = 'thumb-video';
+              video.style.width  = '70px';
+              video.style.height = '70px';
+              thumbsContainer.appendChild(video);
+            } else {
+              // IMAGE
+              const img = document.createElement('img');
+              img.src = item;
+              img.alt = `Photo ${i+1}`;
+              thumbsContainer.appendChild(img);
+            }
           });
 
           setupLightbox();
