@@ -56,7 +56,7 @@
     .icon { width: 28px; height: 28px; }
     .insta-icon { width: 16px; display: block; }
 
-    /* ---------- HERO (avec background du Shop) ---------- */
+    /* ---------- HERO ---------- */
     .hero {
       background-image: image-set(
         url('./trips-desktop.jpg') 1x,
@@ -101,7 +101,7 @@
       box-sizing: border-box;
     }
 
-    /* ---------- TRIPS WRAPPER (3 cartes) ---------- */
+    /* ---------- TRIPS WRAPPER ---------- */
     .rv-cards-wrapper {
       display: flex;
       gap: 1.5rem;
@@ -135,6 +135,21 @@
     .rv-card-text {
       margin: 0 0 1rem; font-size: .9rem; color: #444;
     }
+    /* Afficher seulement 2 lignes dans les cartes */
+    .rv-cards-wrapper .rv-card-text {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
+    }
+    /* Pas de troncation dans le modal, pour afficher tout le texte */
+    #trip-modal .rv-card-text {
+      display: block;
+      overflow: visible;
+      -webkit-line-clamp: unset;
+      -webkit-box-orient: initial;
+    }
+
     .rv-card-meta { display: flex; gap: 1rem; margin-bottom: 1rem; }
     .rv-card-stats {
       display: grid; grid-template-columns: repeat(2, auto);
@@ -191,18 +206,16 @@
     .gallery-thumbs img {
       width: 70px; height: 70px; object-fit: cover;
       border-radius: 6px; cursor: pointer;
-      box-shadow: none;    /* plus de cadre blanc */
+      box-shadow: none;
       border: none;
     }
 
-    /* ---------- LIGHTBOX CARROUSEL ---------- */
+    /* ---------- LIGHTBOX ---------- */
     #image-modal .modal-content {
       background: transparent;
       padding: 0;
       box-shadow: none;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      display: flex; justify-content: center; align-items: center;
     }
     .image-lightbox {
       position: relative; display: flex;
@@ -210,10 +223,7 @@
       width: auto; height: auto;
     }
     .image-modal-img {
-      max-width: 90vw;
-      max-height: 90vh;
-      width: auto;
-      height: auto;
+      max-width: 90vw; max-height: 90vh; width: auto; height: auto;
     }
     .lightbox-prev, .lightbox-next {
       position: absolute; top: 50%;
@@ -265,17 +275,12 @@
       }
       nav.open { display:flex; }
 
-      /* réduire les espaces mobiles */
       .hero { margin-bottom: 1rem; }
       .about-block { margin: 1rem auto; }
       .rv-cards-wrapper {
-        margin: 1rem 0;
-        gap: 0.75rem;
+        margin: 1rem 0; gap: 0.75rem;
       }
-      .rv-card {
-        width: 100%;
-        margin: 0.5rem 0;
-      }
+      .rv-card { width: 100%; margin: 0.5rem 0; }
 
       .gallery-thumbs img { width: 60px; height: 60px; }
       .lightbox-prev, .lightbox-next { display: none; }
@@ -285,8 +290,7 @@
       }
       .footer .left-footer,
       .footer .right-footer {
-        width: 100%; display: flex; justify-content: center;
-        margin: .25rem 0;
+        width: 100%; display: flex; justify-content: center; margin: .25rem 0;
       }
       .footer .right-footer {
         flex-wrap: wrap; gap: .5rem;
@@ -337,7 +341,7 @@
       cols sinueux et nuits sous la tente, tout l’esprit Old Mill Riders dans un même trip !
     </div>
 
-    <!-- TROIS CARTES CÔTE À CÔTE -->
+    <!-- TROIS CARTES -->
     <div class="rv-cards-wrapper">
       <!-- Carte 01 -->
       <article class="rv-card" id="trip-01">
@@ -345,7 +349,7 @@
           <span class="rv-card-id">01</span>
           <div class="rv-card-badges">
             <img src="montage.png" alt="Montagne" class="badge-icon">
-            <img src="forest.png"  alt="Forêt"    class="badge-icon">
+            <img src="forest.png" alt="Forêt" class="badge-icon">
           </div>
         </div>
         <div class="rv-card-media">
@@ -357,8 +361,8 @@
             <span class="rv-card-rating">★★★★☆</span>
           </div>
           <p class="rv-card-text">
-            Une virée de 2 jours au cœur du massif de la Chartreuse puis des Grandes Rousses. Entre forêts humides et cols étroits. On traverse d'abord la chartreuse pour arriver en fin de journée à Chamrousse.
-            Le lendemain on pousse jusqu'à l'Alpes d'Huez et ses mitiques lacets pour ensuite revenir sur Grenoble, profiter d'un bon restaurant et rentrer tranquillement sur Lyon, des paysages pleins la tête"
+            Une virée de 2 jours au cœur du massif de la Chartreuse puis des Grandes Rousses. Entre forêts humides et cols étroits. On traverse d'abord la Chartreuse pour arriver en fin de journée à Chamrousse.
+            Le lendemain on pousse jusqu'à l'Alpe d'Huez et ses mythiques lacets pour ensuite revenir sur Grenoble, profiter d'un bon restaurant et rentrer tranquillement sur Lyon, des paysages pleins la tête.
           </p>
           <div class="rv-card-meta">
             <div class="rv-card-stats">
@@ -379,7 +383,7 @@
           <span class="rv-card-id">02</span>
           <div class="rv-card-badges">
             <img src="montage.png" alt="Montagne" class="badge-icon">
-            <img src="forest.png"  alt="Forêt"    class="badge-icon">
+            <img src="forest.png" alt="Forêt" class="badge-icon">
           </div>
         </div>
         <div class="rv-card-media">
@@ -412,7 +416,7 @@
           <span class="rv-card-id">03</span>
           <div class="rv-card-badges">
             <img src="montage.png" alt="Montagne" class="badge-icon">
-            <img src="forest.png"  alt="Forêt"    class="badge-icon">
+            <img src="forest.png" alt="Forêt" class="badge-icon">
           </div>
         </div>
         <div class="rv-card-media">
@@ -451,7 +455,7 @@
             <span class="rv-card-id">01</span>
             <div class="rv-card-badges">
               <img src="montage.png" alt="Montagne" class="badge-icon">
-              <img src="forest.png"  alt="Forêt"    class="badge-icon">
+              <img src="forest.png" alt="Forêt" class="badge-icon">
             </div>
           </div>
           <div class="rv-card-body">
