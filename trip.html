@@ -206,11 +206,10 @@
     .gallery-thumbs img {
       width: 70px; height: 70px; object-fit: cover;
       border-radius: 6px; cursor: pointer;
-      box-shadow: none;
-      border: none;
+      box-shadow: none; border: none;
     }
 
-    /* ---------- LIGHTBOX ---------- */
+    /* ---------- LIGHTBOX CARROUSEL ---------- */
     #image-modal .modal-content {
       background: transparent;
       padding: 0;
@@ -277,9 +276,7 @@
 
       .hero { margin-bottom: 1rem; }
       .about-block { margin: 1rem auto; }
-      .rv-cards-wrapper {
-        margin: 1rem 0; gap: 0.75rem;
-      }
+      .rv-cards-wrapper { margin: 1rem 0; gap: 0.75rem; }
       .rv-card { width: 100%; margin: 0.5rem 0; }
 
       .gallery-thumbs img { width: 60px; height: 60px; }
@@ -341,7 +338,7 @@
       cols sinueux et nuits sous la tente, tout l’esprit Old Mill Riders dans un même trip !
     </div>
 
-    <!-- TROIS CARTES -->
+    <!-- CARTES -->
     <div class="rv-cards-wrapper">
       <!-- Carte 01 -->
       <article class="rv-card" id="trip-01">
@@ -377,6 +374,7 @@
           </div>
         </div>
       </article>
+
       <!-- Carte 02 -->
       <article class="rv-card" id="trip-02">
         <div class="rv-card-header">
@@ -401,7 +399,7 @@
             <div class="rv-card-stats">
               <div class="stat"><small>Distance</small><strong>504 km</strong></div>
               <div class="stat"><small>Altitude max ↑</small><strong>1 854 m</strong></div>
-              <div class="stat"><small>Durée</small><strong>2 jours</strong></div>
+              <div class="stat"><small>Durée</small><strong>3 jours</strong></div>
               <div class="stat"><small>Niveau</small><strong>Intermédiaire</strong></div>
             </div>
           </div>
@@ -410,6 +408,7 @@
           </div>
         </div>
       </article>
+
       <!-- Carte 03 -->
       <article class="rv-card" id="trip-03">
         <div class="rv-card-header">
@@ -450,36 +449,7 @@
       <div class="modal-content">
         <span class="modal-close">&times;</span>
         <div id="map-modal"></div>
-        <div class="rv-card">
-          <div class="rv-card-header">
-            <span class="rv-card-id">01</span>
-            <div class="rv-card-badges">
-              <img src="montage.png" alt="Montagne" class="badge-icon">
-              <img src="forest.png" alt="Forêt" class="badge-icon">
-            </div>
-          </div>
-          <div class="rv-card-body">
-            <div class="rv-card-title-row">
-              <h3 class="rv-card-title">Balade en Chartreuse</h3>
-              <span class="rv-card-rating">★★★★☆</span>
-            </div>
-            <p class="rv-card-text">
-              Une virée de 3 jours au cœur du massif de la Chartreuse, entre forêts humides, cols étroits et nuits sous tente.
-            </p>
-            <div class="rv-card-meta">
-              <div class="rv-card-stats">
-                <div class="stat"><small>Distance</small><strong>504 km</strong></div>
-                <div class="stat"><small>Altitude max ↑</small><strong>2 100 m</strong></div>
-                <div class="stat"><small>Durée</small><strong>3 jours</strong></div>
-                <div class="stat"><small>Niveau</small><strong>Intermédiaire</strong></div>
-              </div>
-            </div>
-            <div class="rv-card-footer">
-              <a href="roadbook-chartreusealpes.gpx" class="rv-card-link" target="_blank">Télécharger GPX</a>
-            </div>
-          </div>
-        </div>
-
+        <div id="trip-modal-card"></div>
         <div class="trip-gallery-modal">
           <h4>Galerie</h4>
           <div class="gallery-thumbs">
@@ -543,11 +513,26 @@
           document.querySelector('header nav').classList.toggle('open')
         );
 
-      // ouverture du modal + GPX
+      // ouverture du modal + GPX + clonage de la carte
       let mapInit = false;
-      document.querySelectorAll('.rv-card').forEach(card => {
+      const cards = document.querySelectorAll('.rv-cards-wrapper .rv-card');
+      cards.forEach(card => {
         card.addEventListener('click', () => {
+          // afficher le modal
           document.getElementById('trip-modal').style.display = 'flex';
+
+          // cloner la carte et l’injecter
+          const container = document.getElementById('trip-modal-card');
+          container.innerHTML = '';
+          const clone = card.cloneNode(true);
+          clone.removeAttribute('id');
+          clone.style.width = '100%';
+          // retirer l’effet hover
+          clone.classList.remove('rv-card');
+          clone.classList.add('rv-card');
+          container.appendChild(clone);
+
+          // initialiser la map une seule fois
           if (!mapInit) {
             const map = L.map('map-modal').setView([45.3639, 5.83], 10);
             L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -565,7 +550,7 @@
         });
       });
 
-      // galerie + lightbox sans zoom forcé
+      // galerie + lightbox
       const thumbs        = Array.from(document.querySelectorAll('.gallery-thumbs img'));
       const imageModal    = document.getElementById('image-modal');
       const imageModalImg = document.getElementById('image-modal-img');
