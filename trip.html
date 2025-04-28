@@ -545,156 +545,156 @@
     </div>
 
   </div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // menu burger
+  document.querySelector('.menu-toggle')
+    .addEventListener('click', () =>
+      document.querySelector('header nav').classList.toggle('open')
+    );
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      // menu burger
-      document.querySelector('.menu-toggle').addEventListener('click', () =>
-        document.querySelector('header nav').classList.toggle('open')
-      );
+  // map & GPX
+  let mapInit = false, map, gpxLayer;
 
-      // map & GPX
-      let mapInit = false, map, gpxLayer;
+  document.querySelectorAll('.rv-card').forEach(card => {
+    card.addEventListener('click', () => {
+      // ouvrir modal
+      document.getElementById('trip-modal').style.display = 'flex';
 
-      document.querySelectorAll('.rv-card').forEach(card => {
-        card.addEventListener('click', () => {
-          // ouvrir modal
-          document.getElementById('trip-modal').style.display = 'flex';
+      // cloner la carte (sans image)
+      const container = document.getElementById('trip-modal-card');
+      container.innerHTML = '';
+      const clone = card.cloneNode(true);
+      clone.removeAttribute('id');
+      clone.style.width = '100%';
+      const media = clone.querySelector('.rv-card-media');
+      if (media) media.remove();
+      container.appendChild(clone);
 
-          // cloner la carte (sans image)
-          const container = document.getElementById('trip-modal-card');
-          container.innerHTML = '';
-          const clone = card.cloneNode(true);
-          clone.removeAttribute('id');
-          clone.style.width = '100%';
-          const media = clone.querySelector('.rv-card-media');
-          if (media) media.remove();
-          container.appendChild(clone);
+      // init map une seule fois
+      if (!mapInit) {
+        map = L.map('map-modal').setView([45.3639,5.83],10);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+        mapInit = true;
+      }
+      // charger GPX spécifique
+      const gpxFile = card.dataset.gpx;
+      if (gpxLayer) map.removeLayer(gpxLayer);
+      gpxLayer = new L.GPX(gpxFile, {
+        async: true,
+        marker_options: { startIconUrl: null, endIconUrl: null },
+        polyline_options: { color: '#0077cc', weight: 4, opacity: 0.8 }
+      }).on('loaded', e => map.fitBounds(e.target.getBounds()))
+        .addTo(map);
 
-          // init map une seule fois
-          if (!mapInit) {
-            map = L.map('map-modal').setView([45.3639,5.83],10);
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-              attribution:'© OpenStreetMap contributors'
-            }).addTo(map);
-            mapInit = true;
-          }
-          // charger GPX spécifique
-          const gpxFile = card.dataset.gpx;
-          if (gpxLayer) map.removeLayer(gpxLayer);
-          gpxLayer = new L.GPX(gpxFile, {
-            async:true,
-            marker_options:{startIconUrl:null,endIconUrl:null},
-            polyline_options:{color:'#0077cc',weight:4,opacity:0.8}
-          })
-          .on('loaded', e => map.fitBounds(e.target.getBounds()))
-          .addTo(map);
-
-          // construire galerie
-          const thumbsContainer = document.querySelector('#trip-modal .gallery-thumbs');
-          thumbsContainer.innerHTML = '';
-          card.dataset.images.split(',').forEach((src,i) => {
-            const item = src.trim();
-            if (item.startsWith('video:')) {
-              // VIDEO
-              const video = document.createElement('video');
-              video.src          = item.replace(/^video:/,'');
-              video.className    = 'thumb-video';
-              video.muted        = true;          // muet pour pouvoir autoplay si besoin
-              video.playsInline  = true;          // sur mobile
-              video.preload      = 'metadata';    // juste la tête du fichier
-              video.controls     = false;         // on enlève les contrôles natifs
-              video.style.objectFit = 'cover';
-              video.style.cursor    = 'pointer';
-              // désactive le menu contextuel natif
-              video.oncontextmenu = e => e.preventDefault();
-              thumbsContainer.appendChild(video)
-                          } else {
-              // IMAGE
-              const img = document.createElement('img');
-              img.src = item;
-              img.alt = `Photo ${i+1}`;
-              thumbsContainer.appendChild(img);
-            }
-          });
-
-          setupLightbox();
-        });
+      // construire galerie
+      const thumbsContainer = document.querySelector('#trip-modal .gallery-thumbs');
+      thumbsContainer.innerHTML = '';
+      card.dataset.images.split(',').forEach((src,i) => {
+        const item = src.trim();
+        if (item.startsWith('video:')) {
+          // VIDEO thumbnail
+          const video = document.createElement('video');
+          video.src         = item.replace(/^video:/,'');
+          video.className   = 'thumb-video';
+          video.muted       = true;
+          video.playsInline = true;
+          video.preload     = 'metadata';
+          video.controls    = false;
+          video.style.objectFit = 'cover';
+          video.style.cursor    = 'pointer';
+          video.oncontextmenu   = e => e.preventDefault();
+          thumbsContainer.appendChild(video);
+        } else {
+          // IMAGE thumbnail
+          const img = document.createElement('img');
+          img.src = item;
+          img.alt = `Photo ${i+1}`;
+          thumbsContainer.appendChild(img);
+        }
       });
 
-      // lightbox & swipe
-     function setupLightbox() {
-  const thumbs = Array.from(document.querySelectorAll('#trip-modal .gallery-thumbs > *'));
-  const imageModal    = document.getElementById('image-modal');
-  const bodyLightbox  = imageModal.querySelector('.modal-content');
-  const prevBtn       = bodyLightbox.querySelector('.lightbox-prev');
-  const nextBtn       = bodyLightbox.querySelector('.lightbox-next');
-  let idx = 0;
+      // on (re)initialise le comportement lightbox + swipe
+      setupLightbox();
+    });
+  });
 
-  thumbs.forEach((thumb,i) => {
-    thumb.onclick = () => {
-      idx = i;
-      // on vide d'abord l'ancien contenu (<img> ou <video>)
-      const existing = bodyLightbox.querySelector('img, video');
-      if (existing) existing.remove();
+  function setupLightbox() {
+    const thumbs      = Array.from(document.querySelectorAll('#trip-modal .gallery-thumbs > *'));
+    const imageModal  = document.getElementById('image-modal');
+    const bodyLightbox= imageModal.querySelector('.modal-content');
+    const prevBtn     = bodyLightbox.querySelector('.lightbox-prev');
+    const nextBtn     = bodyLightbox.querySelector('.lightbox-next');
+    let idx = 0;
 
-      if (thumb.tagName === 'IMG') {
-        // image
-        const img = document.createElement('img');
-        img.src = thumb.src;
-        img.className = 'image-modal-img';
-        bodyLightbox.insertBefore(img, prevBtn);
-      } else if (thumb.tagName === 'VIDEO') {
-        // vidéo
-        const vid = document.createElement('video');
-        vid.src        = thumb.src;
-        vid.controls   = true;
-        vid.autoplay   = true;
-        vid.className  = 'image-modal-img'; // même CSS pour max-width/max-height
-        bodyLightbox.insertBefore(vid, prevBtn);
+    thumbs.forEach((thumb, i) => {
+      thumb.onclick = () => {
+        idx = i;
+        // on vide l'ancien aperçu
+        const existing = bodyLightbox.querySelector('img, video');
+        if (existing) existing.remove();
+
+        if (thumb.tagName === 'IMG') {
+          // afficher l'image
+          const img = document.createElement('img');
+          img.src       = thumb.src;
+          img.className = 'image-modal-img';
+          bodyLightbox.insertBefore(img, prevBtn);
+        } else {
+          // afficher la vidéo
+          const vid = document.createElement('video');
+          vid.src       = thumb.src;
+          vid.controls  = true;
+          vid.autoplay  = true;
+          vid.className = 'image-modal-img';
+          bodyLightbox.insertBefore(vid, prevBtn);
+        }
+
+        imageModal.style.display = 'flex';
+      };
+    });
+
+    prevBtn.onclick = e => {
+      e.stopPropagation();
+      idx = (idx - 1 + thumbs.length) % thumbs.length;
+      thumbs[idx].click();
+    };
+    nextBtn.onclick = e => {
+      e.stopPropagation();
+      idx = (idx + 1) % thumbs.length;
+      thumbs[idx].click();
+    };
+
+    // swipe support (mobile)
+    let startX = 0;
+    imageModal.addEventListener('touchstart', e => {
+      startX = e.changedTouches[0].screenX;
+    });
+    imageModal.addEventListener('touchend', e => {
+      const endX = e.changedTouches[0].screenX;
+      const diff = endX - startX;
+      if (Math.abs(diff) > 50) {
+        if (diff < 0) nextBtn.click();
+        else prevBtn.click();
       }
-      imageModal.style.display = 'flex';
+    });
+  }
+
+  // fermer modals
+  document.querySelectorAll('.modal-close').forEach(btn => 
+    btn.addEventListener('click', () => 
+      btn.closest('.modal').style.display = 'none'
+    )
+  );
+  window.addEventListener('click', e => {
+    if (e.target.classList.contains('modal')) {
+      e.target.style.display = 'none';
     }
   });
 
-  prevBtn.onclick = e => {
-    e.stopPropagation();
-    idx = (idx - 1 + thumbs.length) % thumbs.length;
-    thumbs[idx].click();
-  };
-  nextBtn.onclick = e => {
-    e.stopPropagation();
-    idx = (idx + 1) % thumbs.length;
-    thumbs[idx].click();
-  };
-        };
-        // swipe support on mobile
-        let startX = 0;
-        imageModal.addEventListener('touchstart', e => {
-          startX = e.changedTouches[0].screenX;
-        });
-        imageModal.addEventListener('touchend', e => {
-          const endX = e.changedTouches[0].screenX;
-          const diff = endX - startX;
-          if (Math.abs(diff) > 50) {
-            if (diff < 0) nextBtn.click();
-            else prevBtn.click();
-          }
-        });
-      }
-
-      // fermer modals
-      document.querySelectorAll('.modal-close').forEach(btn =>
-        btn.addEventListener('click', () =>
-          btn.closest('.modal').style.display = 'none'
-        )
-      );
-      window.addEventListener('click', e => {
-        if (e.target.classList.contains('modal')) {
-          e.target.style.display = 'none';
-        }
-      });
-    });
-  </script>
+});
+</script>
 </body>
 </html>
