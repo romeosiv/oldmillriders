@@ -628,22 +628,20 @@ document.addEventListener('DOMContentLoaded', () => {
       card.dataset.images.split(',').forEach((src,i) => {
         const item = src.trim();
         if (item.startsWith('video:')) {
-          // VIDEO thumbnail
-          const video = document.createElement('video');
-          video.src         = item.replace(/^video:/,'');
-          const video    = document.createElement('video');
-          video.src      = videoSrc;
-          // lui donner un poster (remplacez par le chemin vers votre vignette .jpg)
-          video.poster   = videoSrc.replace('.mp4','.jpg');
-          video.className   = 'thumb-video';
-          video.muted       = true;
-          video.playsInline = true;
-          video.preload     = 'metadata';
-          video.controls    = false;
-          video.style.objectFit = 'cover';
-          video.style.cursor    = 'pointer';
-          video.oncontextmenu   = e => e.preventDefault();
-          thumbsContainer.appendChild(video);
+        // VIDEO thumbnail (corrigé)
+       const videoSrc = item.replace(/^video:/, '');
+        const video    = document.createElement('video');
+          video.src          = videoSrc;
+         video.poster       = videoSrc.replace('.mp4', '.jpg'); // votre vignette .jpg
+         video.className    = 'thumb-video';
+         video.muted        = true;
+         video.playsInline  = true;
+         video.preload      = 'metadata';
+         video.controls     = false;
+         video.style.objectFit = 'cover';
+         video.style.cursor    = 'pointer';
+         video.oncontextmenu   = e => e.preventDefault();
+         thumbsContainer.appendChild(video);
         } else {
           // IMAGE thumbnail
           const img = document.createElement('img');
