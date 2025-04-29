@@ -358,7 +358,10 @@
 .comment .comment-header .comment-time {
   font-style: italic;
 }
-   
+  /* Masquer le footer quand on a la classe modal-open sur <body> */
+body.modal-open .footer {
+  display: none !important;
+}
   </style>
 </head>
 <body>
@@ -697,8 +700,10 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.rv-card').forEach(card => {
     card.addEventListener('click', () => {
       // ouvrir modal
-      document.getElementById('trip-modal').style.display = 'flex';
-
+    const modal = document.getElementById('trip-modal');
+    modal.style.display = 'flex';
+      document.body.classList.add('modal-open');
+      
       // cloner la carte (sans image)
       const container = document.getElementById('trip-modal-card');
       container.innerHTML = '';
@@ -913,6 +918,7 @@ document.querySelectorAll('.rv-card').forEach(card => {
     const vid = modal.querySelector('video');
     if (vid) vid.pause();
     modal.style.display = 'none';
+     document.body.classList.remove('modal-open');
   }
 
   // handlers pour fermer toutes les modals
