@@ -332,6 +332,33 @@
 #comment-form button:hover {
   background: #005fa3;
 }
+ /* Champ pseudo */
+#comment-form input#comment-pseudo {
+  width: 100%;
+  padding: .4rem .5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: .9rem;
+}
+
+/* En-tête de chaque commentaire */
+.comment .comment-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: .25rem;
+  font-size: .8rem;
+  color: #666;
+}
+
+.comment .comment-header .comment-pseudo {
+  font-weight: bold;
+  color: #0077cc;
+}
+
+.comment .comment-header .comment-time {
+  font-style: italic;
+}
+   
   </style>
 </head>
 <body>
@@ -603,16 +630,23 @@
       <div class="gallery-thumbs"></div>
     </div>
 
-    <!-- Commentaires (uniquement dans le modal) -->
-    <div class="comment-section">
-      <h4>Commentaires</h4>
-      <div class="comments-list"></div>
-      <form id="comment-form">
-        <textarea id="comment-input" placeholder="Écrivez un commentaire…" required></textarea>
-        <button type="submit">Publier</button>
-      </form>
-    </div>
-  </div>
+<div class="comment-section">
+  <h4>Commentaires</h4>
+  <div class="comments-list"></div>
+  <form id="comment-form">
+    <input
+      type="text"
+      id="comment-pseudo"
+      placeholder="Votre pseudo"
+      required
+    />
+    <textarea
+      id="comment-input"
+      placeholder="Écrivez un commentaire…"
+      required
+    ></textarea>
+    <button type="submit">Publier</button>
+  </form>
 </div>
 
     <!-- LIGHTBOX MODAL IMAGE -->
@@ -787,57 +821,92 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
-  // --- Gestion des commentaires via localStorage ---
+ // --- Gestion des commentaires avec pseudo + horodatage ---
 const COMMENTS_KEY = 'omr_comments';
 
-// Récupère les commentaires d'un trip
+// Récupère la liste d'objets { pseudo, text, time } pour un trip
 function loadComments(tripId) {
   const all = JSON.parse(localStorage.getItem(COMMENTS_KEY) || '{}');
   return all[tripId] || [];
 }
 
-// Sauvegarde les commentaires d'un trip
+// Sauvegarde la liste de commentaires d'un trip
 function saveComments(tripId, comments) {
   const all = JSON.parse(localStorage.getItem(COMMENTS_KEY) || '{}');
   all[tripId] = comments;
   localStorage.setItem(COMMENTS_KEY, JSON.stringify(all));
 }
 
-// Affiche les commentaires dans le modal
+// Affiche les commentaires dans la liste du modal
 function renderComments(tripId) {
   const list = document.querySelector('#trip-modal .comments-list');
   list.innerHTML = '';
-  loadComments(tripId).forEach(text => {
-    const div = document.createElement('div');
-    div.className = 'comment';
-    div.textContent = text;
-    list.appendChild(div);
+  loadComments(tripId).forEach(c => {
+    const wrapper = document.createElement('div');
+    wrapper.className = 'comment';
+
+    // En-tête pseudo + time
+    const header = document.createElement('div');
+    header.className = 'comment-header';
+    const pseudo = document.createElement('span');
+    pseudo.className = 'comment-pseudo';
+    pseudo.textContent = c.pseudo;
+    const time = document.createElement('span');
+    time.className = 'comment-time';
+    time.textContent = new Date(c.time)
+                          .toLocaleString('fr-FR', {
+                            day: '2-digit',
+                            month: '2-digit',
+                            year: 'numeric',
+                            hour: '2-digit',
+                            minute: '2-digit'
+                          });
+    header.append(pseudo, time);
+
+    // Texte
+    const text = document.createElement('div');
+    text.textContent = c.text;
+
+    wrapper.append(header, text);
+    list.appendChild(wrapper);
   });
 }
 
-// À l'ouverture de chaque carte, on initialise la section commentaires
+// À l’ouverture du modal pour chaque carte…
 document.querySelectorAll('.rv-card').forEach(card => {
   card.addEventListener('click', () => {
     const tripId = card.id; // ex: "trip-01"
 
-    // Affiche les commentaires existants
+    // Affiche les anciens commentaires
     renderComments(tripId);
 
-    // Gère l'envoi d'un nouveau commentaire
-    const form  = document.getElementById('comment-form');
-    const input = document.getElementById('comment-input');
+    // Branche le formulaire
+    const form   = document.getElementById('comment-form');
+    const input  = document.getElementById('comment-input');
+    const pseudo = document.getElementById('comment-pseudo');
     form.onsubmit = e => {
       e.preventDefault();
-      const txt = input.value.trim();
-      if (!txt) return;
+      const text = input.value.trim();
+      const name = pseudo.value.trim();
+      if (!name || !text) return;
+
+      // Nouvel objet commentaire
       const comments = loadComments(tripId);
-      comments.push(txt);
+      comments.push({
+        pseudo: name,
+        text:   text,
+        time:   Date.now()
+      });
       saveComments(tripId, comments);
+
+      // Rafraîchir liste et vider champs
       renderComments(tripId);
-      input.value = '';
+      input.value  = '';
+      // On conserve le pseudo pour ne pas à le retaper
     };
   });
 });
+
 
   // nouvelle fonction de fermeture qui pause la vidéo si besoin
   function closeModal(modal) {
