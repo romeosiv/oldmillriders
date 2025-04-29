@@ -727,9 +727,10 @@ body.modal-open .footer {
   </div>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  // Constantes pour les commentaires
+  // 0) Variables globales
+  let currentTripId = null;                   // pour suivre le trip ouvert
   const COMMENTS_KEY   = 'omr_comments';
-  const ADMIN_PASSWORD = 'TonMdpDeModération'; // à personnaliser
+  const ADMIN_PASSWORD = 'TonMdpDeModération'; // personnalise ici
 
   // 1) Menu burger
   document.querySelector('.menu-toggle').addEventListener('click', () => {
@@ -760,7 +761,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const wrapper = document.createElement('div');
       wrapper.className = 'comment';
 
-      // En-tête : pseudo + date + bouton Supprimer (si autorisé)
+      // En-tête : pseudo + date
       const header = document.createElement('div');
       header.className = 'comment-header';
 
@@ -779,6 +780,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       header.append(pseudoSpan, timeSpan);
 
+      // Bouton Supprimer si admin OU auteur
       if (isAdmin || c.pseudo === me) {
         const delBtn = document.createElement('button');
         delBtn.className = 'comment-delete';
@@ -792,7 +794,7 @@ document.addEventListener('DOMContentLoaded', () => {
         header.append(delBtn);
       }
 
-      // Texte du commentaire
+      // Texte
       const textDiv = document.createElement('div');
       textDiv.textContent = c.text;
 
@@ -801,13 +803,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 4) Fonction pour initialiser la lightbox
+  // 4) Lightbox
   function setupLightbox() {
-    const thumbs      = Array.from(document.querySelectorAll('#trip-modal .gallery-thumbs > *'));
-    const imageModal  = document.getElementById('image-modal');
-    const content     = imageModal.querySelector('.modal-content');
-    const prevBtn     = content.querySelector('.lightbox-prev');
-    const nextBtn     = content.querySelector('.lightbox-next');
+    const thumbs     = Array.from(document.querySelectorAll('#trip-modal .gallery-thumbs > *'));
+    const imageModal = document.getElementById('image-modal');
+    const content    = imageModal.querySelector('.modal-content');
+    const prevBtn    = content.querySelector('.lightbox-prev');
+    const nextBtn    = content.querySelector('.lightbox-next');
     let idx = 0;
 
     content.addEventListener('click', e => e.stopPropagation());
@@ -818,10 +820,9 @@ document.addEventListener('DOMContentLoaded', () => {
         idx = i;
         const existing = content.querySelector('img, video');
         if (existing) existing.remove();
-
         if (thumb.tagName === 'IMG') {
           const img = document.createElement('img');
-          img.src       = thumb.src;
+          img.src = thumb.src;
           img.className = 'image-modal-img';
           content.insertBefore(img, prevBtn);
         } else {
@@ -832,7 +833,6 @@ document.addEventListener('DOMContentLoaded', () => {
           vid.className = 'image-modal-img';
           content.insertBefore(vid, prevBtn);
         }
-
         imageModal.style.display = 'flex';
       });
     });
@@ -848,22 +848,21 @@ document.addEventListener('DOMContentLoaded', () => {
       thumbs[idx].click();
     });
 
-    // Support swipe mobile
+    // Swipe mobile
     let startX = 0;
     imageModal.addEventListener('touchstart', e => {
       startX = e.changedTouches[0].screenX;
     });
     imageModal.addEventListener('touchend', e => {
       const endX = e.changedTouches[0].screenX;
-      const diff = endX - startX;
-      if (Math.abs(diff) > 50) {
-        if (diff < 0) nextBtn.click();
+      if (Math.abs(endX - startX) > 50) {
+        if (endX < startX) nextBtn.click();
         else prevBtn.click();
       }
     });
   }
 
-  // 5) Fonction de fermeture de modal (pause vidéo + réaffiche footer)
+  // 5) Fermeture modal
   function closeModal(modal) {
     const vid = modal.querySelector('video');
     if (vid) vid.pause();
@@ -871,10 +870,11 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.classList.remove('modal-open');
   }
 
-  // 6) Toggle “Mode modération”
+  // 6) Mode modération (toggle + re-render si modal ouvert)
   document.getElementById('admin-login').addEventListener('click', () => {
     const btn     = document.getElementById('admin-login');
     const isAdmin = localStorage.getItem('omr_admin') === 'true';
+
     if (isAdmin) {
       localStorage.removeItem('omr_admin');
       btn.classList.remove('active');
@@ -885,21 +885,27 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.classList.add('active');
       } else {
         alert('Mot de passe incorrect');
+        return;
       }
+    }
+
+    if (currentTripId &&
+        document.getElementById('trip-modal').style.display === 'flex') {
+      renderComments(currentTripId);
     }
   });
 
-  // 7) Handler global pour l’ouverture du trip-modal
+  // 7) Ouverture du trip-modal
   document.querySelectorAll('.rv-card').forEach(card => {
     card.addEventListener('click', () => {
-      const tripId = card.id;
+      currentTripId = card.id;
 
-      // Ouvre le modal et cache le footer
+      // Ouvre modal + cache footer
       const modal = document.getElementById('trip-modal');
       modal.style.display = 'flex';
       document.body.classList.add('modal-open');
 
-      // Clone la carte (sans media) dans le modal
+      // Clone carte sans media
       const container = document.getElementById('trip-modal-card');
       container.innerHTML = '';
       const clone = card.cloneNode(true);
@@ -909,7 +915,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (media) media.remove();
       container.appendChild(clone);
 
-      // Init map (une seule fois)
+      // Init map une fois
       if (!mapInit) {
         map = L.map('map-modal').setView([45.3639, 5.83], 10);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -917,7 +923,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }).addTo(map);
         mapInit = true;
       }
-      // Charge le GPX
+      // Charge GPX
       const gpxFile = card.dataset.gpx;
       if (gpxLayer) map.removeLayer(gpxLayer);
       gpxLayer = new L.GPX(gpxFile, {
@@ -927,7 +933,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }).on('loaded', e => map.fitBounds(e.target.getBounds()))
         .addTo(map);
 
-      // Construit la galerie
+      // Construit galerie
       const thumbs = document.querySelector('#trip-modal .gallery-thumbs');
       thumbs.innerHTML = '';
       card.dataset.images.split(',').forEach((src, i) => {
@@ -953,12 +959,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
       setupLightbox();
 
-      // Pré-remplit le pseudo et affiche les commentaires
+      // Pré-remplit pseudo + affiche commentaires
       document.getElementById('comment-pseudo').value =
         localStorage.getItem('omr_pseudo') || '';
-      renderComments(tripId);
+      renderComments(currentTripId);
 
-      // Formulaire nouvel commentaire
+      // Formulaire nouveau commentaire
       const form   = document.getElementById('comment-form');
       const input  = document.getElementById('comment-input');
       const pseudo = document.getElementById('comment-pseudo');
@@ -968,16 +974,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const text = input.value.trim();
         if (!name || !text) return;
         localStorage.setItem('omr_pseudo', name);
-        const comments = loadComments(tripId);
+        const comments = loadComments(currentTripId);
         comments.push({ pseudo: name, text, time: Date.now() });
-        saveComments(tripId, comments);
-        renderComments(tripId);
+        saveComments(currentTripId, comments);
+        renderComments(currentTripId);
         input.value = '';
       };
     });
   });
 
-  // 8) Handlers de fermeture de toutes les modals
+  // 8) Fermeture de tous les modals
   document.querySelectorAll('.modal-close').forEach(btn => {
     btn.addEventListener('click', () => closeModal(btn.closest('.modal')));
   });
@@ -987,7 +993,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
-
 </script>
+
 </body>
 </html>
