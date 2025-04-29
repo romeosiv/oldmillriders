@@ -816,27 +816,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       setupLightbox();
 
-      // Pré-remplit pseudo + affiche commentaires
-      document.getElementById('comment-pseudo').value =
-        localStorage.getItem('omr_pseudo') || '';
-      renderComments(currentTripId);
-
-      // Formulaire nouveau commentaire
-      const form   = document.getElementById('comment-form');
-      const input  = document.getElementById('comment-input');
-      const pseudo = document.getElementById('comment-pseudo');
-      form.onsubmit = e => {
-        e.preventDefault();
-        const name = pseudo.value.trim();
-        const text = input.value.trim();
-        if (!name || !text) return;
-        localStorage.setItem('omr_pseudo', name);
-        const comments = loadComments(currentTripId);
-        comments.push({ pseudo: name, text, time: Date.now() });
-        saveComments(currentTripId, comments);
-        renderComments(currentTripId);
-        input.value = '';
-      };
     });
   });
 
