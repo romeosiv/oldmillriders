@@ -274,6 +274,64 @@
   max-height: 80vh;
   object-fit: contain;
 }
+    /* Section Commentaires */
+.comment-section {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #ddd;
+}
+
+.comment-section h4 {
+  margin: 0 0 .5rem;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.comments-list {
+  max-height: 200px;
+  overflow-y: auto;
+  margin-bottom: .75rem;
+}
+
+.comment {
+  margin-bottom: .5rem;
+  padding: .5rem;
+  background: #f9f9f9;
+  border-radius: 6px;
+  font-size: .9rem;
+}
+
+/* Formulaire */
+#comment-form {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+#comment-input {
+  width: 100%;
+  min-height: 60px;
+  padding: .5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: .9rem;
+  resize: vertical;
+}
+
+#comment-form button {
+  align-self: flex-end;
+  padding: .5rem 1rem;
+  border: none;
+  background: #0077cc;
+  color: #fff;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: .9rem;
+}
+
+#comment-form button:hover {
+  background: #005fa3;
+}
   </style>
 </head>
 <body>
@@ -532,18 +590,30 @@
       </article>
     </div>
 
-    <!-- MODAL TRIP -->
-    <div id="trip-modal" class="modal">
-      <div class="modal-content">
-        <span class="modal-close">&times;</span>
-        <div id="map-modal"></div>
-        <div id="trip-modal-card"></div>
-        <div class="trip-gallery-modal">
-          <h4>Galerie</h4>
-          <div class="gallery-thumbs"></div>
-        </div>
-      </div>
+<!-- MODAL TRIP -->
+<div id="trip-modal" class="modal">
+  <div class="modal-content">
+    <span class="modal-close">&times;</span>
+    <div id="map-modal"></div>
+    <div id="trip-modal-card"></div>
+
+    <!-- Galerie -->
+    <div class="trip-gallery-modal">
+      <h4>Galerie</h4>
+      <div class="gallery-thumbs"></div>
     </div>
+
+    <!-- Commentaires (uniquement dans le modal) -->
+    <div class="comment-section">
+      <h4>Commentaires</h4>
+      <div class="comments-list"></div>
+      <form id="comment-form">
+        <textarea id="comment-input" placeholder="Écrivez un commentaire…" required></textarea>
+        <button type="submit">Publier</button>
+      </form>
+    </div>
+  </div>
+</div>
 
     <!-- LIGHTBOX MODAL IMAGE -->
     <div id="image-modal" class="modal">
@@ -717,6 +787,58 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
+  // --- Gestion des commentaires via localStorage ---
+const COMMENTS_KEY = 'omr_comments';
+
+// Récupère les commentaires d'un trip
+function loadComments(tripId) {
+  const all = JSON.parse(localStorage.getItem(COMMENTS_KEY) || '{}');
+  return all[tripId] || [];
+}
+
+// Sauvegarde les commentaires d'un trip
+function saveComments(tripId, comments) {
+  const all = JSON.parse(localStorage.getItem(COMMENTS_KEY) || '{}');
+  all[tripId] = comments;
+  localStorage.setItem(COMMENTS_KEY, JSON.stringify(all));
+}
+
+// Affiche les commentaires dans le modal
+function renderComments(tripId) {
+  const list = document.querySelector('#trip-modal .comments-list');
+  list.innerHTML = '';
+  loadComments(tripId).forEach(text => {
+    const div = document.createElement('div');
+    div.className = 'comment';
+    div.textContent = text;
+    list.appendChild(div);
+  });
+}
+
+// À l'ouverture de chaque carte, on initialise la section commentaires
+document.querySelectorAll('.rv-card').forEach(card => {
+  card.addEventListener('click', () => {
+    const tripId = card.id; // ex: "trip-01"
+
+    // Affiche les commentaires existants
+    renderComments(tripId);
+
+    // Gère l'envoi d'un nouveau commentaire
+    const form  = document.getElementById('comment-form');
+    const input = document.getElementById('comment-input');
+    form.onsubmit = e => {
+      e.preventDefault();
+      const txt = input.value.trim();
+      if (!txt) return;
+      const comments = loadComments(tripId);
+      comments.push(txt);
+      saveComments(tripId, comments);
+      renderComments(tripId);
+      input.value = '';
+    };
+  });
+});
+
   // nouvelle fonction de fermeture qui pause la vidéo si besoin
   function closeModal(modal) {
     const vid = modal.querySelector('video');
