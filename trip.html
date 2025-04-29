@@ -362,6 +362,42 @@
 body.modal-open .footer {
   display: none !important;
 }
+    /* — Bouton Mode modération — */
+.comment-admin-toggle {
+  text-align: right;
+  margin-bottom: .5rem;
+}
+#admin-login {
+  background: none;
+  border: 1px solid #0077cc;
+  color: #0077cc;
+  padding: .25rem .5rem;
+  border-radius: 4px;
+  font-size: .8rem;
+  cursor: pointer;
+}
+#admin-login.active {
+  background: #0077cc;
+  color: #fff;
+}
+
+/* — Commentaire & suppression — */
+.comment .comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: .25rem;
+  font-size: .8rem;
+  color: #666;
+}
+.comment-delete {
+  background: none;
+  border: none;
+  color: #c00;
+  font-size: .8rem;
+  cursor: pointer;
+  margin-left: .5rem;
+}
   </style>
 </head>
 <body>
@@ -634,6 +670,9 @@ body.modal-open .footer {
     </div>
 
 <div class="comment-section">
+    <div class="comment-admin-toggle">
+    <button id="admin-login">Mode modération</button>
+  </div>
   <h4>Commentaires</h4>
   <div class="comments-list"></div>
   <form id="comment-form">
@@ -688,131 +727,128 @@ body.modal-open .footer {
   </div>
 <script>
 document.addEventListener('DOMContentLoaded', () => {
-  // menu burger
-  document.querySelector('.menu-toggle')
-    .addEventListener('click', () =>
-      document.querySelector('header nav').classList.toggle('open')
-    );
+  // Constantes pour les commentaires
+  const COMMENTS_KEY   = 'omr_comments';
+  const ADMIN_PASSWORD = 'TonMdpDeModération'; // à personnaliser
 
-  // map & GPX
-  let mapInit = false, map, gpxLayer;
-
-  document.querySelectorAll('.rv-card').forEach(card => {
-    card.addEventListener('click', () => {
-      // ouvrir modal
-    const modal = document.getElementById('trip-modal');
-    modal.style.display = 'flex';
-      document.body.classList.add('modal-open');
-      
-      // cloner la carte (sans image)
-      const container = document.getElementById('trip-modal-card');
-      container.innerHTML = '';
-      const clone = card.cloneNode(true);
-      clone.removeAttribute('id');
-      clone.style.width = '100%';
-      const media = clone.querySelector('.rv-card-media');
-      if (media) media.remove();
-      container.appendChild(clone);
-
-      // init map une seule fois
-      if (!mapInit) {
-        map = L.map('map-modal').setView([45.3639,5.83],10);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-          attribution: '© OpenStreetMap contributors'
-        }).addTo(map);
-        mapInit = true;
-      }
-      // charger GPX spécifique
-      const gpxFile = card.dataset.gpx;
-      if (gpxLayer) map.removeLayer(gpxLayer);
-      gpxLayer = new L.GPX(gpxFile, {
-        async: true,
-        marker_options: { startIconUrl: null, endIconUrl: null },
-        polyline_options: { color: '#0077cc', weight: 4, opacity: 0.8 }
-      }).on('loaded', e => map.fitBounds(e.target.getBounds()))
-        .addTo(map);
-
-      // construire galerie
-      const thumbsContainer = document.querySelector('#trip-modal .gallery-thumbs');
-      thumbsContainer.innerHTML = '';
-      card.dataset.images.split(',').forEach((src,i) => {
-        const item = src.trim();
-        if (item.startsWith('video:')) {
-       const videoSrc = item.replace(/^video:/, '');
-        const video    = document.createElement('video');
- video.poster      = videoSrc.replace(/\.mp4$/,'auvergne.jpg');
-    video.src         = videoSrc;      // facultatif ici, juste pour l’aperçu
-    video.muted       = true;
-    video.playsInline = true;
-    video.preload     = 'metadata';
-    video.controls    = false;
-    video.className   = 'thumb-video';
-    thumbsContainer.appendChild(video);
-  } else {
-          // IMAGE thumbnail
-          const img = document.createElement('img');
-          img.src = item;
-          img.alt = `Photo ${i+1}`;
-          thumbsContainer.appendChild(img);
-        }
-      });
-
-      // on (re)initialise le comportement lightbox + swipe
-      setupLightbox();
-    });
+  // 1) Menu burger
+  document.querySelector('.menu-toggle').addEventListener('click', () => {
+    document.querySelector('header nav').classList.toggle('open');
   });
 
+  // 2) Variables pour la carte GPX
+  let mapInit = false, map, gpxLayer;
+
+  // 3) Fonctions de gestion des commentaires
+  function loadComments(tripId) {
+    const all = JSON.parse(localStorage.getItem(COMMENTS_KEY) || '{}');
+    return all[tripId] || [];
+  }
+  function saveComments(tripId, comments) {
+    const all = JSON.parse(localStorage.getItem(COMMENTS_KEY) || '{}');
+    all[tripId] = comments;
+    localStorage.setItem(COMMENTS_KEY, JSON.stringify(all));
+  }
+  function renderComments(tripId) {
+    const list     = document.querySelector('#trip-modal .comments-list');
+    const comments = loadComments(tripId);
+    const me       = localStorage.getItem('omr_pseudo');
+    const isAdmin  = localStorage.getItem('omr_admin') === 'true';
+
+    list.innerHTML = '';
+    comments.forEach((c, idx) => {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'comment';
+
+      // En-tête : pseudo + date + bouton Supprimer (si autorisé)
+      const header = document.createElement('div');
+      header.className = 'comment-header';
+
+      const pseudoSpan = document.createElement('span');
+      pseudoSpan.textContent = c.pseudo;
+
+      const timeSpan = document.createElement('span');
+      timeSpan.textContent = new Date(c.time)
+        .toLocaleString('fr-FR', {
+          day:    '2-digit',
+          month:  '2-digit',
+          year:   'numeric',
+          hour:   '2-digit',
+          minute: '2-digit'
+        });
+
+      header.append(pseudoSpan, timeSpan);
+
+      if (isAdmin || c.pseudo === me) {
+        const delBtn = document.createElement('button');
+        delBtn.className = 'comment-delete';
+        delBtn.textContent = 'Supprimer';
+        delBtn.onclick = () => {
+          if (!confirm('Supprimer ce commentaire ?')) return;
+          comments.splice(idx, 1);
+          saveComments(tripId, comments);
+          renderComments(tripId);
+        };
+        header.append(delBtn);
+      }
+
+      // Texte du commentaire
+      const textDiv = document.createElement('div');
+      textDiv.textContent = c.text;
+
+      wrapper.append(header, textDiv);
+      list.appendChild(wrapper);
+    });
+  }
+
+  // 4) Fonction pour initialiser la lightbox
   function setupLightbox() {
     const thumbs      = Array.from(document.querySelectorAll('#trip-modal .gallery-thumbs > *'));
     const imageModal  = document.getElementById('image-modal');
-    const bodyLightbox= imageModal.querySelector('.modal-content');
-    const prevBtn     = bodyLightbox.querySelector('.lightbox-prev');
-    const nextBtn     = bodyLightbox.querySelector('.lightbox-next');
+    const content     = imageModal.querySelector('.modal-content');
+    const prevBtn     = content.querySelector('.lightbox-prev');
+    const nextBtn     = content.querySelector('.lightbox-next');
     let idx = 0;
-     bodyLightbox.addEventListener('click', e => e.stopPropagation());
-      imageModal.addEventListener('click', () => {
-    closeModal(imageModal);
-  });
+
+    content.addEventListener('click', e => e.stopPropagation());
+    imageModal.addEventListener('click', () => closeModal(imageModal));
 
     thumbs.forEach((thumb, i) => {
-      thumb.onclick = () => {
+      thumb.addEventListener('click', () => {
         idx = i;
-        // on vide l'ancien aperçu
-        const existing = bodyLightbox.querySelector('img, video');
+        const existing = content.querySelector('img, video');
         if (existing) existing.remove();
 
         if (thumb.tagName === 'IMG') {
-          // afficher l'image
           const img = document.createElement('img');
           img.src       = thumb.src;
           img.className = 'image-modal-img';
-          bodyLightbox.insertBefore(img, prevBtn);
+          content.insertBefore(img, prevBtn);
         } else {
-          // afficher la vidéo
           const vid = document.createElement('video');
           vid.src       = thumb.src;
           vid.controls  = true;
           vid.autoplay  = true;
           vid.className = 'image-modal-img';
-          bodyLightbox.insertBefore(vid, prevBtn);
+          content.insertBefore(vid, prevBtn);
         }
 
         imageModal.style.display = 'flex';
-      };
+      });
     });
 
-    prevBtn.onclick = e => {
+    prevBtn.addEventListener('click', e => {
       e.stopPropagation();
       idx = (idx - 1 + thumbs.length) % thumbs.length;
       thumbs[idx].click();
-    };
-    nextBtn.onclick = e => {
+    });
+    nextBtn.addEventListener('click', e => {
       e.stopPropagation();
       idx = (idx + 1) % thumbs.length;
       thumbs[idx].click();
-    };
+    });
 
-    // swipe support (mobile)
+    // Support swipe mobile
     let startX = 0;
     imageModal.addEventListener('touchstart', e => {
       startX = e.changedTouches[0].screenX;
@@ -826,106 +862,124 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }
- // --- Gestion des commentaires avec pseudo + horodatage ---
-const COMMENTS_KEY = 'omr_comments';
 
-// Récupère la liste d'objets { pseudo, text, time } pour un trip
-function loadComments(tripId) {
-  const all = JSON.parse(localStorage.getItem(COMMENTS_KEY) || '{}');
-  return all[tripId] || [];
-}
-
-// Sauvegarde la liste de commentaires d'un trip
-function saveComments(tripId, comments) {
-  const all = JSON.parse(localStorage.getItem(COMMENTS_KEY) || '{}');
-  all[tripId] = comments;
-  localStorage.setItem(COMMENTS_KEY, JSON.stringify(all));
-}
-
-// Affiche les commentaires dans la liste du modal
-function renderComments(tripId) {
-  const list = document.querySelector('#trip-modal .comments-list');
-  list.innerHTML = '';
-  loadComments(tripId).forEach(c => {
-    const wrapper = document.createElement('div');
-    wrapper.className = 'comment';
-
-    // En-tête pseudo + time
-    const header = document.createElement('div');
-    header.className = 'comment-header';
-    const pseudo = document.createElement('span');
-    pseudo.className = 'comment-pseudo';
-    pseudo.textContent = c.pseudo;
-    const time = document.createElement('span');
-    time.className = 'comment-time';
-    time.textContent = new Date(c.time)
-                          .toLocaleString('fr-FR', {
-                            day: '2-digit',
-                            month: '2-digit',
-                            year: 'numeric',
-                            hour: '2-digit',
-                            minute: '2-digit'
-                          });
-    header.append(pseudo, time);
-
-    // Texte
-    const text = document.createElement('div');
-    text.textContent = c.text;
-
-    wrapper.append(header, text);
-    list.appendChild(wrapper);
-  });
-}
-
-// À l’ouverture du modal pour chaque carte…
-document.querySelectorAll('.rv-card').forEach(card => {
-  card.addEventListener('click', () => {
-    const tripId = card.id; // ex: "trip-01"
-
-    // Affiche les anciens commentaires
-    renderComments(tripId);
-
-    // Branche le formulaire
-    const form   = document.getElementById('comment-form');
-    const input  = document.getElementById('comment-input');
-    const pseudo = document.getElementById('comment-pseudo');
-    form.onsubmit = e => {
-      e.preventDefault();
-      const text = input.value.trim();
-      const name = pseudo.value.trim();
-      if (!name || !text) return;
-
-      // Nouvel objet commentaire
-      const comments = loadComments(tripId);
-      comments.push({
-        pseudo: name,
-        text:   text,
-        time:   Date.now()
-      });
-      saveComments(tripId, comments);
-
-      // Rafraîchir liste et vider champs
-      renderComments(tripId);
-      input.value  = '';
-      // On conserve le pseudo pour ne pas à le retaper
-    };
-  });
-});
-
-
-  // nouvelle fonction de fermeture qui pause la vidéo si besoin
+  // 5) Fonction de fermeture de modal (pause vidéo + réaffiche footer)
   function closeModal(modal) {
     const vid = modal.querySelector('video');
     if (vid) vid.pause();
     modal.style.display = 'none';
-     document.body.classList.remove('modal-open');
+    document.body.classList.remove('modal-open');
   }
 
-  // handlers pour fermer toutes les modals
+  // 6) Toggle “Mode modération”
+  document.getElementById('admin-login').addEventListener('click', () => {
+    const btn     = document.getElementById('admin-login');
+    const isAdmin = localStorage.getItem('omr_admin') === 'true';
+    if (isAdmin) {
+      localStorage.removeItem('omr_admin');
+      btn.classList.remove('active');
+    } else {
+      const pwd = prompt('Mot de passe modération :');
+      if (pwd === ADMIN_PASSWORD) {
+        localStorage.setItem('omr_admin', 'true');
+        btn.classList.add('active');
+      } else {
+        alert('Mot de passe incorrect');
+      }
+    }
+  });
+
+  // 7) Handler global pour l’ouverture du trip-modal
+  document.querySelectorAll('.rv-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const tripId = card.id;
+
+      // Ouvre le modal et cache le footer
+      const modal = document.getElementById('trip-modal');
+      modal.style.display = 'flex';
+      document.body.classList.add('modal-open');
+
+      // Clone la carte (sans media) dans le modal
+      const container = document.getElementById('trip-modal-card');
+      container.innerHTML = '';
+      const clone = card.cloneNode(true);
+      clone.removeAttribute('id');
+      clone.style.width = '100%';
+      const media = clone.querySelector('.rv-card-media');
+      if (media) media.remove();
+      container.appendChild(clone);
+
+      // Init map (une seule fois)
+      if (!mapInit) {
+        map = L.map('map-modal').setView([45.3639, 5.83], 10);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+          attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+        mapInit = true;
+      }
+      // Charge le GPX
+      const gpxFile = card.dataset.gpx;
+      if (gpxLayer) map.removeLayer(gpxLayer);
+      gpxLayer = new L.GPX(gpxFile, {
+        async: true,
+        marker_options: { startIconUrl: null, endIconUrl: null },
+        polyline_options: { color: '#0077cc', weight: 4, opacity: 0.8 }
+      }).on('loaded', e => map.fitBounds(e.target.getBounds()))
+        .addTo(map);
+
+      // Construit la galerie
+      const thumbs = document.querySelector('#trip-modal .gallery-thumbs');
+      thumbs.innerHTML = '';
+      card.dataset.images.split(',').forEach((src, i) => {
+        const item = src.trim();
+        if (item.startsWith('video:')) {
+          const videoSrc = item.replace(/^video:/, '');
+          const vid = document.createElement('video');
+          vid.poster      = videoSrc.replace(/\.mp4$/, 'auvergne.jpg');
+          vid.src         = videoSrc;
+          vid.muted       = true;
+          vid.playsInline = true;
+          vid.preload     = 'metadata';
+          vid.controls    = false;
+          vid.className   = 'thumb-video';
+          thumbs.appendChild(vid);
+        } else {
+          const img = document.createElement('img');
+          img.src = item;
+          img.alt = `Photo ${i + 1}`;
+          thumbs.appendChild(img);
+        }
+      });
+
+      setupLightbox();
+
+      // Pré-remplit le pseudo et affiche les commentaires
+      document.getElementById('comment-pseudo').value =
+        localStorage.getItem('omr_pseudo') || '';
+      renderComments(tripId);
+
+      // Formulaire nouvel commentaire
+      const form   = document.getElementById('comment-form');
+      const input  = document.getElementById('comment-input');
+      const pseudo = document.getElementById('comment-pseudo');
+      form.onsubmit = e => {
+        e.preventDefault();
+        const name = pseudo.value.trim();
+        const text = input.value.trim();
+        if (!name || !text) return;
+        localStorage.setItem('omr_pseudo', name);
+        const comments = loadComments(tripId);
+        comments.push({ pseudo: name, text, time: Date.now() });
+        saveComments(tripId, comments);
+        renderComments(tripId);
+        input.value = '';
+      };
+    });
+  });
+
+  // 8) Handlers de fermeture de toutes les modals
   document.querySelectorAll('.modal-close').forEach(btn => {
-    btn.addEventListener('click', () =>
-      closeModal(btn.closest('.modal'))
-    );
+    btn.addEventListener('click', () => closeModal(btn.closest('.modal')));
   });
   window.addEventListener('click', e => {
     if (e.target.classList.contains('modal')) {
@@ -933,6 +987,7 @@ document.querySelectorAll('.rv-card').forEach(card => {
     }
   });
 });
+
 </script>
 </body>
 </html>
