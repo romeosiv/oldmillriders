@@ -639,6 +639,20 @@
 
   </div>
 <script>
+  document
+  .getElementById('privacy-policy-link')
+  .addEventListener('click', e => {
+    e.preventDefault()                              // empêche le # de faire remonter en haut de page
+    document.getElementById('privacy-modal').style.display = 'flex'
+  })
+
+// Ouvre la modal Mentions légales
+document
+  .getElementById('legal-mentions-link')
+  .addEventListener('click', e => {
+    e.preventDefault()
+    document.getElementById('legal-modal').style.display = 'flex'
+  })
 document.addEventListener('DOMContentLoaded', () => {
   // menu burger
   document.querySelector('.menu-toggle')
