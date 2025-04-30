@@ -79,11 +79,24 @@
       }
 
     /* ---------- TRIP CARD ---------- */
-    .rv-card {
-      width: auto;      
-      flex: none;   /* si tu avais un flex défini avant */
-    }
-    .rv-card:hover { transform:scale(1.02); }
+.rv-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+  /* *injection* de tes réglages Grid */
+  width: auto;
+  flex: none;
+
+  /* transition sur le scale pour un hover fluide */
+  will-change: transform;
+  transition: transform 0.3s ease;
+}
+
+.rv-card:hover {
+  transform: scale(1.02);
+}
     .rv-card-header {
       display:flex; justify-content:space-between;
       padding:.5rem 1rem; background:#f5f5f5; align-items:center;
