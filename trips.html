@@ -273,6 +273,30 @@
   max-height: 80vh;
   object-fit: contain;
 }
+    .filters-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+.chip {
+  padding: .4rem .8rem;
+  border: 1px solid #0077cc;
+  border-radius: 16px;
+  background: #fff;
+  cursor: pointer;
+  font-size: .9rem;
+  transition: background .2s, color .2s;
+}
+.chip.selected {
+  background: #0077cc;
+  color: #fff;
+}
   </style>
 </head>
 <body>
@@ -307,6 +331,31 @@
       Des cols sinueux, des forêts verdoyantes, des rivières tumultueuses…<br>
       tout l’esprit Old Mill Riders dans des trips inoubliables !
     </div>
+    
+<!-- FILTRES CHIPS -->
+<div class="filters-chips">
+  <!-- catégories -->
+  <div class="filter-group">
+    <span>Type :</span>
+    <button class="chip" data-filter-type="category" data-value="mer">Mer</button>
+    <button class="chip" data-filter-type="category" data-value="foret">Forêt</button>
+    <button class="chip" data-filter-type="category" data-value="montagne">Montagne</button>
+  </div>
+  <!-- distance -->
+  <div class="filter-group">
+    <span>Distance :</span>
+    <button class="chip" data-filter-type="distance" data-value="0-150">0–150 km</button>
+    <button class="chip" data-filter-type="distance" data-value="150-300">150–300 km</button>
+    <button class="chip" data-filter-type="distance" data-value="300+">> 300 km</button>
+  </div>
+  <!-- durée -->
+  <div class="filter-group">
+    <span>Durée :</span>
+    <button class="chip" data-filter-type="duration" data-value="0.5">½ jour</button>
+    <button class="chip" data-filter-type="duration" data-value="1">1 jour</button>
+    <button class="chip" data-filter-type="duration" data-value="2+">≥ 2 jours</button>
+  </div>
+</div>
 
     <!-- CARTES -->
     <div class="rv-cards-wrapper">
@@ -315,6 +364,9 @@
                id="trip-01"
                data-gpx="roadbook-chartreusealpes.gpx"
                data-images="IMG_9380.JPEG,IMG_9384.JPEG,IMG_9385.JPEG,IMG_9387.JPEG,IMG_9392.JPEG,IMG_9393.JPEG,IMG_9416.JPEG,IMG_9423.JPEG,IMG_9425.JPEG,IMG_7860.JPEG,IMG_9375.JPEG">
+               data-categories="foret,montagne"
+               data-distance="504"
+               data-duration="2">
         <div class="rv-card-header">
           <span class="rv-card-id">01</span>
           <div class="rv-card-badges">
@@ -353,6 +405,9 @@
                id="trip-02"
                data-gpx="j1-rdga-thonon-les-bains-beaufort.gpx"
                data-images="rdgaj1.JPEG,j1rdga1.JPEG,j1rdga2.JPEG,j1rdga3.JPEG,j1rdga4.JPEG">
+               data-categories="montagne"
+               data-distance="145"
+               data-duration="0.5">
         <div class="rv-card-header">
           <span class="rv-card-id">02</span>
           <div class="rv-card-badges">
@@ -374,7 +429,7 @@
             <div class="rv-card-stats">
               <div class="stat"><small>Distance</small><strong>145 km</strong></div>
               <div class="stat"><small>Altitude max ↑</small><strong>1 659 m</strong></div>
-              <div class="stat"><small>Durée</small><strong>3 h</strong></div>
+              <div class="stat"><small>Durée</small><strong>1/2 jour</strong></div>
               <div class="stat"><small>Niveau</small><strong>Intermédiaire</strong></div>
             </div>
           </div>
@@ -389,6 +444,9 @@
                id="trip-03"
                data-gpx="j2-rdga-beaufort-briancon.gpx"
                data-images="j2rdga1.JPEG,j2rdga2.JPEG,j2rdga3.JPEG,j2rdga4.JPEG,j2rdga5.JPEG,j2rdga6.JPEG,j2rdga7.JPEG,j2rdga8.JPEG,j2rdga9.JPEG,j2rdga10.JPEG,j2rdga11.JPEG,j2rdga12.JPEG,j2rdga13.JPEG">
+               data-categories="montagne"
+               data-distance="493"
+               data-duration="1">
         <div class="rv-card-header">
           <span class="rv-card-id">03</span>
           <div class="rv-card-badges">
@@ -425,7 +483,10 @@
       <article class="rv-card"
                id="trip-04"
                data-gpx="j3-rdga-briancon-jausiers.gpx"
-               data-images="j3rdga1.JPEG,j3rdga2.JPEG,j3rdga3.JPEG,j3rdga4.JPEG,j3rdga5.JPEG,j3rdga6.JPEG,j3rdga7.JPEG,j3rdga8.JPEG,j3rdga9.JPEG,j3rdga10.JPG">
+               data-images="j3rdga1.JPEG,j3rdga2.JPEG,j3rdga3.JPEG,j3rdga4.JPEG,j3rdga5.JPEG,j3rdga6.JPEG,j3rdga7.JPEG,j3rdga8.JPEG,j3rdga9.JPEG,j3rdga10.JPG">               
+               data-categories="montagne"
+               data-distance="230"
+               data-duration="1">
         <div class="rv-card-header">
           <span class="rv-card-id">04</span>
           <div class="rv-card-badges">
@@ -463,6 +524,9 @@
                id="trip-05"
                data-gpx="auvergnepddcantal.gpx"
                data-images="auv1.JPEG,auv2.JPEG,auv3.JPEG,auv4.JPEG,auv5.JPEG,auv6.jpg,auv7.JPEG,auv8.jpg,auv9.jpg,auv10.jpg,video:auvergne.mp4">
+               data-categories="montagne"
+               data-distance="298"
+               data-duration="1">
         <div class="rv-card-header">
           <span class="rv-card-id">05</span>
           <div class="rv-card-badges">
@@ -499,6 +563,9 @@
                id="trip-06"
                data-gpx="moireLe BoisdOingt.gpx"
                data-images="trail1.JPEG,trail2.JPEG,trail3.JPEG,trail4.JPEG,trail5.JPEG,trail6.JPEG">
+               data-categories="foret, montagne"
+               data-distance="120"
+               data-duration="0.5">
         <div class="rv-card-header">
           <span class="rv-card-id">06</span>
           <div class="rv-card-badges">
@@ -534,6 +601,9 @@
                id="trip-07"
                data-gpx="capcorse.gpx"
                data-images="capcorse1.jpg,capcorse2.jpg,capcorse3.jpg,capcorse4.jpg,capcorse5.jpg,capcorse6.jpg,capcorse8.jpg">
+               data-categories="mer"
+               data-distance="150"
+               data-duration="1/2">
         <div class="rv-card-header">
           <span class="rv-card-id">07</span>
           <div class="rv-card-badges">
@@ -846,6 +916,60 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+  // --- FILTRES CHIPS ---
+const chips = document.querySelectorAll('.filters-chips .chip');
+const cards = document.querySelectorAll('.rv-card');
+
+// stocke l’état des filtres
+const activeFilters = { category: new Set(), distance: new Set(), duration: new Set() };
+
+chips.forEach(chip => {
+  chip.addEventListener('click', () => {
+    const type = chip.dataset.filterType;     // "category"|"distance"|"duration"
+    const value = chip.dataset.value;
+    // toggle sélection
+    if (chip.classList.toggle('selected')) {
+      activeFilters[type].add(value);
+    } else {
+      activeFilters[type].delete(value);
+    }
+    applyFilters();
+  });
+});
+
+function applyFilters() {
+  cards.forEach(card => {
+    const cats = card.dataset.categories.split(',');
+    const dist = parseFloat(card.dataset.distance);
+    const dur  = parseFloat(card.dataset.duration);
+
+    // pour chaque type de filtre, si des valeurs sont actives, il faut satisfaire AU MOINS l'un 
+    let show = true;
+
+    // 1) catégorie
+    if (activeFilters.category.size) {
+      show = [...activeFilters.category].some(val => cats.includes(val));
+    }
+    // 2) distance
+    if (show && activeFilters.distance.size) {
+      show = [...activeFilters.distance].some(range => {
+        if (range === '300+') return dist > 300;
+        const [min, max] = range.split('-').map(Number);
+        return dist >= min && dist <= max;
+      });
+    }
+    // 3) durée
+    if (show && activeFilters.duration.size) {
+      show = [...activeFilters.duration].some(val => {
+        if (val === '2+') return dur >= 2;
+        return dur === parseFloat(val);
+      });
+    }
+
+    card.style.display = show ? 'block' : 'none';
+  });
+}
+
 </script>
 </body>
 </html>
