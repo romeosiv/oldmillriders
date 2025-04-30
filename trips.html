@@ -326,25 +326,39 @@
   background: #000;         /* --> fond inverse */
   color: #fff;              /* --> texte blanc */
 }
-    @media (max-width: 768px) {
+@media (max-width: 768px) {
+  /* Conteneur global des filtres en colonne */
   .filters-chips {
-    /* passe en horizontal scrollable, avec un léger fond */
     display: flex;
-    overflow-x: auto;
-    padding: 0.5rem 1rem;
-    background: rgba(255,255,255,0.9);
+    flex-direction: column;
+    gap: 1rem;
+    background: #fff;
+    padding: 1rem;
     border-radius: 12px;
-    gap: 0.5rem;
-    /* cache le scroll bar sur iOS/Android */
-    -webkit-overflow-scrolling: touch;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    margin: 1rem 0;
   }
-  .filters-chips::-webkit-scrollbar {
-    display: none;
+
+  /* Chaque groupe : label + chips */
+  .filter-group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .5rem;
   }
-  .chip {
-    flex: 0 0 auto;    /* largeur auto, ne s’étire pas */
-    padding: 0.5rem 1rem;
-    font-size: 0.85rem;
+
+  /* Le libellé ("Type :", "Distance :", ...) */
+  .filter-group > span {
+    flex: 0 0 auto;
+    min-width: 6ch;
+    font-weight: bold;
+  }
+
+  /* Les chips */
+  .filter-group .chip {
+    flex: 1 1 auto;
+    padding: .5rem .75rem;
+    font-size: .85rem;
   }
 }
 
