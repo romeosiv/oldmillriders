@@ -326,6 +326,28 @@
   background: #000;         /* --> fond inverse */
   color: #fff;              /* --> texte blanc */
 }
+    @media (max-width: 768px) {
+  .filters-chips {
+    /* passe en horizontal scrollable, avec un léger fond */
+    display: flex;
+    overflow-x: auto;
+    padding: 0.5rem 1rem;
+    background: rgba(255,255,255,0.9);
+    border-radius: 12px;
+    gap: 0.5rem;
+    /* cache le scroll bar sur iOS/Android */
+    -webkit-overflow-scrolling: touch;
+  }
+  .filters-chips::-webkit-scrollbar {
+    display: none;
+  }
+  .chip {
+    flex: 0 0 auto;    /* largeur auto, ne s’étire pas */
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -998,7 +1020,22 @@ function applyFilters() {
     card.style.display = show ? 'block' : 'none';
   });
 }
+  function openModal(modalEl) {
+  document.body.style.overflow = 'hidden';
+  modalEl.style.display = 'flex';
+}
 
+function closeModal(modalEl) {
+  // pause la vidéo si présente
+  const vid = modalEl.querySelector('video');
+  if (vid) vid.pause();
+
+  modalEl.style.display = 'none';
+  document.body.style.overflow = '';  // réactive le scroll
+}
+imageModal.addEventListener('touchmove', e => {
+  e.stopPropagation();
+}, { passive: false });
 </script>
 </body>
 </html>
