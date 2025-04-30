@@ -71,17 +71,17 @@
     }
 
     /* ---------- TRIPS WRAPPER ---------- */
-    .rv-cards-wrapper {
-      display:flex; gap:1.5rem; flex-wrap:wrap;
-      justify-content:space-between; margin:2rem 0;
-    }
+      .rv-cards-wrapper {
+        display: grid;
+        /* autant de colonnes que possible, chacune au moins 300 px de large : */
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.5rem;
+      }
 
     /* ---------- TRIP CARD ---------- */
     .rv-card {
-      background:#fff; border-radius:12px; overflow:hidden;
-      box-shadow:0 2px 8px rgba(0,0,0,0.1);
-      width:calc(33.333% - 1rem); cursor:pointer;
-      transition:transform .15s ease;
+      width: auto;      
+      flex: none;   /* si tu avais un flex défini avant */
     }
     .rv-card:hover { transform:scale(1.02); }
     .rv-card-header {
