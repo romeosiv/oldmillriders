@@ -797,36 +797,58 @@
 
   </div>
 <script>
-  document
-  .getElementById('privacy-policy-link')
-  .addEventListener('click', e => {
-    e.preventDefault()                              // empêche le # de faire remonter en haut de page
-    document.getElementById('privacy-modal').style.display = 'flex'
-  })
-
-// Ouvre la modal Mentions légales
-document
-  .getElementById('legal-mentions-link')
-  .addEventListener('click', e => {
-    e.preventDefault()
-    document.getElementById('legal-modal').style.display = 'flex'
-  })
 document.addEventListener('DOMContentLoaded', () => {
-  // menu burger
-  document.querySelector('.menu-toggle')
-    .addEventListener('click', () =>
-      document.querySelector('header nav').classList.toggle('open')
-    );
+  // —————————————————————————
+  // 1) MODALS & MENU BURGER
+  // —————————————————————————
+  function openModal(modal) {
+    document.body.style.overflow = 'hidden';
+    modal.style.display = 'flex';
+  }
+  function closeModal(modal) {
+    document.body.style.overflow = '';
+    const vid = modal.querySelector('video');
+    if (vid) vid.pause();
+    modal.style.display = 'none';
+  }
 
-  // map & GPX
+  // Politique de confidentialité
+  document.getElementById('privacy-policy-link')
+    .addEventListener('click', e => {
+      e.preventDefault();
+      openModal(document.getElementById('privacy-modal'));
+    });
+  // Mentions légales
+  document.getElementById('legal-mentions-link')
+    .addEventListener('click', e => {
+      e.preventDefault();
+      openModal(document.getElementById('legal-modal'));
+    });
+  // Fermeture via la croix
+  document.querySelectorAll('.modal-close').forEach(btn => {
+    btn.addEventListener('click', () => closeModal(btn.closest('.modal')));
+  });
+  // Fermeture en cliquant en dehors du contenu
+  document.querySelectorAll('.modal').forEach(modal => {
+    modal.addEventListener('click', e => {
+      if (e.target === modal) closeModal(modal);
+    });
+  });
+  // Menu burger mobile
+  document.querySelector('.menu-toggle').addEventListener('click', () =>
+    document.querySelector('header nav').classList.toggle('open')
+  );
+
+  // —————————————————————————
+  // 2) CARTE & GPX
+  // —————————————————————————
   let mapInit = false, map, gpxLayer;
-
   document.querySelectorAll('.rv-card').forEach(card => {
     card.addEventListener('click', () => {
-      // ouvrir modal
-      document.getElementById('trip-modal').style.display = 'flex';
+      // Ouvre modal trip
+      openModal(document.getElementById('trip-modal'));
 
-      // cloner la carte (sans image)
+      // Cloner la carte (sans image)
       const container = document.getElementById('trip-modal-card');
       container.innerHTML = '';
       const clone = card.cloneNode(true);
@@ -836,7 +858,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (media) media.remove();
       container.appendChild(clone);
 
-      // init map une seule fois
+      // Init map (une seule fois)
       if (!mapInit) {
         map = L.map('map-modal').setView([45.3639,5.83],10);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -844,7 +866,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }).addTo(map);
         mapInit = true;
       }
-      // charger GPX spécifique
+      // Charger GPX
       const gpxFile = card.dataset.gpx;
       if (gpxLayer) map.removeLayer(gpxLayer);
       gpxLayer = new L.GPX(gpxFile, {
@@ -854,28 +876,26 @@ document.addEventListener('DOMContentLoaded', () => {
       }).on('loaded', e => map.fitBounds(e.target.getBounds()))
         .addTo(map);
 
-      // construire galerie
+      // Construire la galerie
       const thumbsContainer = document.querySelector('#trip-modal .gallery-thumbs');
       thumbsContainer.innerHTML = '';
       card.dataset.images.split(',').forEach((src,i) => {
         const item = src.trim();
         if (item.startsWith('video:')) {
-        // VIDEO thumbnail (corrigé)
-       const videoSrc = item.replace(/^video:/, '');
-        const video    = document.createElement('video');
+          const videoSrc = item.replace(/^video:/, '');
+          const video = document.createElement('video');
           video.src          = videoSrc;
-         video.poster       = videoSrc.replace('.mp4', '.jpg'); // votre vignette .jpg
-         video.className    = 'thumb-video';
-         video.muted        = true;
-         video.playsInline  = true;
-         video.preload      = 'metadata';
-         video.controls     = false;
-         video.style.objectFit = 'cover';
-         video.style.cursor    = 'pointer';
-         video.oncontextmenu   = e => e.preventDefault();
-         thumbsContainer.appendChild(video);
+          video.poster       = videoSrc.replace('.mp4', '.jpg');
+          video.className    = 'thumb-video';
+          video.muted        = true;
+          video.playsInline  = true;
+          video.preload      = 'metadata';
+          video.controls     = false;
+          video.style.objectFit = 'cover';
+          video.style.cursor    = 'pointer';
+          video.oncontextmenu   = e => e.preventDefault();
+          thumbsContainer.appendChild(video);
         } else {
-          // IMAGE thumbnail
           const img = document.createElement('img');
           img.src = item;
           img.alt = `Photo ${i+1}`;
@@ -883,11 +903,14 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
 
-      // on (re)initialise le comportement lightbox + swipe
+      // (Re)initialise la lightbox
       setupLightbox();
     });
   });
 
+  // —————————————————————————
+  // 3) LIGHTBOX
+  // —————————————————————————
   function setupLightbox() {
     const thumbs      = Array.from(document.querySelectorAll('#trip-modal .gallery-thumbs > *'));
     const imageModal  = document.getElementById('image-modal');
@@ -899,18 +922,15 @@ document.addEventListener('DOMContentLoaded', () => {
     thumbs.forEach((thumb, i) => {
       thumb.onclick = () => {
         idx = i;
-        // on vide l'ancien aperçu
         const existing = bodyLightbox.querySelector('img, video');
         if (existing) existing.remove();
 
         if (thumb.tagName === 'IMG') {
-          // afficher l'image
           const img = document.createElement('img');
           img.src       = thumb.src;
           img.className = 'image-modal-img';
           bodyLightbox.insertBefore(img, prevBtn);
         } else {
-          // afficher la vidéo
           const vid = document.createElement('video');
           vid.src       = thumb.src;
           vid.controls  = true;
@@ -919,7 +939,7 @@ document.addEventListener('DOMContentLoaded', () => {
           bodyLightbox.insertBefore(vid, prevBtn);
         }
 
-        imageModal.style.display = 'flex';
+        openModal(imageModal);
       };
     });
 
@@ -934,108 +954,71 @@ document.addEventListener('DOMContentLoaded', () => {
       thumbs[idx].click();
     };
 
-    // swipe support (mobile)
+    // Swipe & bloquer scroll fond
     let startX = 0;
     imageModal.addEventListener('touchstart', e => {
       startX = e.changedTouches[0].screenX;
-    });
+    }, { passive: false });
+    imageModal.addEventListener('touchmove', e => {
+      e.stopPropagation();
+    }, { passive: false });
     imageModal.addEventListener('touchend', e => {
       const endX = e.changedTouches[0].screenX;
       const diff = endX - startX;
       if (Math.abs(diff) > 50) {
-        if (diff < 0) nextBtn.click();
-        else prevBtn.click();
+        diff < 0 ? nextBtn.click() : prevBtn.click();
       }
     });
   }
-  // nouvelle fonction de fermeture qui pause la vidéo si besoin
-  function closeModal(modal) {
-    const vid = modal.querySelector('video');
-    if (vid) vid.pause();
-    modal.style.display = 'none';
+
+  // —————————————————————————
+  // 4) FILTRES CHIPS
+  // —————————————————————————
+  const chips = document.querySelectorAll('.filters-chips .chip');
+  const cards = document.querySelectorAll('.rv-card');
+  const activeFilters = { category: new Set(), distance: new Set(), duration: new Set() };
+
+  chips.forEach(chip => {
+    chip.addEventListener('click', () => {
+      const type = chip.dataset.filterType;
+      const value = chip.dataset.value;
+      if (chip.classList.toggle('selected')) {
+        activeFilters[type].add(value);
+      } else {
+        activeFilters[type].delete(value);
+      }
+      applyFilters();
+    });
+  });
+
+  function applyFilters() {
+    cards.forEach(card => {
+      const cats = card.dataset.categories.split(',');
+      const dist = parseFloat(card.dataset.distance);
+      const dur  = parseFloat(card.dataset.duration);
+      let show = true;
+
+      if (activeFilters.category.size) {
+        show = [...activeFilters.category].some(v => cats.includes(v));
+      }
+      if (show && activeFilters.distance.size) {
+        show = [...activeFilters.distance].some(r => {
+          if (r === '300+') return dist > 300;
+          const [min, max] = r.split('-').map(Number);
+          return dist >= min && dist <= max;
+        });
+      }
+      if (show && activeFilters.duration.size) {
+        show = [...activeFilters.duration].some(v => {
+          if (v === '2+') return dur >= 2;
+          return dur === parseFloat(v);
+        });
+      }
+
+      card.style.display = show ? 'block' : 'none';
+    });
   }
-
-  // handlers pour fermer toutes les modals
-  document.querySelectorAll('.modal-close').forEach(btn => {
-    btn.addEventListener('click', () =>
-      closeModal(btn.closest('.modal'))
-    );
-  });
-  window.addEventListener('click', e => {
-    if (e.target.classList.contains('modal')) {
-      closeModal(e.target);
-    }
-  });
 });
-  // --- FILTRES CHIPS ---
-const chips = document.querySelectorAll('.filters-chips .chip');
-const cards = document.querySelectorAll('.rv-card');
-
-// stocke l’état des filtres
-const activeFilters = { category: new Set(), distance: new Set(), duration: new Set() };
-
-chips.forEach(chip => {
-  chip.addEventListener('click', () => {
-    const type = chip.dataset.filterType;     // "category"|"distance"|"duration"
-    const value = chip.dataset.value;
-    // toggle sélection
-    if (chip.classList.toggle('selected')) {
-      activeFilters[type].add(value);
-    } else {
-      activeFilters[type].delete(value);
-    }
-    applyFilters();
-  });
-});
-
-function applyFilters() {
-  cards.forEach(card => {
-    const cats = card.dataset.categories.split(',');
-    const dist = parseFloat(card.dataset.distance);
-    const dur  = parseFloat(card.dataset.duration);
-
-    // pour chaque type de filtre, si des valeurs sont actives, il faut satisfaire AU MOINS l'un 
-    let show = true;
-
-    // 1) catégorie
-    if (activeFilters.category.size) {
-      show = [...activeFilters.category].some(val => cats.includes(val));
-    }
-    // 2) distance
-    if (show && activeFilters.distance.size) {
-      show = [...activeFilters.distance].some(range => {
-        if (range === '300+') return dist > 300;
-        const [min, max] = range.split('-').map(Number);
-        return dist >= min && dist <= max;
-      });
-    }
-    // 3) durée
-    if (show && activeFilters.duration.size) {
-      show = [...activeFilters.duration].some(val => {
-        if (val === '2+') return dur >= 2;
-        return dur === parseFloat(val);
-      });
-    }
-
-    card.style.display = show ? 'block' : 'none';
-  });
-}
-  function openModal(modalEl) {
-  document.body.style.overflow = 'hidden';
-  modalEl.style.display = 'flex';
-}
-
-function closeModal(modalEl) {
-  // pause la vidéo si présente
-  const vid = modalEl.querySelector('video');
-  if (vid) vid.pause();
-
-  modalEl.style.display = 'none';
-  document.body.style.overflow = '';  // réactive le scroll
-}
-imageModal.addEventListener('touchmove', e => {
-  e.stopPropagation();
-}, { passive: false });
 </script>
 </body>
 </html>
