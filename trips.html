@@ -276,6 +276,8 @@
     .filters-chips {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
   gap: 1rem;
   margin: 1.5rem 0;
 }
@@ -284,6 +286,7 @@
   align-items: center;
   gap: .5rem;
 }
+/* 2) Style de base des chips */
 .chip {
   padding: .4rem .8rem;
   border: 1px solid #000;
@@ -292,12 +295,23 @@
   color: #000;
   cursor: pointer;
   font-size: .9rem;
-  transition: background .2s, color .2s;
+  transition: 
+    background 0.2s ease, 
+    color 0.2s ease,
+    transform 0.2s ease;   /* <-- ajoute transition sur la taille */
 }
 
+/* 3) État sélectionné */
 .chip.selected {
   background: #000;
   color: #fff;
+}
+
+/* 4) Effet au survol */
+.chip:hover {
+  transform: scale(1.1);    /* --> grossit un peu */
+  background: #000;         /* --> fond inverse */
+  color: #fff;              /* --> texte blanc */
 }
   </style>
 </head>
