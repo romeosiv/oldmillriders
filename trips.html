@@ -409,6 +409,29 @@
     padding: .5rem .75rem;
     font-size: .85rem;
   }
+  /* 1) Style du wrapper global */
+.filters-wrapper {
+  background: #fff;          /* fond blanc */
+  border: 1px solid #ddd;    /* léger contour */
+  border-radius: 12px;       /* arrondir les angles */
+  padding: 1rem;             /* espace interne */
+  margin: 1.5rem 0;          /* espace haut & bas */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+/* 2) Masquer le cadre intérieur de .filters-chips */
+.filters-wrapper .filters-chips {
+  background: transparent;   /* plus de fond blanc intérieur */
+  border: none;              /* pas de bordure */
+  padding: 0;                /* plus de padding redondant */
+  gap: 0.75rem;              /* espace entre les groupes */
+}
+
+/* 3) Séparer visuellement des cartes */
+.filters-wrapper + .rv-cards-wrapper {
+  margin-top: 2rem;          /* décalage avant les cartes */
+}
+
 }
 
   </style>
