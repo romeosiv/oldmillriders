@@ -330,6 +330,49 @@
     color: #fff;
   }
 }
+    /* Conteneur repliable */
+.filters-wrapper {
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  overflow: hidden;
+  max-width: 1024px;
+  margin: 1.5rem auto;
+}
+
+/* Bouton d’ouverture */
+.filters-toggle {
+  width: 100%;
+  text-align: left;
+  padding: .75rem 1rem;
+  font-weight: bold;
+  background: #f5f5f5;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Flèche animée */
+.filters-toggle .arrow {
+  display: inline-block;
+  transition: transform .2s ease;
+}
+
+/* Contenu masqué par défaut */
+.filters-content {
+  display: none;
+  padding: 1rem;
+  background: #fff;
+}
+
+/* Quand ouvert */
+.filters-wrapper.open .filters-content {
+  display: block;
+}
+.filters-wrapper.open .filters-toggle .arrow {
+  transform: rotate(180deg);
+}
 @media (max-width: 768px) {
   /* Conteneur global des filtres en colonne */
   .filters-chips {
@@ -404,7 +447,12 @@
     </div>
     
 <!-- FILTRES CHIPS -->
-<div class="filters-chips">
+<div class="filters-wrapper">
+    <button type="button" id="filters-toggle" class="filters-toggle">
+    Filtres <span class="arrow">▼</span>
+        </button>
+   <div id="filters-content" class="filters-content">
+        <div class="filters-chips">
   <!-- catégories -->
   <div class="filter-group">
     <span>Type :</span>
@@ -1070,6 +1118,15 @@ document.addEventListener('DOMContentLoaded', () => {
       card.style.display = show ? '' : 'none';
     });
   }
+    // —————————————————————————
+  // 5) TOGGLE FILTRES REPLIABLES
+  // —————————————————————————
+  const toggleBtn = document.getElementById('filters-toggle');
+  const filtersWr = document.querySelector('.filters-wrapper');
+  toggleBtn.addEventListener('click', () => {
+    filtersWr.classList.toggle('open');
+  });
+
 });
 </script>
 </body>
