@@ -331,20 +331,18 @@
   }
 }
 /* ========== FILTRES REPLIABLES – VERSION INDÉPENDANTE ========== */
-/* 1) Wrapper unique, en dehors du card-container */
 .filters-wrapper {
   background: #fff;
   border: 1px solid #ddd;
   border-radius: 12px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  margin: 2rem auto;         /* espace au-dessus ET en-dessous */
+  margin: 2rem auto;
   max-width: 1024px;
   overflow: hidden;
 }
 
-/* 2) Bouton « Filtres » */
 .filters-toggle {
-  font-size: 1.25rem;        /* agrandi */
+  font-size: 1.25rem;
   padding: .75rem 1rem;
   background: #f5f5f5;
   border: none;
@@ -359,7 +357,6 @@
   transition: transform .2s ease;
 }
 
-/* 3) Contenu masqué/affiché */
 .filters-content {
   display: none;
   padding: 1rem;
@@ -371,22 +368,21 @@
   transform: rotate(180deg);
 }
 
-/* 4) Neutraliser tout cadre intérieur */
+/* On neutralise absolument tout style interne */
 .filters-wrapper .filters-chips,
 .filters-wrapper .filters-content {
-  background: transparent;
-  border: none;
-  padding: 0;
-  margin: 0;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
-/* 5) Disposition & spacing interne */
+/* Espacement interne et typo */
 .filters-wrapper .filters-chips {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
-  padding-top: 1rem;        /* + espace au-dessus de « Type » */
-  padding-bottom: 1rem;     /* + espace en-dessous de « Surface » */
+  padding: 1rem 2rem;        /* espace au-dessus et en-dessous */
 }
 .filters-wrapper .filter-group {
   display: flex;
@@ -394,23 +390,23 @@
   gap: .5rem;
 }
 .filters-wrapper .filter-group > span {
-  font-size: .9rem;         /* plus petit */
+  font-size: .9rem;
   font-weight: bold;
   min-width: 6ch;
 }
 
-/* 6) Décalage net vers les cartes */
+/* Décalage net vers les cartes */
 .filters-wrapper + .rv-cards-wrapper {
   margin-top: 3rem;
 }
 
-/* ========== Responsive Mobile ========== */
+/* Responsive */
 @media (max-width: 768px) {
   .filters-wrapper .filters-chips {
     flex-direction: column;
-    gap: 1rem;
   }
 }
+
 @media (max-width: 768px) {
   /* Conteneur global des filtres en colonne */
   .filters-chips {
@@ -542,6 +538,7 @@
   <button type="button" class="chip" data-filter-type="surface" data-value="offroad">Offroad</button>
 </div>
 </div>  
+</div>
 </div>
 
     <!-- CARTES -->
