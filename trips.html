@@ -312,6 +312,9 @@
     background 0.2s ease, 
     color 0.2s ease,
     transform 0.2s ease;   /* <-- ajoute transition sur la taille */
+    /* === Optimisation tactile === */
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 /* 3) État sélectionné */
@@ -320,11 +323,12 @@
   color: #fff;
 }
 
-/* 4) Effet au survol */
-.chip:hover {
-  transform: scale(1.1);    /* --> grossit un peu */
-  background: #000;         /* --> fond inverse */
-  color: #fff;              /* --> texte blanc */
+    @media (hover: hover) {
+  .chip:hover {
+    transform: scale(1.1);
+    background: #000;
+    color: #fff;
+  }
 }
 @media (max-width: 768px) {
   /* Conteneur global des filtres en colonne */
@@ -402,23 +406,23 @@
   <!-- catégories -->
   <div class="filter-group">
     <span>Type :</span>
-    <button class="chip" data-filter-type="category" data-value="mer">Mer</button>
-    <button class="chip" data-filter-type="category" data-value="foret">Forêt</button>
-    <button class="chip" data-filter-type="category" data-value="montagne">Montagne</button>
+    <button type="button" class="chip" data-filter-type="category" data-value="mer">Mer</button>
+    <button type="button" class="chip" data-filter-type="category" data-value="foret">Forêt</button>
+    <button type="button" class="chip" data-filter-type="category" data-value="montagne">Montagne</button>
   </div>
   <!-- distance -->
   <div class="filter-group">
     <span>Distance :</span>
-    <button class="chip" data-filter-type="distance" data-value="0-150">0–150 km</button>
-    <button class="chip" data-filter-type="distance" data-value="150-300">150–300 km</button>
-    <button class="chip" data-filter-type="distance" data-value="300+">> 300 km</button>
+    <button type="button" class="chip" data-filter-type="distance" data-value="0-150">0–150 km</button>
+    <button type="button" class="chip" data-filter-type="distance" data-value="150-300">150–300 km</button>
+    <button type="button" class="chip" data-filter-type="distance" data-value="300+">> 300 km</button>
   </div>
   <!-- durée -->
   <div class="filter-group">
     <span>Durée :</span>
-    <button class="chip" data-filter-type="duration" data-value="0.5">½ jour</button>
-    <button class="chip" data-filter-type="duration" data-value="1">1 jour</button>
-    <button class="chip" data-filter-type="duration" data-value="2+">≥ 2 jours</button>
+    <button type="button" class="chip" data-filter-type="duration" data-value="0.5">½ jour</button>
+    <button type="button" class="chip" data-filter-type="duration" data-value="1">1 jour</button>
+    <button type="button" class="chip" data-filter-type="duration" data-value="2+">≥ 2 jours</button>
   </div>
 </div>
 
@@ -985,53 +989,67 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // —————————————————————————
-  // 4) FILTRES CHIPS
-  // —————————————————————————
-  const chips = document.querySelectorAll('.filters-chips .chip');
-  const cards = document.querySelectorAll('.rv-card');
-  const activeFilters = { category: new Set(), distance: new Set(), duration: new Set() };
+// —————————————————————————
+// 4) FILTRES CHIPS
+// —————————————————————————
+const chips = document.querySelectorAll('.filters-chips .chip');
+const cards = document.querySelectorAll('.rv-card');
+const activeFilters = {
+  category: new Set(),
+  distance: new Set(),
+  duration: new Set()
+};
 
-  chips.forEach(chip => {
-    chip.addEventListener('click', () => {
-      const type = chip.dataset.filterType;
-      const value = chip.dataset.value;
-      if (chip.classList.toggle('selected')) {
-        activeFilters[type].add(value);
-      } else {
-        activeFilters[type].delete(value);
-      }
-      applyFilters();
-    });
-  });
+function toggleChip(e) {
+  e.preventDefault(); // supprime le ghost-click après touchend
+  const chip  = e.currentTarget;
+  const type  = chip.dataset.filterType;
+  const value = chip.dataset.value;
 
-  function applyFilters() {
-    cards.forEach(card => {
-      const cats = card.dataset.categories.split(',');
-      const dist = parseFloat(card.dataset.distance);
-      const dur  = parseFloat(card.dataset.duration);
-      let show = true;
-
-      if (activeFilters.category.size) {
-        show = [...activeFilters.category].some(v => cats.includes(v));
-      }
-      if (show && activeFilters.distance.size) {
-        show = [...activeFilters.distance].some(r => {
-          if (r === '300+') return dist > 300;
-          const [min, max] = r.split('-').map(Number);
-          return dist >= min && dist <= max;
-        });
-      }
-      if (show && activeFilters.duration.size) {
-        show = [...activeFilters.duration].some(v => {
-          if (v === '2+') return dur >= 2;
-          return dur === parseFloat(v);
-        });
-      }
-
-      card.style.display = show ? 'block' : 'none';
-    });
+  if (chip.classList.toggle('selected')) {
+    activeFilters[type].add(value);
+  } else {
+    activeFilters[type].delete(value);
   }
+  applyFilters();
+}
+
+// on écoute à la fois le click et le touchend
+chips.forEach(chip => {
+  chip.addEventListener('click',    toggleChip);
+  chip.addEventListener('touchend', toggleChip);
+});
+
+function applyFilters() {
+  cards.forEach(card => {
+    // on trim() pour supprimer les espaces éventuels
+    const cats = card.dataset.categories
+      .split(',')
+      .map(s => s.trim().toLowerCase());
+    const dist = parseFloat(card.dataset.distance);
+    const dur  = parseFloat(card.dataset.duration);
+    let show = true;
+
+    if (activeFilters.category.size) {
+      show = [...activeFilters.category].some(v => cats.includes(v));
+    }
+    if (show && activeFilters.distance.size) {
+      show = [...activeFilters.distance].some(r => {
+        if (r === '300+') return dist > 300;
+        const [min, max] = r.split('-').map(Number);
+        return dist >= min && dist <= max;
+      });
+    }
+    if (show && activeFilters.duration.size) {
+      show = [...activeFilters.duration].some(v => {
+        if (v === '2+') return dur >= 2;
+        return dur === parseFloat(v);
+      });
+    }
+
+    card.style.display = show ? '' : 'none';
+  });
+}
 });
 </script>
 </body>
