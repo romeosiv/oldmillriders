@@ -323,18 +323,17 @@
         height: 20px;
       }
     }
-    .instagram-grid {
+.instagram-grid {
   display: flex;
-  flex-wrap: wrap;
   gap: 1rem;
-  justify-content: center;
+  justify-content: center; /* ou space-between si tu veux coller aux bords */
 }
 
 .instagram-grid blockquote.instagram-media {
-  /* On prend 50 % de la largeur disponible moins l’écart */
-  flex: 1 1 calc(50% - 1rem);
-  max-width: calc(50% - 1rem) !important;
-  margin: 0; /* on enlève les marges par défaut pour un alignement nickel */
+  /* On override les inline-styles de width qu’Instagram injecte */
+  width: calc(50% - 0.5rem) !important;
+  max-width: calc(50% - 0.5rem) !important;
+  margin: 0 !important;
 }
 
 /* Sur mobile, on repasse en full-width */
