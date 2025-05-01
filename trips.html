@@ -424,6 +424,13 @@
     <button type="button" class="chip" data-filter-type="duration" data-value="1">1 jour</button>
     <button type="button" class="chip" data-filter-type="duration" data-value="2+">≥ 2 jours</button>
   </div>
+   <!-- Surface -->
+  <div class="filter-group">
+  <span>Surface :</span>
+  <button type="button" class="chip" data-filter-type="surface" data-value="route">Route</button>
+  <button type="button" class="chip" data-filter-type="surface" data-value="offroaf">Offroad</button>
+</div>
+  
 </div>
 
     <!-- CARTES -->
@@ -435,7 +442,8 @@
                data-images="IMG_9380.JPEG,IMG_9384.JPEG,IMG_9385.JPEG,IMG_9387.JPEG,IMG_9392.JPEG,IMG_9393.JPEG,IMG_9416.JPEG,IMG_9423.JPEG,IMG_9425.JPEG,IMG_7860.JPEG,IMG_9375.JPEG"
                data-categories="foret,montagne"
                data-distance="504"
-               data-duration="2">
+               data-duration="2"
+               data-surface="route">
         <div class="rv-card-header">
           <span class="rv-card-id">01</span>
           <div class="rv-card-badges">
@@ -476,7 +484,8 @@
                data-images="rdgaj1.JPEG,j1rdga1.JPEG,j1rdga2.JPEG,j1rdga3.JPEG,j1rdga4.JPEG"
                data-categories="montagne"
                data-distance="145"
-               data-duration="0.5">
+               data-duration="0.5"
+              data-surface="route">
         <div class="rv-card-header">
           <span class="rv-card-id">02</span>
           <div class="rv-card-badges">
@@ -515,7 +524,8 @@
                data-images="j2rdga1.JPEG,j2rdga2.JPEG,j2rdga3.JPEG,j2rdga4.JPEG,j2rdga5.JPEG,j2rdga6.JPEG,j2rdga7.JPEG,j2rdga8.JPEG,j2rdga9.JPEG,j2rdga10.JPEG,j2rdga11.JPEG,j2rdga12.JPEG,j2rdga13.JPEG"
                data-categories="montagne"
                data-distance="493"
-               data-duration="1">
+               data-duration="1"
+               data-surface="route">
         <div class="rv-card-header">
           <span class="rv-card-id">03</span>
           <div class="rv-card-badges">
@@ -555,7 +565,8 @@
                data-images="j3rdga1.JPEG,j3rdga2.JPEG,j3rdga3.JPEG,j3rdga4.JPEG,j3rdga5.JPEG,j3rdga6.JPEG,j3rdga7.JPEG,j3rdga8.JPEG,j3rdga9.JPEG,j3rdga10.JPG"               
                data-categories="montagne"
                data-distance="230"
-               data-duration="1">
+               data-duration="1"
+               data-surface="route">
         <div class="rv-card-header">
           <span class="rv-card-id">04</span>
           <div class="rv-card-badges">
@@ -595,7 +606,8 @@
                data-images="auv1.JPEG,auv2.JPEG,auv3.JPEG,auv4.JPEG,auv5.JPEG,auv6.jpg,auv7.JPEG,auv8.jpg,auv9.jpg,auv10.jpg,video:auvergne.mp4"
                data-categories="montagne"
                data-distance="298"
-               data-duration="1">
+               data-duration="1"
+               data-surface="route">
         <div class="rv-card-header">
           <span class="rv-card-id">05</span>
           <div class="rv-card-badges">
@@ -634,7 +646,8 @@
                data-images="trail1.JPEG,trail2.JPEG,trail3.JPEG,trail4.JPEG,trail5.JPEG,trail6.JPEG"
                data-categories="foret"
                data-distance="120"
-               data-duration="0.5">
+               data-duration="0.5"
+               data-surface="offroad">
         <div class="rv-card-header">
           <span class="rv-card-id">06</span>
           <div class="rv-card-badges">
@@ -672,7 +685,8 @@
                data-images="capcorse1.jpg,capcorse2.jpg,capcorse3.jpg,capcorse4.jpg,capcorse5.jpg,capcorse6.jpg,capcorse8.jpg"
                data-categories="mer"
                data-distance="150"
-               data-duration="1/2">
+               data-duration="1/2"
+               data-surface="route">
         <div class="rv-card-header">
           <span class="rv-card-id">07</span>
           <div class="rv-card-badges">
@@ -829,33 +843,30 @@ document.addEventListener('DOMContentLoaded', () => {
     if (vid) vid.pause();
     modal.style.display = 'none';
   }
-
-  // Politique de confidentialité
   document.getElementById('privacy-policy-link')
     .addEventListener('click', e => {
       e.preventDefault();
       openModal(document.getElementById('privacy-modal'));
     });
-  // Mentions légales
   document.getElementById('legal-mentions-link')
     .addEventListener('click', e => {
       e.preventDefault();
       openModal(document.getElementById('legal-modal'));
     });
-  // Fermeture via la croix
-  document.querySelectorAll('.modal-close').forEach(btn => {
-    btn.addEventListener('click', () => closeModal(btn.closest('.modal')));
-  });
-  // Fermeture en cliquant en dehors du contenu
-  document.querySelectorAll('.modal').forEach(modal => {
+  document.querySelectorAll('.modal-close').forEach(btn =>
+    btn.addEventListener('click', () =>
+      closeModal(btn.closest('.modal'))
+    )
+  );
+  document.querySelectorAll('.modal').forEach(modal =>
     modal.addEventListener('click', e => {
       if (e.target === modal) closeModal(modal);
-    });
-  });
-  // Menu burger mobile
-  document.querySelector('.menu-toggle').addEventListener('click', () =>
-    document.querySelector('header nav').classList.toggle('open')
+    })
   );
+  document.querySelector('.menu-toggle')
+    .addEventListener('click', () =>
+      document.querySelector('header nav').classList.toggle('open')
+    );
 
   // —————————————————————————
   // 2) CARTE & GPX
@@ -863,7 +874,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let mapInit = false, map, gpxLayer;
   document.querySelectorAll('.rv-card').forEach(card => {
     card.addEventListener('click', () => {
-      // Ouvre modal trip
       openModal(document.getElementById('trip-modal'));
 
       // Cloner la carte (sans image)
@@ -891,8 +901,9 @@ document.addEventListener('DOMContentLoaded', () => {
         async: true,
         marker_options: { startIconUrl: null, endIconUrl: null },
         polyline_options: { color: '#0077cc', weight: 4, opacity: 0.8 }
-      }).on('loaded', e => map.fitBounds(e.target.getBounds()))
-        .addTo(map);
+      })
+      .on('loaded', e => map.fitBounds(e.target.getBounds()))
+      .addTo(map);
 
       // Construire la galerie
       const thumbsContainer = document.querySelector('#trip-modal .gallery-thumbs');
@@ -930,11 +941,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // 3) LIGHTBOX
   // —————————————————————————
   function setupLightbox() {
-    const thumbs      = Array.from(document.querySelectorAll('#trip-modal .gallery-thumbs > *'));
-    const imageModal  = document.getElementById('image-modal');
-    const bodyLightbox= imageModal.querySelector('.modal-content');
-    const prevBtn     = bodyLightbox.querySelector('.lightbox-prev');
-    const nextBtn     = bodyLightbox.querySelector('.lightbox-next');
+    const thumbs       = Array.from(document.querySelectorAll('#trip-modal .gallery-thumbs > *'));
+    const imageModal   = document.getElementById('image-modal');
+    const bodyLightbox = imageModal.querySelector('.modal-content');
+    const prevBtn      = bodyLightbox.querySelector('.lightbox-prev');
+    const nextBtn      = bodyLightbox.querySelector('.lightbox-next');
     let idx = 0;
 
     thumbs.forEach((thumb, i) => {
@@ -956,7 +967,6 @@ document.addEventListener('DOMContentLoaded', () => {
           vid.className = 'image-modal-img';
           bodyLightbox.insertBefore(vid, prevBtn);
         }
-
         openModal(imageModal);
       };
     });
@@ -989,67 +999,75 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-// —————————————————————————
-// 4) FILTRES CHIPS
-// —————————————————————————
-const chips = document.querySelectorAll('.filters-chips .chip');
-const cards = document.querySelectorAll('.rv-card');
-const activeFilters = {
-  category: new Set(),
-  distance: new Set(),
-  duration: new Set()
-};
+  // —————————————————————————
+  // 4) FILTRES CHIPS (avec filtre "surface")
+  // —————————————————————————
+  const chips = document.querySelectorAll('.filters-chips .chip');
+  const cards = document.querySelectorAll('.rv-card');
+  const activeFilters = {
+    category: new Set(),
+    distance: new Set(),
+    duration: new Set(),
+    surface:  new Set()    // ← pris en charge
+  };
 
-function toggleChip(e) {
-  e.preventDefault(); // supprime le ghost-click après touchend
-  const chip  = e.currentTarget;
-  const type  = chip.dataset.filterType;
-  const value = chip.dataset.value;
-
-  if (chip.classList.toggle('selected')) {
-    activeFilters[type].add(value);
-  } else {
-    activeFilters[type].delete(value);
+  function toggleChip(e) {
+    e.preventDefault(); // supprime le ghost-click sur mobile
+    const chip  = e.currentTarget;
+    const type  = chip.dataset.filterType;
+    const value = chip.dataset.value;
+    if (chip.classList.toggle('selected')) {
+      activeFilters[type].add(value);
+    } else {
+      activeFilters[type].delete(value);
+    }
+    applyFilters();
   }
-  applyFilters();
-}
 
-// on écoute à la fois le click et le touchend
-chips.forEach(chip => {
-  chip.addEventListener('click',    toggleChip);
-  chip.addEventListener('touchend', toggleChip);
-});
-
-function applyFilters() {
-  cards.forEach(card => {
-    // on trim() pour supprimer les espaces éventuels
-    const cats = card.dataset.categories
-      .split(',')
-      .map(s => s.trim().toLowerCase());
-    const dist = parseFloat(card.dataset.distance);
-    const dur  = parseFloat(card.dataset.duration);
-    let show = true;
-
-    if (activeFilters.category.size) {
-      show = [...activeFilters.category].some(v => cats.includes(v));
-    }
-    if (show && activeFilters.distance.size) {
-      show = [...activeFilters.distance].some(r => {
-        if (r === '300+') return dist > 300;
-        const [min, max] = r.split('-').map(Number);
-        return dist >= min && dist <= max;
-      });
-    }
-    if (show && activeFilters.duration.size) {
-      show = [...activeFilters.duration].some(v => {
-        if (v === '2+') return dur >= 2;
-        return dur === parseFloat(v);
-      });
-    }
-
-    card.style.display = show ? '' : 'none';
+  chips.forEach(chip => {
+    chip.addEventListener('click',    toggleChip);
+    chip.addEventListener('touchend', toggleChip);
   });
-}
+
+  function applyFilters() {
+    cards.forEach(card => {
+      const cats = card.dataset.categories
+                    .split(',')
+                    .map(s => s.trim().toLowerCase());
+      const dist = parseFloat(card.dataset.distance);
+      const dur  = parseFloat(card.dataset.duration);
+      const surf = (card.dataset.surface || '')
+                    .split(',')
+                    .map(s => s.trim().toLowerCase());
+      let show = true;
+
+      // catégorie
+      if (activeFilters.category.size) {
+        show = [...activeFilters.category].some(v => cats.includes(v));
+      }
+      // distance
+      if (show && activeFilters.distance.size) {
+        show = [...activeFilters.distance].some(r => {
+          if (r === '300+') return dist > 300;
+          const [min, max] = r.split('-').map(Number);
+          return dist >= min && dist <= max;
+        });
+      }
+      // durée
+      if (show && activeFilters.duration.size) {
+        show = [...activeFilters.duration].some(v => {
+          if (v === '2+') return dur >= 2;
+          return dur === parseFloat(v);
+        });
+      }
+      // surface
+      if (show && activeFilters.surface.size) {
+        show = [...activeFilters.surface].some(v => surf.includes(v));
+      }
+
+      card.style.display = show ? '' : 'none';
+    });
+  }
 });
 </script>
 </body>
