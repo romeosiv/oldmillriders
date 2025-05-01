@@ -330,49 +330,85 @@
     color: #fff;
   }
 }
-    /* Conteneur repliable */
-.filters-wrapper {
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  overflow: hidden;
-  max-width: 1024px;
-  margin: 1.5rem auto;
-}
+    /* ========== FILTRES REPLIABLES ========== */
+  /* 1) Le seul cadre visible */
+  .filters-wrapper {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    margin: 2rem 0;
+    overflow: hidden;
+  }
 
-/* Bouton d’ouverture */
-.filters-toggle {
-  width: 100%;
-  text-align: left;
-  padding: .75rem 1rem;
-  font-weight: bold;
-  background: #f5f5f5;
-  border: none;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+  /* 2) Bouton d'ouverture */
+  .filters-toggle {
+    width: 100%;
+    text-align: left;
+    padding: .75rem 1rem;
+    font-weight: bold;
+    background: #f5f5f5;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .filters-toggle .arrow {
+    display: inline-block;
+    transition: transform .2s ease;
+  }
 
-/* Flèche animée */
-.filters-toggle .arrow {
-  display: inline-block;
-  transition: transform .2s ease;
-}
+  /* 3) Contenu des filtres masqué par défaut */
+  .filters-content {
+    display: none;
+    padding: 1rem;
+  }
+  .filters-wrapper.open .filters-content {
+    display: block;
+  }
+  .filters-wrapper.open .filters-toggle .arrow {
+    transform: rotate(180deg);
+  }
 
-/* Contenu masqué par défaut */
-.filters-content {
-  display: none;
-  padding: 1rem;
-  background: #fff;
-}
+  /* 4) Neutraliser tout cadre intérieur */
+  .filters-wrapper .filters-chips,
+  .filters-wrapper .filters-content {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
 
-/* Quand ouvert */
-.filters-wrapper.open .filters-content {
-  display: block;
-}
-.filters-wrapper.open .filters-toggle .arrow {
-  transform: rotate(180deg);
-}
+  /* 5) Disposition des groupes de filtres */
+  .filters-wrapper .filters-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .filters-wrapper .filter-group {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+  }
+
+  /* 6) Séparation nette des cartes */
+  .filters-wrapper + .rv-cards-wrapper {
+    margin-top: 3rem;
+  }
+
+  /* ========== Responsive Mobile pour les filtres ========== */
+  @media (max-width: 768px) {
+    .filters-wrapper .filters-chips {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .filters-wrapper .filter-group > span {
+      min-width: 6ch;
+      font-weight: bold;
+    }
+  }
+
 @media (max-width: 768px) {
   /* Conteneur global des filtres en colonne */
   .filters-chips {
