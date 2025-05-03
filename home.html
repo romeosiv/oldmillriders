@@ -340,10 +340,21 @@
   overflow: hidden !important;
 }
 @media (max-width: 600px) {
-  .instagram-grid blockquote.instagram-media {
-    /* full-width sur mobile */
+  .instagram-grid {
+    /* si vous êtes en grid : */
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+    /* ou, si vous préférez flex :
+    display: flex !important;
+    flex-direction: column !important;
+    */
+  }
+    .instagram-grid blockquote.instagram-media {
+    /* chaque embed prend 100% de la largeur du conteneur */
     width: 100% !important;
     max-width: 100% !important;
+    margin: 0 0 1rem 0 !important; /* espace entre les posts */
   }
 }
 
