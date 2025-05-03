@@ -1,31 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<gpx version="1.1" creator="https://liberty-rider.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns="http://www.topografix.com/GPX/1/1"
-  xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+<gpx version="1.1" creator="romeo">
   <metadata>
-    <name>[object Promise]</name>
-    <link href="https://liberty-rider.com"><text>liberty-rider.com</text></link>
+    <name>j2corse</name>
   </metadata>
-  <rte>
-    
-    <rtept lat="42.63653" lon="8.9372">
-      <name>WP1</name>
-    </rtept>
-
-    <rtept lat="42.56776" lon="8.757">
-      <name>WP2</name>
-    </rtept>
-
-    <rtept lat="42.46432" lon="8.67692">
-      <name>WP3</name>
-    </rtept>
-
-    <rtept lat="42.26605" lon="8.70601">
-      <name>WP4</name>
-    </rtept>
-  </rte>
   <trk>
-    <name>Track [object Promise]</name>
+    <name>j2corse</name>
     <trkseg>
       <trkpt lat="42.63653" lon="8.9372"></trkpt>
 <trkpt lat="42.6367" lon="8.93714"></trkpt>
