@@ -323,30 +323,22 @@
         height: 20px;
       }
     }
+    
 .instagram-grid {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
-  justify-content: center; /* ou space-between si tu veux coller aux bords */
-  flex-wrap: wrap;
 }
 
 .instagram-grid blockquote.instagram-media {
-  /* largeur côte-à-côte */
-  width: calc(50% - 0.5rem) !important;
-  max-width: calc(50% - 0.5rem) !important;
+  /* on s’assure qu’ils remplissent 100% de leur cellule */
+  width: 100% !important;
+  max-width: 100% !important;
   margin: 0 !important;
-
-  /* coins arrondis */
+  box-sizing: border-box !important;
   border-radius: 12px !important;
   overflow: hidden !important;
 }
-
-/* pour arrondir aussi l’iframe et ses wrappers internes */
-.instagram-grid blockquote.instagram-media > div,
-.instagram-grid blockquote.instagram-media iframe {
-  border-radius: 12px !important;
-}
-
 @media (max-width: 600px) {
   .instagram-grid blockquote.instagram-media {
     /* full-width sur mobile */
@@ -391,7 +383,7 @@
 
     <!-- ABOUT BLOCK -->
     <div class="about-block">
-Old Mill Riders est né de la passion commune de copains lyonnais, toujours prêts à sauter sur leurs motos et s’évader dès que l’occasion se présente.  <br>
+Old Mill Riders est né de la passion commune de copains lyonnais, <br> toujours prêts à sauter sur leurs motos et s’évader dès que l’occasion se présente.  <br>
 Nous vous invitons à partir sur les routes pour découvrir, faire des rencontres et créer des souvenirs impérissables. <br>
 Rejoignez notre aventure !
     </div>
