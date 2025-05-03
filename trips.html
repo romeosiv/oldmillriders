@@ -465,10 +465,17 @@
   </div>
   <!-- durée -->
   <div class="filter-group">
-    <span>Durée :</span>
+    <span>Km :</span>
     <button type="button" class="chip" data-filter-type="duration" data-value="0.5">½ jour</button>
     <button type="button" class="chip" data-filter-type="duration" data-value="1">1 jour</button>
     <button type="button" class="chip" data-filter-type="duration" data-value="2+">≥ 2 jours</button>
+  </div>
+<!-- niveau -->
+  <div class="filter-group">
+    <span>Niveau :</span>
+    <button type="button" class="chip" data-filter-type="niveau" data-value="débutant">Débutant</button>
+    <button type="button" class="chip" data-filter-type="niveau" data-value="intermédiaire">Intermédiaire</button>
+    <button type="button" class="chip" data-filter-type="niveau" data-value="confirmé">Confirmé</button>
   </div>
    <!-- Surface -->
   <div class="filter-group">
@@ -490,6 +497,7 @@
                data-categories="foret,montagne"
                data-distance="504"
                data-duration="2"
+               data-niveau="débutant"
                data-surface="route">
         <div class="rv-card-header">
           <span class="rv-card-id">01</span>
@@ -532,6 +540,7 @@
                data-categories="montagne, eau"
                data-distance="145"
                data-duration="0.5"
+               data-niveau="intermédiaire"
               data-surface="route">
         <div class="rv-card-header">
           <span class="rv-card-id">02</span>
@@ -549,7 +558,7 @@
             <span class="rv-card-rating">★★★★</span>
           </div>
           <p class="rv-card-text">
-          Premier tronçon de la Route des Grandes Alpes. Entre Thonon et Beaufort. Après avoir roulé jusqu'à Thonon depuis Lyon, petit ravitaillement avant de repartir. On suit la Dranse jusqu'à Morzine avant d'attaquer quelques kilomètres puis loin le premier col, le col de la Colombière. Suivront ensuite La Croix de Fer, et le col des Saisies et Beaufort.          </p>          </p>
+          Premier tronçon de la Route des Grandes Alpes. Entre Thonon et Beaufort. Après avoir roulé jusqu'à Thonon depuis Lyon, petit ravitaillement avant de repartir. On suit la Dranse jusqu'à Morzine avant d'attaquer quelques kilomètres puis loin le premier col, le col de la Colombière. Suivront ensuite La Croix de Fer, le col des Saisies et Beaufort.          </p>          </p>
           <div class="rv-card-meta">
             <div class="rv-card-stats">
               <div class="stat"><small>Distance</small><strong>145 km</strong></div>
@@ -572,6 +581,7 @@
                data-categories="montagne"
                data-distance="493"
                data-duration="1"
+               data-niveau="confirmé"
                data-surface="route">
         <div class="rv-card-header">
           <span class="rv-card-id">03</span>
@@ -588,8 +598,8 @@
             <span class="rv-card-rating">★★★★</span>
           </div>
           <p class="rv-card-text">
-          De Deuxième journée sur la route des Grandes Alpes. On monte en altitude, pensez à vous couvrir ! Un arret au lac de Roseland, puis direction le col du Saint Bernard et le col de l'Iseran. 
-          Ensuite ca grimpe direction le Galibier puis le Lautaret. On en prend pleins les yeux... Redescente vers Briançon ensuite. Pour dormir, je vous conseille la Vallée de la Clarée. Et le soir une petite tartiflette dans la vieille ville de Briançon !
+          Pour cette deuxième journée sur la route des Grandes Alpes on se lève tôt. On monte en altitude, pensez à vous couvrir ! Un arret au lac de Roseland, puis direction le col du Saint Bernard et le col de l'Iseran. 
+          Ensuite ca grimpe direction le Galibier puis le Lautaret. On en prend pleins les yeux... Redescente vers Briançon ensuite. Pour dormir, je vous conseille la Vallée de la Clarée. Le soir profitez d'une petite tartiflette dans la vieille ville de Briançon !
           </p>
           <div class="rv-card-meta">
             <div class="rv-card-stats">
@@ -613,6 +623,7 @@
                data-categories="montagne"
                data-distance="230"
                data-duration="1"
+               data-niveau="intermédiaire"
                data-surface="route">
         <div class="rv-card-header">
           <span class="rv-card-id">04</span>
@@ -631,7 +642,7 @@
           </div>
           <p class="rv-card-text">
            Troisième journée sur la Route des Grandes Alpes. Un col mythique et des pyasages lunaires: le col de l'Izoard. On a ensuite la très belle route de Ceilac qui mérite un allé retour.
-            Enfin le col de Vars. Poussez jusqu'à Barcelonette. L'été la place du centre ville est plutôt animé,et en septembre à lieu le mythique Trail adventure motofestival.
+            Enfin le col de Vars. Poussez jusqu'à Barcelonette. L'été la place du centre ville est plutôt animé. En septembre à lieu le mythique Trail adventure motofestival.
           </p>
           <div class="rv-card-meta">
             <div class="rv-card-stats">
@@ -655,6 +666,7 @@
                data-categories="eau, foret, montagne"
                data-distance="868"
                data-duration="4"
+                data-niveau="confirmé"
                data-surface="route">
         <div class="rv-card-header">
           <span class="rv-card-id">05</span>
@@ -697,6 +709,7 @@
                data-categories="montagne"
                data-distance="298"
                data-duration="1"
+               data-niveau="intermédiaire"
                data-surface="route">
         <div class="rv-card-header">
           <span class="rv-card-id">06</span>
@@ -721,7 +734,7 @@
               <div class="stat"><small>Distance</small><strong>298 km</strong></div>
               <div class="stat"><small>Altitude max ↑</small><strong>1 569 m</strong></div>
               <div class="stat"><small>Durée</small><strong>1 jour</strong></div>
-              <div class="stat"><small>Niveau</small><strong>Confirmé</strong></div>
+              <div class="stat"><small>Niveau</small><strong>Intermédiaire</strong></div>
             </div>
           </div>
           <div class="rv-card-footer">
@@ -737,6 +750,7 @@
                data-categories="foret"
                data-distance="120"
                data-duration="0.5"
+              data-niveau="confirmé"
                data-surface="offroad">
         <div class="rv-card-header">
           <span class="rv-card-id">07</span>
@@ -775,7 +789,8 @@
                data-images="capcorse1.jpg,capcorse2.jpg,capcorse3.jpg,capcorse4.jpg,capcorse5.jpg,capcorse6.jpg,capcorse8.jpg"
                data-categories="eau"
                data-distance="150"
-               data-duration="1/2"
+               data-duration="0.5"
+               data-niveau="débutant"
                data-surface="route">
         <div class="rv-card-header">
           <span class="rv-card-id">08</span>
@@ -817,7 +832,8 @@
                data-images="j2c.jpg,j2c2.jpg,j2c3.jpg,j2c4.jpg"
                data-categories="eau"
                data-distance="103"
-               data-duration="1/2"
+               data-duration="0.5"
+               data-niveau="débutant"
                data-surface="route">
         <div class="rv-card-header">
           <span class="rv-card-id">09</span>
@@ -858,7 +874,8 @@
                data-images="IMG_20210525_192848.jpg,IMG_20210525_193131.jpg,IMG_20210525_130146.jpg,IMG_20210525_112206.jpg,IMG_20210525_112212.jpg,IMG_20210525_112214.jpg,IMG_20210525_125945.jpg, IMG_20210525_173950.jpg,IMG_20210525_174036.jpg"
                data-categories="eau"
                data-distance="488"
-               data-duration="1/2"
+               data-duration="0.5"
+               data-niveau="Débutant"
                data-surface="route">
         <div class="rv-card-header">
           <span class="rv-card-id">10</span>
@@ -889,7 +906,49 @@
           </div>
         </div>
       </article>
-
+      
+   <!-- Cartes 11 -->
+      </article>
+       <article class="rv-card"
+               id="trip-11"
+               data-gpx="j3corse.gpx"
+               data-images="IMG_20210526_162336.jpg,IMG_20210527_104215.jpg, IMG_20210526_162138.jpg, IMG_20210526_162140.jpg, IMG_20210526_182556.jpg, IMG_20210526_202037.jpg, IMG_20210527_103525.jpg"
+               data-categories="eau, foret, montagne"
+               data-distance="158"
+               data-duration="1"
+               data-niveau="intermédiaire"
+               data-surface="route">
+        <div class="rv-card-header">
+          <span class="rv-card-id">11</span>
+          <div class="rv-card-badges">
+            <img src="mer.png" class="badge-icon" alt="Mer">
+            <img src="forest.png" class="badge-icon" alt="Forêt">
+            <img src="montage.png" class="badge-icon" alt="Montagne">
+          </div>
+        </div>
+        <div class="rv-card-media">
+          <img src="IMG_20210527_103525.jpg" alt="Corse direction Corte et la Restonica">
+        </div>
+        <div class="rv-card-body">
+          <div class="rv-card-title-row">
+            <h3 class="rv-card-title">Corse direction Corte et la Restonica</h3>
+            <span class="rv-card-rating">★★★★</span>
+          </div>
+          <p class="rv-card-text">
+         Troisième jour de voyage, on quitte les côtes pour les terres. Les virages et routes tortueuses s'enchaine. Vous ne croiserez pas grand monde sur la route, attention auc cochons et sangliers qui peuvent traverser !  Un arrêt à Bocca di Sorba s'impose pour le panorama. Ensuite direction Corte ancienne capitale historique et cuturelle de la Corse. Ennfin poussez jusqu'à la Restonica. Attention la route est très escarpée.
+          <div class="rv-card-meta">
+            <div class="rv-card-stats">
+              <div class="stat"><small>Distance</small><strong>158 km</strong></div>
+              <div class="stat"><small>Altitude max ↑</small><strong>1 312 m</strong></div>
+              <div class="stat"><small>Durée</small><strong>1 jour</strong></div>
+              <div class="stat"><small>Niveau</small><strong>Intermédiaire</strong></div>
+            </div>
+          </div>
+          <div class="rv-card-footer">
+            <a href="j3corse.gpx" class="rv-card-link" target="_blank">Télécharger GPX</a>
+          </div>
+        </div>
+      </article>
 
 
 
