@@ -341,20 +341,21 @@
 }
 @media (max-width: 600px) {
   .instagram-grid {
-    /* si vous êtes en grid : */
-    display: grid !important;
-    grid-template-columns: 1fr !important;
-    gap: 1rem !important;
-    /* ou, si vous préférez flex :
+    /* passe en flex column et centre ses enfants */
     display: flex !important;
     flex-direction: column !important;
-    */
+    align-items: center !important;
+    gap: 1rem !important;
   }
-    .instagram-grid blockquote.instagram-media {
-    /* chaque embed prend 100% de la largeur du conteneur */
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 0 1rem 0 !important; /* espace entre les posts */
+
+  .instagram-grid blockquote.instagram-media {
+    /* chaque embed fait 90% du conteneur max, et est centré */
+    width: 90% !important;
+    max-width: 90% !important;
+    margin: 0 !important;
+    box-sizing: border-box !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
   }
 }
 
