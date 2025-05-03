@@ -1404,6 +1404,7 @@ document.addEventListener('DOMContentLoaded', () => {
     category: new Set(),
     distance: new Set(),
     duration: new Set(),
+    niveau:  new Set() 
     surface:  new Set()    // ← pris en charge
   };
 
@@ -1460,6 +1461,11 @@ document.addEventListener('DOMContentLoaded', () => {
       if (show && activeFilters.surface.size) {
         show = [...activeFilters.surface].some(v => surf.includes(v));
       }
+       // **niveau**
+    if (show && activeFilters.niveau.size) {
+      const level = card.dataset.niveau.trim().toLowerCase();
+      show = [...activeFilters.niveau].some(v => v.toLowerCase() === level);
+    }
 
       card.style.display = show ? '' : 'none';
     });
