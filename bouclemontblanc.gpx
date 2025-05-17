@@ -1,12 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
-<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" creator="Kurviger.de" version="1.1" xmlns:gh="https://kurviger.de/public/schema/gpx/1.1">
+<?xml version="1.0" encoding="UTF-8" ?>
+<gpx version="1" creator="Ludo">
 <metadata>
 <name>Boucle Mont Blanc</name>
-<copyright author="OpenStreetMap contributors"/>
-</link>
-<time>2025-05-07T11:32:39Z</time>
 </metadata>
-<trk><name>Boucle Mont Blanc</name><trkseg>
+<trk>
+<name>Boucle Mont Blanc</name>
+<trkseg>
 <trkpt lat="45.904751" lon="6.143052"><ele>451.11</ele><time>2025-05-07T11:32:39Z</time></trkpt>
 <trkpt lat="45.904797" lon="6.143262"><ele>451.54</ele><time>2025-05-07T11:32:44Z</time></trkpt>
 <trkpt lat="45.904925" lon="6.143207"><ele>452.46</ele><time>2025-05-07T11:32:48Z</time></trkpt>
