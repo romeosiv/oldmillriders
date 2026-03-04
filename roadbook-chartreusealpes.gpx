@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<gpx version="1.1" creator="https://liberty-rider.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns="http://www.topografix.com/GPX/1/1"
-  xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+<gpx creator="omr">
   <metadata>
-    <name>[object Promise]</name>
+    <name>chartreuse</name>
     <link href="https://liberty-rider.com"><text>liberty-rider.com</text></link>
   </metadata>
     <trk>
-    <name>Track [object Promise]</name>
+    <name>chartreuse</name>
     <trkseg>
       <trkpt lat="45.75281" lon="4.84633"></trkpt>
 <trkpt lat="45.75325" lon="4.84659"></trkpt>
