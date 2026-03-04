@@ -132,6 +132,23 @@
       text-align: center;
       box-sizing: border-box;
     }
+    
+    /* ---------- IMAGE TRIP CLICABLE ---------- */
+    .trip-link-block {
+      max-width: 1024px;
+      margin: 20px auto; /* Même marge que les autres blocs */
+      display: block;
+      transition: opacity 0.3s ease;
+    }
+    .trip-link-block:hover {
+      opacity: 0.9; /* Petit effet au survol */
+    }
+    .trip-link-block img {
+      width: 100%;
+      display: block;
+      border-radius: 20px; /* Même arrondi que le header et le about-block */
+      object-fit: cover;
+    }
 
     /* ---------- SECTION PRODUITS ---------- */
     .section {
@@ -401,8 +418,11 @@ Nous vous invitons à partir sur les routes pour découvrir, faire des rencontre
 Rejoignez notre aventure !
     </div>
 
-
-        <!-- SECTION INSTA -->
+    <a href="trips.html" class="trip-link-block">
+      <img src="./ROADTRIPS.png" alt="Découvrir nos Roadtrips">
+    </a>
+    
+     <!-- SECTION INSTA -->
 <section class="instagram-section section">
   <h2>Dernières publications Instagram</h2>
   <div class="instagram-grid">
