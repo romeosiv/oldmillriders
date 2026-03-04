@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx version="1.1" creator="https://liberty-rider.com" schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd http://www.garmin.com/xmlschemas/PowerExtension/v1 http://www.garmin.com/xmlschemas/PowerExtensionv1.xsd http://www.topografix.com/GPX/gpx_style/0/2 http://www.topografix.com/GPX/gpx_style/0/2/gpx_style.xsd" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:gpxpx="http://www.garmin.com/xmlschemas/PowerExtension/v1" xmlns:gpx_style="http://www.topografix.com/GPX/gpx_style/0/2">
+  <metadata>
+    <name>liberty-2026-03-02T14:00:39.808Z</name>
+    <author>
+      <name>gpx.studio</name>
+      <link href="https://gpx.studio"/>
+    </author>
+    <link href="https://liberty-rider.com">
+      <text>liberty-rider.com</text>
+    </link>
+  </metadata>
+  <trk>
+    <name>Track liberty-2026-03-02T14:00:39.808Z</name>
+    <trkseg>
+      <trkpt lat="45.75354" lon="4.82514"/>
+      <trkpt lat="45.77765" lon="4.78143"/>
+      <trkpt lat="45.83846" lon="4.75615"/>
+      <trkpt lat="45.82049" lon="4.72538"/>
+      <trkpt lat="45.82086" lon="4.69064"/>
+      <trkpt lat="45.86791" lon="4.65979"/>
+      <trkpt lat="45.90114" lon="4.58536"/>
+      <trkpt lat="45.9143" lon="4.59587"/>
+      <trkpt lat="45.93638" lon="4.57917"/>
+      <trkpt lat="45.98257" lon="4.58189"/>
+      <trkpt lat="46.00568" lon="4.51778"/>
+      <trkpt lat="46.02275" lon="4.51145"/>
+      <trkpt lat="46.01593" lon="4.49815"/>
+      <trkpt lat="46.04377" lon="4.48818"/>
+      <trkpt lat="46.08731" lon="4.50082"/>
+      <trkpt lat="46.09725" lon="4.54206"/>
+      <trkpt lat="46.07026" lon="4.55717"/>
+      <trkpt lat="46.06473" lon="4.54081"/>
+      <trkpt lat="46.04996" lon="4.53999"/>
+      <trkpt lat="46.02597" lon="4.55864"/>
+      <trkpt lat="46.01307" lon="4.58083"/>
+      <trkpt lat="46.0199" lon="4.58332"/>
+      <trkpt lat="46.00608" lon="4.59055"/>
+      <trkpt lat="45.97858" lon="4.71724"/>
+      <trkpt lat="45.97898" lon="4.73463"/>
+      <trkpt lat="45.9504" lon="4.71601"/>
+      <trkpt lat="45.85383" lon="4.7431"/>
+      <trkpt lat="45.77784" lon="4.78102"/>
+      <trkpt lat="45.75159" lon="4.82054"/>
+      <trkpt lat="45.75396" lon="4.82537"/>
+    </trkseg>
+  </trk>
+</gpx>
