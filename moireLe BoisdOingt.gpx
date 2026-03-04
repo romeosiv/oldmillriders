@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<gpx creator="Wikiloc - https://www.wikiloc.com" version="1.1" schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd http://www.garmin.com/xmlschemas/PowerExtension/v1 http://www.garmin.com/xmlschemas/PowerExtensionv1.xsd http://www.topografix.com/GPX/gpx_style/0/2 http://www.topografix.com/GPX/gpx_style/0/2/gpx_style.xsd" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:gpxpx="http://www.garmin.com/xmlschemas/PowerExtension/v1" xmlns:gpx_style="http://www.topografix.com/GPX/gpx_style/0/2">
-  <metadata>
-    <name>Wikiloc - Moiré - Le Bois-d&apos;Oingt</name>
+<gpx creator=omr>
+    <name>moireLeBoisdOingt</name>
     <author>
-      <name>gpx.studio</name>
+      <name>moireLeBoisdOingt</name>
       <link href="https://gpx.studio"/>
     </author>
-    <link href="https://www.wikiloc.com/trail-bike-trails/moire-le-bois-doingt-197252653">
       <text>Moiré - Le Bois-d&apos;Oingt on Wikiloc</text>
     </link>
     <time>2024-12-26T14:29:36.150Z</time>
   </metadata>
   <trk>
-    <name>Moiré - Le Bois-d&apos;Oingt</name>
+    <name>moireLeBoisdOingt</name>
     <trkseg>
       <trkpt lat="45.994797" lon="4.418275">
         <ele>808.582</ele>
