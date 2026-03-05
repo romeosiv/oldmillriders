@@ -78,7 +78,7 @@
     .product-card h3 { margin: 1rem 0 0.5rem; font-size: 1.6rem; }
     .product-card .price-tag { font-weight: bold; font-size: 1.2rem; }
 
-    /* ---------- MODAL PRODUIT (Agrandissement) ---------- */
+    /* ---------- MODAL PRODUIT (Correctifs Desktop) ---------- */
     .product-modal {
       display: none;
       position: fixed;
@@ -92,26 +92,39 @@
     .modal-shop-content {
       background: white;
       width: 100%;
-      max-width: 1000px;
-      max-height: 90vh;
+      max-width: 900px;
+      max-height: 85vh; /* Empêche de déborder de l'écran */
       border-radius: 20px;
       position: relative;
       display: flex;
       flex-direction: row;
-      overflow-y: auto;
+      overflow: hidden; /* Important pour gérer le scroll interne */
       padding: 2.5rem;
       gap: 2.5rem;
     }
     .close-shop { position: absolute; top: 15px; right: 20px; font-size: 2.5rem; cursor: pointer; z-index: 10; line-height: 1; }
 
-    /* Styles internes de la modale */
-    .image-block { flex: 1.2; }
-    .info-block { flex: 1; display: flex; flex-direction: column; justify-content: flex-start; text-align: left; }
-    .carousel-main { width: 100%; border-radius: 15px; object-fit: cover; display: block; }
+    /* Layout interne */
+    .image-block { flex: 1; display: flex; flex-direction: column; max-height: 100%; }
+    .carousel-main { 
+        width: 100%; 
+        max-height: 60vh; /* Limite la hauteur de l'image */
+        border-radius: 15px; 
+        object-fit: contain; 
+        display: block; 
+        background: #f9f9f9;
+    }
     .thumbnails { margin-top: 15px; display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-    .thumbnails img { width: 70px; height: 70px; object-fit: cover; border-radius: 10px; cursor: pointer; border: 2px solid transparent; transition: 0.2s; }
+    .thumbnails img { width: 60px; height: 60px; object-fit: cover; border-radius: 10px; cursor: pointer; border: 2px solid transparent; }
     .thumbnails img.active { border-color: black; }
     
+    .info-block { 
+        flex: 1; 
+        display: flex; 
+        flex-direction: column; 
+        overflow-y: auto; /* Permet de scroller le texte si l'image prend trop de place */
+        padding-right: 10px;
+    }
     .description-text { font-size: 1rem; line-height: 1.6; margin-bottom: 1.5rem; }
     .sizes-info { font-weight: bold; margin-bottom: 2rem; border-top: 1px solid #eee; padding-top: 1rem; }
     
@@ -119,10 +132,11 @@
       background-color: white; color: black; border: 2px solid black;
       border-radius: 999px; padding: 0.8rem 2rem; font-weight: bold;
       box-shadow: 4px 4px 0 black; cursor: pointer; align-self: flex-start; transition: 0.2s;
+      margin-bottom: 10px;
     }
     .preorder-button:hover { transform: translate(2px, 2px); box-shadow: none; }
 
-    /* ---------- MODAL LEGAL & PRIVACY (Récupéré du code initial) ---------- */
+    /* ---------- MODAL LEGAL & PRIVACY ---------- */
     .modal {
       display: none; position: fixed; top: 0; left: 0;
       width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5);
@@ -141,72 +155,49 @@
     .footer a { color: black; text-decoration: none; font-size: 1rem; }
     .footer .right-footer { display: flex; gap: 1.5rem; flex-wrap: wrap; }
 
-    /* ---------- MOBILE ---------- */
-@media (max-width: 768px) {
-  /* On ajuste la boîte blanche pour qu'elle ne dépasse jamais l'écran */
-  .modal-shop-content {
-    flex-direction: column;
-    padding: 1rem;
-    width: 92%;
-    max-height: 90vh; /* Garde une petite marge en haut et en bas */
-    gap: 1rem;
-    overflow-y: auto; /* Permet de scroller à l'intérieur si besoin */
-  }
+    /* ---------- CORRECTIFS MOBILE (VITAL) ---------- */
+    @media (max-width: 768px) {
+      .modal-shop-content {
+        flex-direction: column;
+        padding: 1.5rem;
+        width: 92%;
+        max-height: 92vh;
+        overflow-y: auto; /* On permet le scroll sur toute la modale mobile */
+      }
 
-  .image-block {
-    width: 100%;
-    flex: none; /* Empêche l'image de prendre toute la place */
-  }
+      .image-block {
+        width: 100%;
+        flex: none;
+      }
 
-  .carousel-main {
-    /* SOLUTION CLÉ : On limite la hauteur de l'image à 35% de l'écran */
-    max-height: 35vh; 
-    width: auto;
-    margin: 0 auto;
-    object-fit: contain; /* L'image s'adapte sans être écrasée */
-  }
+      .carousel-main {
+        max-height: 35vh; /* Limite drastique pour voir le bouton en dessous */
+        width: auto;
+        margin: 0 auto;
+      }
 
-  .thumbnails {
-    margin-top: 0.5rem;
-  }
+      .thumbnails img {
+        width: 50px;
+        height: 50px;
+      }
 
-  .thumbnails img {
-    width: 45px;
-    height: 45px;
-  }
+      .info-block {
+        width: 100%;
+        text-align: center;
+        padding-right: 0;
+        overflow-y: visible; /* Pas de double scroll sur mobile */
+      }
 
-  .info-block {
-    width: 100%;
-    text-align: center;
-    padding-top: 0;
-  }
+      .preorder-button {
+        align-self: center;
+        width: 100%;
+        padding: 1rem;
+      }
 
-  .info-block h1 {
-    font-size: 1.4rem;
-    margin: 0.5rem 0;
-  }
-
-  .description-text {
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
-  }
-
-  .sizes-info {
-    margin-bottom: 1rem;
-    padding-top: 0.5rem;
-  }
-
-  .preorder-button {
-    align-self: center;
-    width: 100%; /* Bouton large pour le pouce */
-    padding: 1rem;
-  }
-
-  /* Ajustement pour le titre du header qui chevauche parfois */
-  .center-title {
-    font-size: 1.2rem !important;
-  }
-}
+      .center-title {
+        font-size: 1.2rem !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -345,7 +336,6 @@
     <p>Gérer votre pré-commande et vous informer sur l'expédition.</p>
     <h3>4. Base légale</h3>
     <p>Votre consentement (article 6.1.a du RGPD).</p>
-    <p><em>(Texte complet conservé conformément à votre original)</em></p>
   </div>
 </div>
 
@@ -366,7 +356,7 @@
   // --- Fonctions Shop ---
   function openShopModal(id) {
     document.getElementById(id).style.display = 'flex';
-    document.body.style.overflow = 'hidden'; // Empêche le scroll derrière
+    document.body.style.overflow = 'hidden'; 
   }
   function closeShopModal(id) {
     document.getElementById(id).style.display = 'none';
@@ -392,12 +382,8 @@
   });
 
   // --- Modales Légales ---
-  const privacyModal = document.getElementById('privacy-modal');
-  const legalModal = document.getElementById('legal-modal');
-
-  document.getElementById('privacy-policy-link').onclick = (e) => { e.preventDefault(); privacyModal.style.display = 'flex'; };
-  document.getElementById('legal-mentions-link').onclick = (e) => { e.preventDefault(); legalModal.style.display = 'flex'; };
-  
+  document.getElementById('privacy-policy-link').onclick = (e) => { e.preventDefault(); document.getElementById('privacy-modal').style.display = 'flex'; };
+  document.getElementById('legal-mentions-link').onclick = (e) => { e.preventDefault(); document.getElementById('legal-modal').style.display = 'flex'; };
   function closeLegal(id) { document.getElementById(id).style.display = 'none'; }
 
   // Fermeture au clic extérieur
@@ -411,5 +397,3 @@
 
 </body>
 </html>
-
-
