@@ -20,7 +20,7 @@
       padding: 0 1rem;
     }
 
-    /* ---------- HEADER (Identique à La Bande) ---------- */
+    /* ---------- HEADER ---------- */
     header {
       background-color: #000;
       color: white;
@@ -143,7 +143,7 @@
       line-height: 1.5;
     }
 
-    /* ---------- GRILLE PRODUITS (PETITS) ---------- */
+    /* ---------- GRILLE PRODUITS ---------- */
     .products-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -172,7 +172,7 @@
     .product-card h3 { margin: 1rem 0 0.5rem; font-size: 1.4rem; }
     .product-card .price { font-weight: bold; color: #555; }
 
-    /* ---------- MODALE PRODUIT (AGRANDI) ---------- */
+    /* ---------- MODALE PRODUIT ---------- */
     .modal-product {
       display: none;
       position: fixed;
@@ -236,7 +236,7 @@
       display: none;
     }
 
-    /* ---------- FOOTER (Identique à La Bande) ---------- */
+    /* ---------- FOOTER ---------- */
     .footer {
       background-color: #e5e5e5;
       color: black;
@@ -284,10 +284,16 @@
       border-radius: 10px;
       max-width: 600px;
       width: 100%;
-      padding: 1.5rem;
+      padding: 2rem;
       position: relative;
       max-height: 80vh;
       overflow-y: auto;
+    }
+    .modal-close {
+      position: absolute;
+      top: 0.5rem; right: 1rem;
+      font-size: 1.5rem;
+      cursor: pointer;
     }
 
     /* ---------- RESPONSIVE ---------- */
@@ -432,74 +438,56 @@
       </div>
     </div>
   </div>
-<!-- Modal Politique de confidentialité -->
-    <div id="privacy-modal" class="modal">
-      <div class="modal-content">
-        <span class="modal-close">&times;</span>
-        <h2>Politique de confidentialité</h2>
-        <p>La présente Politique de confidentialité régit la collecte, l’usage et la protection de vos données personnelles par Old Mill Riders (« nous »). Elle s’applique lorsque vous remplissez notre formulaire de pré-commande.</p>
-        <h3>1. Responsable de traitement</h3>
-        <p>
-          Old Mill Riders<br>
-          62 avenue Debourg, 69007 Lyon<br>
-          Email : <a href="mailto:team@oldmillriders.fr">team@oldmillriders.fr</a>
-        </p>
-        <h3>2. Données collectées</h3>
-        <ul>
-          <li>Prénom, Nom</li>
-          <li>Adresse e-mail</li>
-          <li>Adresse postale</li>
-          <li>Intérêt du produit</li>
-          <li>Taille du produit</li>
-          <li>Moyen de paiement</li>
-        </ul>
-        <h3>3. Finalités du traitement</h3>
-        <ul>
-          <li>Gérer et suivre votre pré-commande</li>
-          <li>Vous informer sur la préparation, le paiement, l’expédition et le suivi</li>
-          <li>Répondre à vos questions via le service client</li>
-        </ul>
-        <h3>4. Base légale</h3>
-        <p>Votre <strong>consentement</strong> (article 6.1.a du RGPD), exprimé en soumettant le formulaire.</p>
-        <h3>5. Destinataires</h3>
-        <ul>
-          <li>Services internes (commandes, service client)</li>
-          <li>Prestataires logistiques</li>
-          <li>Hébergeur (Google Forms)</li>
-        </ul>
-        <h3>6. Durée de conservation</h3>
-        <p>Conservation pendant la gestion de votre commande, puis archivage 3 ans.</p>
-        <h3>7. Vos droits</h3>
-        <ul>
-          <li>Accès, rectification, effacement, limitation, opposition, portabilité, retrait du consentement</li>
-        </ul>
-        <p>Pour exercer vos droits : <a href="mailto:team@oldmillriders.fr">team@oldmillriders.fr</a> ou CNIL (www.cnil.fr).</p>
-        <h3>8. Sécurité</h3>
-        <p>Mesures techniques et organisationnelles pour protéger vos données.</p>
-        <h3>9. Cookies</h3>
-        <p>Cookies strictement nécessaires au fonctionnement du site. Gérés via votre navigateur.</p>
-        <h3>10. Mise à jour</h3>
-        <p>Date de dernière mise à jour : 23 avril 2025.</p>
-      </div>
-    </div>
 
+  <div id="privacy-modal" class="modal-legal">
+    <div class="modal-legal-content">
+      <span class="modal-close" onclick="closeLegal('privacy-modal')">&times;</span>
+      <h2>Politique de confidentialité</h2>
+      <p>La présente Politique de confidentialité régit la collecte, l’usage et la protection de vos données personnelles par Old Mill Riders (« nous »). Elle s’applique lorsque vous remplissez notre formulaire de pré-commande.</p>
+      <h3>1. Responsable de traitement</h3>
+      <p>Old Mill Riders<br>62 avenue Debourg, 69007 Lyon<br>Email : <a href="mailto:team@oldmillriders.fr">team@oldmillriders.fr</a></p>
+      <h3>2. Données collectées</h3>
+      <ul>
+        <li>Prénom, Nom</li>
+        <li>Adresse e-mail</li>
+        <li>Adresse postale</li>
+        <li>Intérêt du produit, Taille du produit</li>
+        <li>Moyen de paiement</li>
+      </ul>
+      <h3>3. Finalités du traitement</h3>
+      <ul>
+        <li>Gérer et suivre votre pré-commande</li>
+        <li>Vous informer sur la préparation, le paiement, l’expédition et le suivi</li>
+        <li>Répondre à vos questions via le service client</li>
+      </ul>
+      <h3>4. Base légale</h3>
+      <p>Votre <strong>consentement</strong> (article 6.1.a du RGPD), exprimé en soumettant le formulaire.</p>
+      <h3>5. Destinataires</h3>
+      <ul>
+        <li>Services internes (commandes, service client)</li>
+        <li>Prestataires logistiques</li>
+        <li>Hébergeur (Google Forms)</li>
+      </ul>
+      <h3>6. Durée de conservation</h3>
+      <p>Conservation pendant la gestion de votre commande, puis archivage 3 ans.</p>
+      <h3>7. Vos droits</h3>
+      <p>Accès, rectification, effacement, limitation, opposition, portabilité, retrait du consentement. Contact : <a href="mailto:team@oldmillriders.fr">team@oldmillriders.fr</a>.</p>
+    </div>
   </div>
 
-    <!-- Modal Mentions légales -->
-    <div id="legal-modal" class="modal">
-      <div class="modal-content">
-        <span class="modal-close">&times;</span>
-        <h2>Mentions légales</h2>
-        <ul>
-          <li><strong>Éditeur :</strong> Old Mill Riders – Lyon </li>
-          <li><strong>Identité : </strong> Roméo SIVER, 62 avenue Debourg, 69007 Lyon, France</li>
-          <li><strong>Directeur de la publication :</strong> Roméo Siver <a href="mailto:team@oldmillriders.fr">team@oldmillriders.fr</a></li>
-          <li><strong>Hébergeur :</strong> OVH – 2 rue Kellermann, 59100 Roubaix </li>
-        </ul>
-      </div>
+  <div id="legal-modal" class="modal-legal">
+    <div class="modal-legal-content">
+      <span class="modal-close" onclick="closeLegal('legal-modal')">&times;</span>
+      <h2>Mentions légales</h2>
+      <ul>
+        <li><strong>Éditeur :</strong> Old Mill Riders – Lyon </li>
+        <li><strong>Identité : </strong> Roméo SIVER, 62 avenue Debourg, 69007 Lyon, France</li>
+        <li><strong>Directeur de la publication :</strong> Roméo Siver <a href="mailto:team@oldmillriders.fr">team@oldmillriders.fr</a></li>
+        <li><strong>Hébergeur :</strong> OVH – 2 rue Kellermann, 59100 Roubaix </li>
+      </ul>
     </div>
-
   </div>
+
   <script>
     // Menu burger
     document.querySelector('.menu-toggle').addEventListener('click', () => {
@@ -509,7 +497,7 @@
     // Fonctions Modales Produits
     function openProduct(type) {
       document.getElementById('modal-' + type).style.display = 'flex';
-      document.body.style.overflow = 'hidden'; // Empêche le scroll du fond
+      document.body.style.overflow = 'hidden';
     }
     function closeProduct(type) {
       document.getElementById('modal-' + type).style.display = 'none';
@@ -524,10 +512,8 @@
 
     // Scroll vers formulaire
     function scrollToForm() {
-      // Ferme les modales
       document.querySelectorAll('.modal-product').forEach(m => m.style.display = 'none');
       document.body.style.overflow = 'auto';
-      // Affiche et scroll
       const form = document.getElementById('preorder-form');
       form.style.display = 'block';
       form.scrollIntoView({ behavior: 'smooth' });
@@ -538,9 +524,10 @@
     const lLink = document.getElementById('legal-link');
     pLink.onclick = e => { e.preventDefault(); document.getElementById('privacy-modal').style.display = 'flex'; };
     lLink.onclick = e => { e.preventDefault(); document.getElementById('legal-modal').style.display = 'flex'; };
+    
     function closeLegal(id) { document.getElementById(id).style.display = 'none'; }
 
-    // Fermeture clic extérieur
+    // Fermeture clic extérieur (Produits et Légales)
     window.onclick = e => {
       if (e.target.classList.contains('modal-product') || e.target.classList.contains('modal-legal')) {
         e.target.style.display = 'none';
@@ -550,5 +537,3 @@
   </script>
 </body>
 </html>
-
-
